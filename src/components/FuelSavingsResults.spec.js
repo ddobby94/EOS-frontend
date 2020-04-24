@@ -28,27 +28,27 @@ describe('<FuelSavingsResults />', () => {
     expect(numObjectsWithSavingsClass).toEqual(3);
   });
 
-  it('should display loss when savings don\'t exist', () => {
-    const savings = {
-      monthly: '-10',
-      annual: '-120',
-      threeYear: '-360'
-    };
+  // it('should display loss when savings don\'t exist', () => {
+  //   const savings = {
+  //     monthly: '-10',
+  //     annual: '-120',
+  //     threeYear: '-360'
+  //   };
 
-    const wrapper = shallow(<FuelSavingsResults savings={savings}/>);
-    const labelText = wrapper.find('.fuel-savings-label').text();
-    expect(labelText).toEqual('Loss');
-  });
+  //   const wrapper = shallow(<FuelSavingsResults savings={savings}/>);
+  //   const labelText = wrapper.find('.fuel-savings-label').text();
+  //   expect(labelText).toEqual('Loss');
+  // });
 
-  it('should give values a \'loss\' class when savings don\'t exist', () => {
-    const savings = {
-      monthly: '-10',
-      annual: '-120',
-      threeYear: '-360'
-    };
+  // it('should give values a \'loss\' class when savings don\'t exist', () => {
+  //   const savings = {
+  //     monthly: '-10',
+  //     annual: '-120',
+  //     threeYear: '-360'
+  //   };
 
-    const wrapper = shallow(<FuelSavingsResults savings={savings}/>);
-    const numObjectsWithLossClass = wrapper.find('.loss').length;
-    expect(numObjectsWithLossClass).toEqual(3);
-  });
+  //   const wrapper = shallow(<FuelSavingsResults savings={savings}/>);
+  //   const numObjectsWithLossClass = wrapper.find('.loss').length;
+  //   expect(numObjectsWithLossClass).toEqual(3);
+  // });
 });

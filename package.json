@@ -7,7 +7,6 @@
     "npm": ">=3"
   },
   "scripts": {
-    "preinstall": "node tools/nodeVersionCheck.js",
     "setup": "node tools/setup/setupMessage.js && npm install && node tools/setup/setup.js",
     "remove-demo": "babel-node tools/removeDemo.js",
     "start-message": "babel-node tools/startMessage.js",
@@ -52,6 +51,8 @@
     "@babel/polyfill": "7.6.0",
     "@babel/preset-env": "7.6.3",
     "@babel/preset-react": "7.6.3",
+    "@types/jest": "25.2.1",
+    "@types/node": "13.13.2",
     "acorn": "7.1.0",
     "ajv": "6.10.2",
     "autoprefixer": "9.7.0",
@@ -96,7 +97,11 @@
     "replace": "1.1.1",
     "rimraf": "3.0.0",
     "sass-loader": "8.0.0",
+    "source-map-loader": "0.2.4",
     "style-loader": "1.0.0",
+    "ts-jest": "25.4.0",
+    "ts-loader": "7.0.1",
+    "typescript": "3.8.3",
     "url-loader": "2.2.0",
     "webpack": "4.41.2",
     "webpack-bundle-analyzer": "3.6.0",

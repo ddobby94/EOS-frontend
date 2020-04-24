@@ -1,12 +1,14 @@
-import React from 'react';
+import * as React from "react";
 import { Link } from 'react-router-dom';
 import '../styles/about-page.css';
 
 // Since this component is simple and static, there's no parent container for it.
 const AboutPage = () => {
+  const title: string = 'About';
+
   return (
     <div>
-      <h2 className="alt-header">About</h2>
+      <h2 className="alt-header">{title}</h2>
       <p>
         This example app is part of the <a href="https://github.com/coryhouse/react-slingshot">React-Slingshot
         starter kit</a>.

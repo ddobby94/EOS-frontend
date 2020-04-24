@@ -10,9 +10,9 @@ Object {
   "newMpg": 20,
   "newPpg": 1.5,
   "savings": Object {
-    "annual": "$390",
-    "monthly": "$32.50",
-    "threeYear": "$1,170",
+    "annual": 0,
+    "monthly": 0,
+    "threeYear": 0,
   },
   "tradeMpg": 10,
   "tradePpg": 0,

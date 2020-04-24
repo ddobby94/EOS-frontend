@@ -12,7 +12,7 @@ const GLOBALS = {
 
 export default {
   resolve: {
-    extensions: ['*', '.js', '.jsx', '.json'],
+    extensions: ['*', '.js', '.jsx', '.json', '.ts', '.tsx'],
     // To support react-hot-loader
     alias: {
       'react-dom': '@hot-loader/react-dom'
@@ -61,6 +61,20 @@ export default {
   ],
   module: {
     rules: [
+      {
+        test: /\.ts(x?)$/,
+        exclude: /node_modules/,
+        use: [
+            {
+                loader: "ts-loader"
+            }
+        ]
+      },
+      {
+        enforce: "pre",
+        test: /\.js$/,
+        loader: "source-map-loader"
+      },
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
@@ -157,5 +171,5 @@ export default {
         ]
       }
     ]
-  }
+  },
 };
