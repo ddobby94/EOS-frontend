@@ -81,6 +81,8 @@
     "identity-obj-proxy": "3.0.0",
     "jest": "24.9.0",
     "jest-cli": "24.9.0",
+    "jest-css-modules-transform": "4.0.0",
+    "jest-transform-css": "2.0.0",
     "json-loader": "0.5.7",
     "mini-css-extract-plugin": "0.8.0",
     "mockdate": "2.0.5",
@@ -128,14 +130,22 @@
     "url": "https://github.com/coryhouse/react-slingshot"
   },
   "jest": {
-    "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/tools/assetsTransformer.js",
-      "\\.(css)$": "<rootDir>/tools/assetsTransformer.js"
-    },
     "setupFiles": [
       "raf/polyfill",
       "./tools/enzymeTestAdapterSetup.js"
-    ]
+    ],
+    "transform": {
+      "^.+\\.(js|jsx|ts|tsx)$": "<rootDir>/node_modules/babel-jest",
+      ".+\\.(css|styl|less|sass|scss)$": "jest-css-modules-transform"
+    },
+    "transformIgnorePatterns": [
+      "/node_modules/",
+      "^.+\\.module\\.(css|sass|scss)$"
+    ],
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/tools/assetsTransformer.js",
+      "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy"
+    }
   },
   "babel": {
     "env": {
