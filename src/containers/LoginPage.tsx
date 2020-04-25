@@ -1,15 +1,10 @@
-import React from 'react';
+import * as React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as actions from '../redux/actions/fuelSavingsActions';
-import FuelSavingsForm from '../components/FuelSavingsForm';
-import Input from '../components/Input';
 
-export class FuelSavingsPage extends React.Component {
-  state = {
-    login: '',
-  }
+export class LoginPage extends React.Component {
   saveFuelSavings = () => {
     this.props.actions.saveFuelSavings(this.props.fuelSavings);
   }
@@ -20,23 +15,14 @@ export class FuelSavingsPage extends React.Component {
 
   render() {
     return (
-      <>
-        <Input 
-          value={this.state.login}
-          onChange={(v) => this.setState({ login: v.target.value })}
-          title="heyyyy"
-        />
-        <FuelSavingsForm
-          onSaveClick={this.saveFuelSavings}
-          onChange={this.calculateFuelSavings}
-          fuelSavings={this.props.fuelSavings}
-        />
-      </>
+        <>
+            <h1>This is the login pageeeee</h1>
+        </>
     );
   }
 }
 
-FuelSavingsPage.propTypes = {
+LoginPage.propTypes = {
   actions: PropTypes.object.isRequired,
   fuelSavings: PropTypes.object.isRequired
 };
@@ -56,4 +42,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(FuelSavingsPage);
+)(LoginPage);

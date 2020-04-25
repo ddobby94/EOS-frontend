@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Link } from 'react-router-dom';
 import '../styles/about-page.css';
+import Button from '@material-ui/core/Button';
 
 // Since this component is simple and static, there's no parent container for it.
 const AboutPage = () => {
@@ -9,6 +10,9 @@ const AboutPage = () => {
   return (
     <div>
       <h2 className="alt-header">{title}</h2>
+      <Button variant="contained" color="primary">
+        Primary
+      </Button>
       <p>
         This example app is part of the <a href="https://github.com/coryhouse/react-slingshot">React-Slingshot
         starter kit</a>.
