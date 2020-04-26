@@ -1,4 +1,4 @@
-import * as ActionTypes from '../constants/actionTypes';
+import * as ActionTypes from '../actions/actionTypes';
 import reducer from './fuelSavingsReducer';
 
 describe('Reducers::FuelSavings', () => {

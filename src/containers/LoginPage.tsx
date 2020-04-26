@@ -2,9 +2,14 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import * as actions from '../redux/actions/fuelSavingsActions';
+import * as actions from '../redux/actions/fuelSavingsActions.js';
 
-export class LoginPage extends React.Component {
+export class LoginPage extends React.Component<{[key: string]: any}> {
+  static propTypes: { [key: string]: any } = {
+    actions: PropTypes.object.isRequired,
+    fuelSavings: PropTypes.object.isRequired
+  };
+
   saveFuelSavings = () => {
     this.props.actions.saveFuelSavings(this.props.fuelSavings);
   }
@@ -21,11 +26,6 @@ export class LoginPage extends React.Component {
     );
   }
 }
-
-LoginPage.propTypes = {
-  actions: PropTypes.object.isRequired,
-  fuelSavings: PropTypes.object.isRequired
-};
 
 function mapStateToProps(state) {
   return {

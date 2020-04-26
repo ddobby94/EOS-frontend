@@ -10,9 +10,15 @@ const AboutPage = () => {
   return (
     <div>
       <h2 className="alt-header">{title}</h2>
-      <Button variant="contained" color="primary">
+      <Button variant="outlined" color="primary">
         Primary
       </Button>
+      {/* <Button 
+        variant="outlined" 
+        color="primary"
+      >
+        OUTLineeeee
+      </Button> */}
       <p>
         This example app is part of the <a href="https://github.com/coryhouse/react-slingshot">React-Slingshot
         starter kit</a>.

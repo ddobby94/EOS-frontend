@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as actions from '../redux/actions/fuelSavingsActions';
+import { fetchAuthData } from '../redux/actions/authActions.ts';
 import FuelSavingsForm from '../components/FuelSavingsForm';
-import Input from '../components/Input';
+import Input from '../components/Input.tsx';
+import Button from '@material-ui/core/Button';
 
 export class FuelSavingsPage extends React.Component {
   state = {
@@ -18,9 +20,14 @@ export class FuelSavingsPage extends React.Component {
     this.props.actions.calculateFuelSavings(this.props.fuelSavings, e.target.name, e.target.value);
   }
 
+  fetchAuth = () => this.props.fetchAuthData();
+
   render() {
     return (
       <>
+        <Button variant="outlined" color="primary" onClick={this.fetchAuth}>
+          Primary
+        </Button>
         <Input 
           value={this.state.login}
           onChange={(v) => this.setState({ login: v.target.value })}
@@ -38,7 +45,8 @@ export class FuelSavingsPage extends React.Component {
 
 FuelSavingsPage.propTypes = {
   actions: PropTypes.object.isRequired,
-  fuelSavings: PropTypes.object.isRequired
+  fuelSavings: PropTypes.object.isRequired,
+  fetchAuthData: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
@@ -49,7 +57,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(actions, dispatch)
+    actions: bindActionCreators(actions, dispatch),
+    fetchAuthData: bindActionCreators(fetchAuthData, dispatch),
   };
 }
 

@@ -1,4 +1,4 @@
-import * as ActionTypes from '../constants/actionTypes';
+import * as ActionTypes from '../actions/actionTypes';
 import * as ActionCreators from './fuelSavingsActions';
 
 import MockDate from 'mockdate';
