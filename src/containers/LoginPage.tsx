@@ -1,15 +1,22 @@
 import * as React from 'react';
-import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
+import { bindActionCreators } from 'redux';
 import * as actions from '../redux/actions/fuelSavingsActions.js';
 
-export class LoginPage extends React.Component<{[key: string]: any}> {
-  static propTypes: { [key: string]: any } = {
-    actions: PropTypes.object.isRequired,
-    fuelSavings: PropTypes.object.isRequired
+interface LoginPageProps extends React.Props<LoginPage> {
+  actions: {
+    saveFuelSavings: (a: {}) => void;
+    calculateFuelSavings: (savings: {}, name: string, value: string) => void;
   };
+  fuelSavings: {};
+  children: string;
+};
 
+// interface IFooState {
+//   // ...
+// }
+
+export class LoginPage extends React.Component<LoginPageProps> {
   saveFuelSavings = () => {
     this.props.actions.saveFuelSavings(this.props.fuelSavings);
   }

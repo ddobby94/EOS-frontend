@@ -1,10 +1,14 @@
 import * as React from "react";
-import { Link } from 'react-router-dom';
+import { Link, RouteComponentProps  } from 'react-router-dom';
 import '../styles/about-page.css';
 import Button from '@material-ui/core/Button';
 
-// Since this component is simple and static, there's no parent container for it.
-const AboutPage = () => {
+// interface RouterFunctionComponent extends React.SFC<any> {
+//   children: string;
+//   to: string;
+// };
+
+const AboutPage: React.SFC<RouteComponentProps> = () => {
   const title: string = 'About';
 
   return (

@@ -20,7 +20,7 @@ export class FuelSavingsPage extends React.Component {
     this.props.actions.calculateFuelSavings(this.props.fuelSavings, e.target.name, e.target.value);
   }
 
-  fetchAuth = () => this.props.fetchAuthData();
+  fetchAuth = () => this.props.fetchAuthData('fooo', {a : 11, b: 23});
 
   render() {
     return (

@@ -4,36 +4,52 @@ import {
     LOGIN_START_ERROR,
 } from "../actions/actionTypes";
 
-const initialState = {
+interface AuthState {
+    loading: boolean;
+    error: string | null;
+    user: {
+        userId?: string;
+    }
+};
+
+interface ReducerObject<T = AuthState> {
+    [key: string]: (state: T, action) => T;
+};
+
+const initialState: AuthState = {
     loading: false,
     error: null,
     user: {},
 };
 
-export const authReducer = (state = initialState, action) => {
-    switch(action.type) {
-        case LOGIN_START:
-            return {
-                ...state,
-                loading: true,
-            };
-        case LOGIN_START_SUCCESS:
-            return {
-                ...state,
-                loading: false,
-                user: action.payload,
-            };
-        case LOGIN_START_ERROR:
-            return {
-                ...state,
-                loading: false,
-                error: action.error,
-            };
-        default:
-            return state;
+const createReducer = (redObj: ReducerObject) => (state = initialState, action) => {
+    try {
+        return redObj[action.type](state, action);
+    } catch (error) {
+        return {
+            ...state,
+            error,
+        };
     }
 }
 
-export const getAuth = state => state.user;
-export const getAuthPending = state => state.loading;
-export const getAuthError = state => state.error;
+export const authReducer = createReducer({
+    [LOGIN_START]: (state) => ({
+        ...state,
+        loading: true
+    }),
+    [LOGIN_START_SUCCESS]: (state, { payload }) => ({
+        ...state,
+        user: payload,
+    }),
+    [LOGIN_START_ERROR]: (state, { error }) => ({
+        ...state,
+        error,
+    }),
+});
+
+// ---------------------- Selectors ---------------------- 
+
+export const getAuth = (state: AuthState) => state.user;
+export const getAuthLoading = (state: AuthState) => state.loading;
+export const getAuthError = (state: AuthState) => state.error;
