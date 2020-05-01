@@ -4,9 +4,9 @@ import { authReducer } from './authReducer';
 import { connectRouter } from 'connected-react-router'
 
 const rootReducer = history => combineReducers({
-  router: connectRouter(history),
-  fuelSavings,
-  authReducer,
+    router: connectRouter(history),
+    fuelSavings,
+    authReducer,
 });
 
 export default rootReducer;

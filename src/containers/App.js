@@ -1,10 +1,10 @@
 /* eslint-disable import/no-named-as-default */
 import { NavLink, Route, Switch } from "react-router-dom";
 
-import AboutPage from "./AboutPage.tsx";
+import AboutPage from "../components/AboutPage.tsx";
+import LoginPage from "./LoginPage.tsx";
 import FuelSavingsPage from "../containers/FuelSavingsPage";
-import HomePage from "./HomePage";
-import NotFoundPage from "./NotFoundPage";
+import NotFoundPage from "../components/NotFoundPage";
 import PropTypes from "prop-types";
 import React from "react";
 import { hot } from "react-hot-loader";
@@ -26,7 +26,7 @@ class App extends React.Component {
           <NavLink to="/about" activeStyle={activeStyle}>About</NavLink>
         </div>
         <Switch>
-          <Route exact path="/" component={HomePage} />
+          <Route exact path="/" component={LoginPage} />
           <Route path="/fuel-savings" component={FuelSavingsPage} />
           <Route path="/about" component={AboutPage} />
           <Route component={NotFoundPage} />

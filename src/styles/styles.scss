@@ -3,7 +3,7 @@ $vin-blue: #5bb7db;
 $vin-green: #60b044;
 $vin-red: #ff0000;
 
-// COLORS 
+// COLORS
 
 $bg_main: #234050;
 $bg_light: #2E4E5D;
@@ -28,22 +28,26 @@ body {
   font: 14px 'Roboto Condensed';
   line-height: 1.4em;
   color: #4d4d4d;
-  min-width: 230px;
-  max-width: 550px;
   margin: 0 auto;
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
   font-smoothing: antialiased;
   font-weight: 300;
+  background-color: $bg_light;
 }
 
 td {
 	padding: 12px;
 }
 
-h2 {
-	color: $vin-blue;
+h1, h2, h3, h4, h5, p, b, strong, label, a, span {
+	color: $text_on_bg;
 }
+
+button {
+
+}
+
 input {
   border: 1px solid ;
   background-color: $bg_light;

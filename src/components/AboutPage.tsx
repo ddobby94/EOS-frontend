@@ -1,14 +1,9 @@
 import * as React from "react";
-import { Link, RouteComponentProps  } from 'react-router-dom';
-import '../styles/about-page.css';
+import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
+import '../styles/about-page.css';
 
-// interface RouterFunctionComponent extends React.SFC<any> {
-//   children: string;
-//   to: string;
-// };
-
-const AboutPage: React.SFC<RouteComponentProps> = () => {
+const AboutPage: React.FunctionComponent = () => {
   const title: string = 'About';
 
   return (

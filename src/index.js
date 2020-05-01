@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import configureStore, { history } from './redux/store/configureStore';
-import Root from './components/Root';
+import Root from './containers/Root';
 import './styles/styles.scss';
 require('./favicon.ico');
 const store = configureStore();
@@ -15,8 +15,8 @@ render(
 );
 
 if (module.hot) {
-  module.hot.accept('./components/Root', () => {
-    const NewRoot = require('./components/Root').default;
+  module.hot.accept('./containers/Root', () => {
+    const NewRoot = require('./containers/Root').default;
     render(
       <AppContainer>
         <NewRoot store={store} history={history} />

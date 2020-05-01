@@ -1,0 +1,29 @@
+@import '../../styles/styles.scss';
+
+.login {
+    &-container {
+        display: flex;
+        flex-direction: row;
+    }
+    &-sidebar {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        bottom: 0px;
+        background-color: $bg_main;
+        min-height: 100vh;
+        width: 33vw;
+    }
+    &-input {
+        margin: 10px;
+    }
+    &-main {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        & > div {
+            margin: 20px;
+        }
+    }
+}
