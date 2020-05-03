@@ -1,9 +1,16 @@
 @import '../../styles/styles.scss';
 
+$sidebar_width: 33vw;
+
 .login {
     &-container {
         display: flex;
         flex-direction: row;
+        height: 100vh;
+        overflow: hidden;
+        @media (max-width: $mobile_landscape) {
+            overflow: auto;
+        }
     }
     &-sidebar {
         position: absolute;
@@ -12,18 +19,83 @@
         bottom: 0px;
         background-color: $bg_main;
         min-height: 100vh;
-        width: 33vw;
+        width: $sidebar_width;
+        @media (max-width: $mobile_landscape) {
+            width: 100%;
+        }
     }
     &-input {
-        margin: 10px;
+        margin: $smallest_spacing;
+        width: 100%;
     }
     &-main {
         display: flex;
         flex-direction: column;
         justify-content: space-around;
         align-items: center;
-        & > div {
-            margin: 20px;
+        margin: $biggest_spacing;
+    }
+    &-content {
+        position: absolute;
+        width: calc(100vw - #{$sidebar_width});
+        top: 0px;
+        bottom: 0px;
+        right: 0px;
+        overflow: hidden;
+        @media (max-width: $mobile_landscape) {
+            display: none;
         }
+    }
+    &-textContainer {
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+        margin-left: $medium_spacing;
+    }
+    &-header {
+        font-weight: 500;
+        max-width: 51vw;
+    }
+    &-description {
+        font-weight: 300;
+        max-width: 53vw;
+    }
+    &-button {
+        width: 100%;
+        margin: $smallest_spacing 0px;
+    }
+}
+
+.welcome {
+    &-container {
+        margin: $medium_spacing;
+    }
+    &-welcome {
+        margin: 0px;
+        font-weight: 300;
+    }
+    &-eos {
+        margin: 0px;
+    }
+}
+
+.img {
+    &-container {
+        position: absolute;
+        width: calc(100vw - #{$sidebar_width});
+        top: 0px;
+        bottom: 0px;
+        right: 0px;
+    }
+    &-layer {
+        position: absolute;
+        background-color: $bg_light_transparent;
+        width: 100%;
+        height: 100%;
+    }
+    &-pic {
+        object-fit: cover;
+        width: 100%;
+        height: 111%;
     }
 }

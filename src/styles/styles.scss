@@ -7,6 +7,7 @@ $vin-red: #ff0000;
 
 $bg_main: #234050;
 $bg_light: #2E4E5D;
+$bg_light_transparent: rgba(46, 78, 93, 0.6);
 $primary: #D79E80;
 $secondary: #000000;
 $danger: #E36565;
@@ -23,9 +24,15 @@ $medium_spacing: 24px;
 $big_spacing: 32px;
 $biggest_spacing: 40px;
 
+// DEVICE WIDTHS
+
+$mobile_landscape: 576px;
+$tablet: 768px;
+$desktop: 992px;
+
 /* Styles */
 body {
-  font: 14px 'Roboto Condensed';
+  font-family: 'Roboto Condensed';
   line-height: 1.4em;
   color: #4d4d4d;
   margin: 0 auto;
@@ -34,6 +41,7 @@ body {
   font-smoothing: antialiased;
   font-weight: 300;
   background-color: $bg_light;
+  overflow: hidden;
 }
 
 td {
@@ -41,14 +49,33 @@ td {
 }
 
 h1, h2, h3, h4, h5, p, b, strong, label, a, span {
-	color: $text_on_bg;
+  font-family: 'Roboto Condensed';
+  color: $text_on_bg;
 }
 
-button {
+h1 {
+  line-height: 1.1;
+  font-size: 3.5em;
+}
 
+h2 {
+  line-height: 1.1;
+  font-size: 2.6em;
+}
+
+h3 {
+  line-height: 1.1;
+  font-size: 1.7em;
+}
+
+a {
+  cursor: pointer;
+  text-decoration: underline;
+  font-weight: 600;
 }
 
 input {
+
   border: 1px solid ;
   background-color: $bg_light;
   height: 40px;

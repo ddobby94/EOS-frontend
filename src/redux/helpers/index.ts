@@ -1,14 +1,14 @@
 import { FetchActionHandler, ReducerObject } from "./types";
 import { initialState } from "./store";
 
-export const handleSuccess = (dispatch, successFunction, response) => {
+export const handleSuccess = (dispatch, successFunction, response, args) => {
     if (response && response.error) {
       throw response.error;
     }
-  
-    return dispatch(successFunction(response));
+
+    return dispatch(successFunction(response, args));
   }
-  
+
 export const handleError = (dispatch, errorFunction, errorResponse) => {
     let error;
     if (typeof errorResponse === 'string') {
@@ -26,14 +26,13 @@ export const fetchActionHandler: FetchActionHandler = (types, serviceCall, args 
     return (dispatch) => {
         dispatch(request(...args));
         serviceCall(...args)
-            .then((response) => handleSuccess(dispatch, fetchSuccess, response))
+            .then((response) => handleSuccess(dispatch, fetchSuccess, response, args))
             .catch((error) => handleError(dispatch, fetchError, error));
     };
 };
 
 export const createReducer = (redObj: ReducerObject) => (state = initialState, action) => {
     try {
-        console.log({ redObj, TYPE: action.type, 'redObj[action.type]': redObj[action.type] })
         if (redObj[action.type] === undefined) {
             return { ...state };
         }

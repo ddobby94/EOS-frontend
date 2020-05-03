@@ -10,7 +10,7 @@ import {
     // Theme as AugmentedTheme,
     ThemeProvider,
 } from '@material-ui/core/styles';
-import { COLORS } from '../styles/styles';
+import { COLORS, METRICS } from '../styles/styles';
 
 // const theme = createMuiTheme({
 //   overrides: {
@@ -24,7 +24,6 @@ import { COLORS } from '../styles/styles';
 //     },
 //   },
 // });
-
 
 const theme = createMuiTheme({
     palette: {
@@ -48,6 +47,7 @@ const theme = createMuiTheme({
         MuiOutlinedInput: {
             input: {
                 backgroundColor: COLORS.bg_light,
+                padding: METRICS.small_spacing,
             },
         },
         MuiInputLabel: {
@@ -55,7 +55,17 @@ const theme = createMuiTheme({
                 color: COLORS.text_on_bg,
             },
         },
+        MuiFormControl: {
+            root: {
+                marginTop: METRICS.tiny_spacing,
+                marginBottom: METRICS.small_spacing,
+            },
+        },
         MuiButton: {
+            root: {
+                fontSize: '1em',
+                margin: `${METRICS.smallest_spacing} 0px`,
+            },
             label: {
                 color: COLORS.text_on_primary,
             }

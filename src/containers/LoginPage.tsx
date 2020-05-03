@@ -7,8 +7,36 @@ import { Button, TextField } from '@material-ui/core';
 import { AuthState } from '../redux/helpers/store';
 import './styles/LoginPage.scss';
 
+const IMG_SRC = require('../../public/images/login_bg.jpg');
+
+const Logo = () => (
+    <div className="welcome-container">
+        <h3 className="welcome-welcome">WELCOME TO</h3>
+        <h2 className="welcome-eos">EOS</h2>
+    </div>
+);
+
+interface InputProps {
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    label: string;
+    value: string;
+    [k: string]: any,
+};
+
+const Input: React.FunctionComponent<InputProps> = ({ value, onChange, label, ...props }) => (
+    <TextField
+        className="login-input"
+        id="outlined-basic"
+        label={label}
+        variant="outlined"
+        value={value}
+        onChange={onChange}
+        {...props}
+    />
+)
+
 interface LoginPageProps extends React.Props<LoginPage> {
-    fetchAuthData: () => void;
+    fetchAuthData: (email: string, pwd: string) => void;
     user: AuthState['user'];
     children: string;
     isLoading: boolean;
@@ -16,47 +44,129 @@ interface LoginPageProps extends React.Props<LoginPage> {
 
 interface LoginPageStates {
     isRegister: boolean;
+    email: string;
+    pwd: string;
+    confirmPwd: string;
+    name: string;
+    companyName: string;
 };
+
+type LoginPageStateItem = keyof LoginPageStates;
 
 export class LoginPage extends React.Component<LoginPageProps, LoginPageStates> {
     state = {
         isRegister: false,
+        email: '',
+        pwd: '',
+        confirmPwd: '',
+        name: '',
+        companyName: '',
     }
 
     loadAuthData = () => {
-        this.props.fetchAuthData();
+        this.props.fetchAuthData(this.state.email, this.state.pwd);
+    }
+
+    onChangeHandler: (k: LoginPageStateItem, e: React.ChangeEvent<HTMLInputElement>) => void = (k, e) => {
+        // this is a complier bug, can't handle dynamic setState types properly
+        this.setState<never>({ [k]: e.target.value });
+    };
+
+    changeState = (k: LoginPageStateItem, val: any) => {
+        this.setState<never>({ [k]: val });
+    }
+
+    getLogin = () => (
+        <>
+            <Input
+                label="Login"
+                value={this.state.email}
+                onChange={(e) => this.onChangeHandler('email', e)}
+            />
+            <Input
+                label="Password"
+                value={this.state.pwd}
+                type="password"
+                onChange={(e) => this.onChangeHandler('pwd', e)}
+            />
+            <Button
+                onClick={this.loadAuthData}
+                className="login-button"
+                color="primary"
+                variant="contained"
+                children="LOGIN"
+            />
+            <p>Don’t have an account? <a onClick={() => this.changeState('isRegister', true)}>SIGN UP</a></p>
+        </>
+    )
+
+    getRegister = () => (
+        <>
+             <Input
+                label="Login"
+                value={this.state.email}
+                onChange={(e) => this.onChangeHandler('email', e)}
+            />
+            <Input
+                label="Password"
+                value={this.state.pwd}
+                type="password"
+                onChange={(e) => this.onChangeHandler('pwd', e)}
+            />
+            <Input
+                label="Confirm Password"
+                value={this.state.confirmPwd}
+                onChange={(e) => this.onChangeHandler('confirmPwd', e)}
+            />
+            <Input
+                label="Full name"
+                value={this.state.name}
+                onChange={(e) => this.onChangeHandler('name', e)}
+            />
+            <Input
+                label="Company name"
+                value={this.state.companyName}
+                onChange={(e) => this.onChangeHandler('companyName', e)}
+            />
+            <Button
+                onClick={this.loadAuthData}
+                className="login-button"
+                color="primary"
+                variant="contained"
+                children="REGISTER"
+            />
+            <p>Already have an account? <a onClick={() => this.changeState('isRegister', false)}>LOG IN</a></p>
+            {/* <p>Logged in user: </p>
+            {this.props.user && this.props.user.userId && (<p>
+                UID: {this.props.user.userId}
+            </p>)} */}
+        </>
+    )
+
+    getInputs = () => {
+        if (this.state.isRegister) {
+            return this.getRegister();
+        }
+        return this.getLogin();
     }
 
     render() {
         return (
             <div className="login-container">
                 <div className="login-sidebar">
-                    <h2>Welcome to</h2>
-                    <h1>EOS</h1>
+                    <Logo />
                     <div className="login-main">
-                        <TextField
-                            className="login-input"
-                            id="outlined-basic"
-                            label="Login"
-                            variant="outlined"
-                        />
-                        <TextField
-                            className="login-input"
-                            id="outlined-basic"
-                            label="Password"
-                            variant="outlined"
-                        />
-                        <Button
-                            onClick={this.loadAuthData}
-                            color="primary"
-                            variant="contained"
-                        >
-                            FETCH AUTH DATA
-                        </Button>
-                        <p>Logged in user: </p>
-                        {this.props.user && this.props.user.userId && (<p>
-                            UID: {this.props.user.userId}
-                        </p>)}
+                        {this.getInputs()}
+                    </div>
+                </div>
+                <div className="login-content">
+                    <div className="img-container">
+                        <div className="img-layer" ></div>
+                        <img src={IMG_SRC} className="img-pic" />
+                    </div>
+                    <div className="login-textContainer">
+                        <h1 className="login-header">STEP INTO THE FUTURE OF <strong>ARTIFICIAL INTELLIGENCE</strong></h1>
+                        <h3 className="login-description">Check out how are we changing the datascience industry with our tool</h3>
                     </div>
                 </div>
             </div>
