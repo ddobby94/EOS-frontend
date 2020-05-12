@@ -5,7 +5,6 @@ import {bindActionCreators} from 'redux';
 import * as actions from '../redux/actions/fuelSavingsActions';
 import { fetchAuthData } from '../redux/actions/authActions.ts';
 import FuelSavingsForm from '../components/FuelSavingsForm';
-import Input from '../components/Input.tsx';
 import Button from '@material-ui/core/Button';
 
 export class FuelSavingsPage extends React.Component {
@@ -28,11 +27,6 @@ export class FuelSavingsPage extends React.Component {
         <Button variant="outlined" color="primary" onClick={this.fetchAuth}>
           Primary
         </Button>
-        <Input 
-          value={this.state.login}
-          onChange={(v) => this.setState({ login: v.target.value })}
-          title="heyyyy"
-        />
         <FuelSavingsForm
           onSaveClick={this.saveFuelSavings}
           onChange={this.calculateFuelSavings}

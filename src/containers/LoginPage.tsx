@@ -4,8 +4,8 @@ import { bindActionCreators } from 'redux';
 import { getUser, getAuthLoading } from '../redux/reducers/authReducer';
 import { fetchAuthData } from '../redux/actions/authActions';
 import { Button, TextField } from '@material-ui/core';
-import { AuthState } from '../redux/helpers/store';
 import './styles/LoginPage.scss';
+import { InputProps, LoginPageProps, LoginPageStates, LoginPageFuncTypes } from './types/LoginPage.types';
 
 const IMG_SRC = require('../../public/images/login_bg.jpg');
 
@@ -15,13 +15,6 @@ const Logo = () => (
         <h2 className="welcome-eos">EOS</h2>
     </div>
 );
-
-interface InputProps {
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    label: string;
-    value: string;
-    [k: string]: any,
-};
 
 const Input: React.FunctionComponent<InputProps> = ({ value, onChange, label, ...props }) => (
     <TextField
@@ -35,25 +28,8 @@ const Input: React.FunctionComponent<InputProps> = ({ value, onChange, label, ..
     />
 )
 
-interface LoginPageProps extends React.Props<LoginPage> {
-    fetchAuthData: (email: string, pwd: string) => void;
-    user: AuthState['user'];
-    children: string;
-    isLoading: boolean;
-};
 
-interface LoginPageStates {
-    isRegister: boolean;
-    email: string;
-    pwd: string;
-    confirmPwd: string;
-    name: string;
-    companyName: string;
-};
-
-type LoginPageStateItem = keyof LoginPageStates;
-
-export class LoginPage extends React.Component<LoginPageProps, LoginPageStates> {
+export class LoginPage extends React.Component<LoginPageProps<LoginPage>, LoginPageStates> implements LoginPageFuncTypes {
     state = {
         isRegister: false,
         email: '',
@@ -67,13 +43,13 @@ export class LoginPage extends React.Component<LoginPageProps, LoginPageStates> 
         this.props.fetchAuthData(this.state.email, this.state.pwd);
     }
 
-    onChangeHandler: (k: LoginPageStateItem, e: React.ChangeEvent<HTMLInputElement>) => void = (k, e) => {
+    onChangeHandler = (key, e) => {
         // this is a complier bug, can't handle dynamic setState types properly
-        this.setState<never>({ [k]: e.target.value });
+        this.setState<never>({ [key]: e.target.value });
     };
 
-    changeState = (k: LoginPageStateItem, val: any) => {
-        this.setState<never>({ [k]: val });
+    changeState = (key, val) => {
+        this.setState<never>({ [key]: val });
     }
 
     getLogin = () => (

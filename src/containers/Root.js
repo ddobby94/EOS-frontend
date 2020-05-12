@@ -3,27 +3,9 @@ import PropTypes from 'prop-types';
 import { ConnectedRouter } from 'connected-react-router';
 import { Provider } from 'react-redux';
 import App from './App';
-import {
-    createMuiTheme,
-    // makeStyles,
-    // createStyles,
-    // Theme as AugmentedTheme,
-    ThemeProvider,
-} from '@material-ui/core/styles';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { COLORS, METRICS } from '../styles/styles';
-
-// const theme = createMuiTheme({
-//   overrides: {
-//     // Style sheet name ⚛️
-//     MuiButton: {
-//       // Name of the rule
-//       text: {
-//         // Some CSS
-//         color: 'white',
-//       },
-//     },
-//   },
-// });
+import { PersistGate } from 'redux-persist/integration/react'
 
 const theme = createMuiTheme({
     palette: {
@@ -73,16 +55,22 @@ const theme = createMuiTheme({
     },
 });
 
+const Loading = () => (
+    <p>Loading....</p>
+)
+
 export default class Root extends Component {
     render() {
-        const { store, history } = this.props;
+        const { store, history, persistor } = this.props;
         return (
         <Provider store={store}>
-            <ConnectedRouter history={history}>
-                <ThemeProvider theme={theme}>
-                    <App />
-                </ThemeProvider>
-            </ConnectedRouter>
+            <PersistGate loading={<Loading />} persistor={persistor}>
+                <ConnectedRouter history={history}>
+                    <ThemeProvider theme={theme}>
+                        <App />
+                    </ThemeProvider>
+                </ConnectedRouter>
+            </PersistGate>
         </Provider>
         );
     }
@@ -90,5 +78,6 @@ export default class Root extends Component {
 
 Root.propTypes = {
     store: PropTypes.object.isRequired,
-    history: PropTypes.object.isRequired
+    history: PropTypes.object.isRequired,
+    persistor: PropTypes.object,
 };

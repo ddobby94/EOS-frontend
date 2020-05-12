@@ -5,7 +5,25 @@ import { Provider } from "react-redux";
 import { create } from "react-test-renderer";
 import ConnectedFuelSavingsPage, { FuelSavingsPage } from "./FuelSavingsPage";
 import FuelSavingsForm from "../components/FuelSavingsForm";
-import initialState from "../redux/reducers/initialState";
+
+const initialState = {
+  fuelSavings: {
+    newMpg: '',
+    tradeMpg: '',
+    newPpg: '',
+    tradePpg: '',
+    milesDriven: '',
+    milesDrivenTimeframe: 'week',
+    displayResults: false,
+    dateModified: null,
+    necessaryDataIsProvidedToCalculateSavings: false,
+    savings: {
+      monthly: 0,
+      annual: 0,
+      threeYear: 0
+    }
+  }
+};
 
 describe("<FuelSavingsPage />", () => {
   const actions = {
@@ -40,25 +58,6 @@ describe("<FuelSavingsPage />", () => {
     );
   });
 
-  it("calls calculateFuelSavings upon changing a field", () => {
-    const wrapper = mount(
-      <FuelSavingsPage
-        actions={actions}
-        fuelSavings={initialState.fuelSavings}
-      />
-    );
-    const name = "newMpg";
-    const value = 10;
-
-    const input = wrapper.find('input[name="newMpg"]');
-    input.simulate("change", { target: { name, value } });
-
-    expect(actions.calculateFuelSavings).toHaveBeenCalledWith(
-      initialState.fuelSavings,
-      name,
-      value
-    );
-  });
 
   it("should match snapshot", () => {
     const store = configureMockStore()(initialState);

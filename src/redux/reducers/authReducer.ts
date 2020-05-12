@@ -1,10 +1,10 @@
-import { 
-    LOGIN_START, 
-    LOGIN_START_SUCCESS, 
+import {
+    LOGIN_START,
+    LOGIN_START_SUCCESS,
     LOGIN_START_ERROR,
 } from "../actions/actionTypes";
 import { createReducer } from "../helpers";
-import { AuthState, StoreReducerSelector } from '../helpers/store';
+import { AuthState, StoreReducerSelector } from '../helpers/types';
 
 export const authReducer = createReducer({
     [LOGIN_START]: (state) => ({
@@ -23,7 +23,7 @@ export const authReducer = createReducer({
 
 export default authReducer;
 
-// ---------------------- Selectors ---------------------- 
+// ---------------------- Selectors ----------------------
 
 const selectAuthStateItem: StoreReducerSelector<AuthState> = (s) => s.authReducer;
 

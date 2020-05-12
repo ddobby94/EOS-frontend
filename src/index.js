@@ -4,12 +4,13 @@ import { AppContainer } from 'react-hot-loader';
 import configureStore, { history } from './redux/store/configureStore';
 import Root from './containers/Root';
 import './styles/styles.scss';
-require('./favicon.ico');
-const store = configureStore();
+require('../public/favicon.ico');
+
+const { store, persistor } = configureStore();
 
 render(
   <AppContainer>
-    <Root store={store} history={history} />
+    <Root persistor={persistor} store={store} history={history} />
   </AppContainer>,
   document.getElementById('app')
 );
@@ -19,7 +20,7 @@ if (module.hot) {
     const NewRoot = require('./containers/Root').default;
     render(
       <AppContainer>
-        <NewRoot store={store} history={history} />
+        <NewRoot persistor={persistor} store={store} history={history} />
       </AppContainer>,
       document.getElementById('app')
     );

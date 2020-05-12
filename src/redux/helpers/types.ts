@@ -1,7 +1,25 @@
 import { SimpleObject } from "../../types/commonTypes";
-import { AuthState } from './store';
+import { RouterState } from "connected-react-router";
 
 export type SimpleAction = (...args) => SimpleObject;
+
+export interface AuthState {
+    loading: boolean;
+    error: string | null;
+    user: {
+        userId?: string;
+        name?: string;
+    }
+};
+
+export interface StoreInterface {
+    router: RouterState,
+    fuelSavings: {},
+    authReducer: AuthState,
+}
+
+export type StoreReducerSelector<T> = (s: StoreInterface) => T;
+
 export type FetchActionHandler = (
     types: SimpleAction[],
     serviceCall: (...args) => Promise<any>,
