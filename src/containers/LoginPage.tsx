@@ -6,6 +6,7 @@ import { fetchAuthData } from '../redux/actions/authActions';
 import { Button, TextField } from '@material-ui/core';
 import './styles/LoginPage.scss';
 import { InputProps, LoginPageProps, LoginPageStates, LoginPageFuncTypes } from './types/LoginPage.types';
+import TableDropdown from '../components/Table/TableDropDown';
 
 const IMG_SRC = require('../../public/images/login_bg.jpg');
 
@@ -132,6 +133,10 @@ export class LoginPage extends React.Component<LoginPageProps<LoginPage>, LoginP
                 <div className="login-sidebar">
                     <Logo />
                     <div className="login-main">
+                        <TableDropdown
+                            type="TYPES"
+                            onChange={console.log}
+                        />
                         {this.getInputs()}
                     </div>
                 </div>
