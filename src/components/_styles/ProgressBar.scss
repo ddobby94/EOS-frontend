@@ -1,0 +1,59 @@
+@import '../../styles/styles.scss';
+
+.bar {
+    &-dot {
+        min-width: $small_spacing;
+        max-width: $small_spacing;
+        min-height: $small_spacing;
+        max-height: $small_spacing;
+        border-radius: $small_spacing;
+        background-color: white;
+        display: flex;
+        justify-content: center;
+        z-index: 1;
+    }
+    &-progContainer {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+    }
+    &-dotLineContainer {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+    }
+    &-items {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        &_active {
+            & > * > div {
+                background-color: $primary;
+                color: $primary;
+                cursor: pointer;
+            }
+            & p {
+                color: $primary;
+                cursor: pointer;
+            }
+        }
+    }
+    &-line {
+        height: 3px;
+        background-color: white;
+        border: none;
+        width: 11.7vw;
+        position: absolute;
+        margin: 0;
+        margin-left: $tiny_spacing;
+        align-self: center;
+        &_active {
+            background-color: $primary;
+        }
+    }
+    &-title {
+        position: absolute;
+        margin-top: $medium_spacing;
+    }
+}
+

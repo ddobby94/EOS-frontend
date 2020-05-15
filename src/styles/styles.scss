@@ -30,6 +30,11 @@ $mobile_landscape: 576px;
 $tablet: 768px;
 $desktop: 992px;
 
+// component variables
+
+$sidebar_width: 30vw;
+$sidebar_transition: all 225ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+
 /* Styles */
 body {
   font-family: 'Roboto Condensed';
@@ -80,8 +85,3 @@ input {
   background-color: $bg_light;
   height: 40px;
 }
-
-.savings { color: $vin-green; }
-.loss { color: $vin-red; }
-input.small { width: 46px; }
-td.fuel-savings-label { width: 175px; }

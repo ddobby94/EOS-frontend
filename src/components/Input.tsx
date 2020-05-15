@@ -1,5 +1,5 @@
 import * as React from "react";
-import '../styles/about-page.css';
+import '../_styles/about-page.css';
 import { onChange } from "../types/commonTypes";
 
 interface InputProps {

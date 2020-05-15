@@ -7,8 +7,11 @@ import { Button, TextField } from '@material-ui/core';
 import './styles/LoginPage.scss';
 import { InputProps, LoginPageProps, LoginPageStates, LoginPageFuncTypes } from './types/LoginPage.types';
 import TableDropdown from '../components/Table/TableDropDown';
+import { ProgressBar } from '../components/ProgressBar';
+import { withRouter } from 'react-router-dom';
 
 const IMG_SRC = require('../../public/images/login_bg.jpg');
+const PROGRESS_BAR_ELEMENTS = ['Import', 'Exploratory Analysis', 'Bivariate Analysis', 'pre-processing', 'Model development'];
 
 const Logo = () => (
     <div className="welcome-container">
@@ -30,7 +33,7 @@ const Input: React.FunctionComponent<InputProps> = ({ value, onChange, label, ..
 )
 
 
-export class LoginPage extends React.Component<LoginPageProps<LoginPage>, LoginPageStates> implements LoginPageFuncTypes {
+export class LoginPage extends React.Component<LoginPageProps, LoginPageStates> implements LoginPageFuncTypes {
     state = {
         isRegister: false,
         email: '',
@@ -41,7 +44,8 @@ export class LoginPage extends React.Component<LoginPageProps<LoginPage>, LoginP
     }
 
     loadAuthData = () => {
-        this.props.fetchAuthData(this.state.email, this.state.pwd);
+        this.props.history.push('/dashboard');
+        // this.props.fetchAuthData(this.state.email, this.state.pwd);
     }
 
     onChangeHandler = (key, e) => {
@@ -127,6 +131,8 @@ export class LoginPage extends React.Component<LoginPageProps<LoginPage>, LoginP
         return this.getLogin();
     }
 
+
+
     render() {
         return (
             <div className="login-container">
@@ -146,6 +152,11 @@ export class LoginPage extends React.Component<LoginPageProps<LoginPage>, LoginP
                         <img src={IMG_SRC} className="img-pic" />
                     </div>
                     <div className="login-textContainer">
+                        <ProgressBar
+                            items={PROGRESS_BAR_ELEMENTS}
+                            active={2}
+                            onChange={console.log}
+                        />
                         <h1 className="login-header">STEP INTO THE FUTURE OF <strong>ARTIFICIAL INTELLIGENCE</strong></h1>
                         <h3 className="login-description">Check out how are we changing the datascience industry with our tool</h3>
                     </div>
@@ -164,7 +175,7 @@ const mapDispatchToProps = (dispatch) => ({
     fetchAuthData: bindActionCreators(fetchAuthData, dispatch),
 });
 
-export default connect(
+export default withRouter(connect(
     mapStateToProps,
     mapDispatchToProps
-)(LoginPage);
+)(LoginPage));

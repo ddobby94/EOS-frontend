@@ -1,0 +1,2 @@
+type IsActiveClassName =  (isActive: boolean, className: string) => string
+export const isActiveClassName: IsActiveClassName = (isActive, className) => isActive ? `${className} ${className}_active` : className;

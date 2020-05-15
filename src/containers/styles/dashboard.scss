@@ -1,0 +1,16 @@
+@import '../../styles/styles.scss';
+
+.content {
+    width: 100%;
+    position: absolute;
+    transition: $sidebar_transition;
+    &_openSidebar {
+        max-width: calc(100vw - #{$sidebar_width} - #{$big_spacing});
+        left: calc(#{$sidebar_width} / 2 + 50%);
+        transform: translateX(-50%);
+    }
+    &_closedSideBar {
+        max-width: calc(100vw - #{$big_spacing});
+        left: $medium_spacing;
+    }
+}

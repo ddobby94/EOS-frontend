@@ -1,7 +1,9 @@
 import { AuthState } from "../../redux/helpers/types";
 import { onChange } from "../../types/commonTypes";
+import { RouteChildrenProps } from "react-router-dom";
 
-export interface LoginPageProps<T = any> extends React.Props<T> {
+
+export interface LoginPageProps extends RouteChildrenProps {
     fetchAuthData: (email: string, pwd: string) => void;
     user: AuthState['user'];
     children: string;

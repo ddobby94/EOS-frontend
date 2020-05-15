@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { ConnectedRouter } from 'connected-react-router';
 import { Provider } from 'react-redux';
-import App from './App';
+import App from './App.tsx';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { COLORS, METRICS } from '../styles/styles';
 import { PersistGate } from 'redux-persist/integration/react'

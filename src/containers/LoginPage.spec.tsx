@@ -2,10 +2,16 @@ import * as React from "react";
 import { shallow, ShallowWrapper } from 'enzyme';
 import { LoginPage } from './LoginPage';
 import { LoginPageProps } from "./types/LoginPage.types";
+import { useHistory, useLocation, useRouteMatch } from 'react-router-dom';
 
 describe('<LoginPage />', () => {
     let wrapper: ShallowWrapper;
     const mockFunction = () => {};
+
+    const history = useHistory();
+    const location = useLocation();
+    const match = useRouteMatch();
+
     const mockedProps: LoginPageProps = {
         fetchAuthData: mockFunction,
         user: {
@@ -14,6 +20,9 @@ describe('<LoginPage />', () => {
         },
         children: '',
         isLoading: false,
+        history,
+        location,
+        match,
     }
 
     beforeEach(() => {

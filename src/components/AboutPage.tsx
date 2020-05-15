@@ -12,8 +12,8 @@ const AboutPage: React.FunctionComponent = () => {
       <Button variant="outlined" color="primary">
         Primary
       </Button>
-      {/* <Button 
-        variant="outlined" 
+      {/* <Button
+        variant="outlined"
         color="primary"
       >
         OUTLineeeee

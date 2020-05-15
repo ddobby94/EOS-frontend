@@ -1,0 +1,23 @@
+@import '../../styles/styles.scss';
+
+.drawer {
+    background-color: $bg_main !important;
+    min-width: $sidebar_width;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.user {
+    &-picContainer {
+        width: 70px;
+        height: 70px;
+        border-radius: 35px;
+        background-color: white;
+        border: 1px solid;
+    }
+    &-pic {
+        width: 100%;
+        border-radius: 100%;
+    }
+}
