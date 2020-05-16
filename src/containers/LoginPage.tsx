@@ -6,7 +6,6 @@ import { fetchAuthData } from '../redux/actions/authActions';
 import { Button, TextField } from '@material-ui/core';
 import './styles/LoginPage.scss';
 import { InputProps, LoginPageProps, LoginPageStates, LoginPageFuncTypes } from './types/LoginPage.types';
-import TableDropdown from '../components/Table/TableDropDown';
 import { ProgressBar } from '../components/ProgressBar';
 import { withRouter } from 'react-router-dom';
 
@@ -139,10 +138,6 @@ export class LoginPage extends React.Component<LoginPageProps, LoginPageStates> 
                 <div className="login-sidebar">
                     <Logo />
                     <div className="login-main">
-                        <TableDropdown
-                            type="TYPES"
-                            onChange={console.log}
-                        />
                         {this.getInputs()}
                     </div>
                 </div>

@@ -9,6 +9,7 @@ import { DashboardProps, DashboardStates, DashboardFuncTypes } from './types/Das
 import { SideBar } from '../components/Sidebar';
 import { Icon } from '@material-ui/core';
 import { ContentCard } from '../components/common/ContentCard';
+import EnhancedTable from '../components/DataTable/DataTable';
 
 const MENU_ITEMS = [
     {
@@ -23,7 +24,7 @@ const MENU_ITEMS = [
 
 export class Dashboard extends React.Component<DashboardProps, DashboardStates> implements DashboardFuncTypes {
     state = {
-        open: true,
+        open: false,
         active: 0,
     }
 
@@ -37,13 +38,6 @@ export class Dashboard extends React.Component<DashboardProps, DashboardStates> 
 
     onStartNewProject = () => {
         console.log('start new project')
-    }
-
-    getClassName = () => {
-        if (this.state.open) {
-            return 'content content_openSidebar';
-        }
-        return 'content content_closedSideBar';
     }
 
     render() {
@@ -68,9 +62,7 @@ export class Dashboard extends React.Component<DashboardProps, DashboardStates> 
                     <ContentCard
                         title="PREVIOUS PROJECTS"
                     >
-                        <div>
-                            <p>divvv</p>
-                        </div>
+                        <EnhancedTable />
                     </ContentCard>
                 </div>
             </div>
