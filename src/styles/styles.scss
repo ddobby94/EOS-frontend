@@ -1,8 +1,3 @@
-/* Variables */
-$vin-blue: #5bb7db;
-$vin-green: #60b044;
-$vin-red: #ff0000;
-
 // COLORS
 
 $bg_main: #234050;
@@ -32,21 +27,21 @@ $desktop: 992px;
 
 // component variables
 
-$sidebar_width: 30vw;
+$sidebar_width: 27vw;
 $sidebar_transition: all 225ms cubic-bezier(0, 0, 0.2, 1) 0ms;
 
 /* Styles */
 body {
-  font-family: 'Roboto Condensed';
-  line-height: 1.4em;
-  color: #4d4d4d;
-  margin: 0 auto;
-  -webkit-font-smoothing: antialiased;
-  -moz-font-smoothing: antialiased;
-  font-smoothing: antialiased;
-  font-weight: 300;
-  background-color: $bg_light;
-  overflow: hidden;
+    font-family: 'Roboto Condensed';
+    line-height: 1.4em;
+    color: #4d4d4d;
+    margin: 0 auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+    font-weight: 300;
+    background-color: $bg_light;
+    overflow: hidden;
 }
 
 td {
@@ -54,34 +49,33 @@ td {
 }
 
 h1, h2, h3, h4, h5, p, b, strong, label, a, span {
-  font-family: 'Roboto Condensed';
-  color: $text_on_bg;
+    font-family: 'Roboto Condensed';
+    color: $text_on_bg;
 }
 
 h1 {
-  line-height: 1.1;
-  font-size: 3.5em;
+    line-height: 1.1;
+    font-size: 3.5em;
 }
 
 h2 {
-  line-height: 1.1;
-  font-size: 2.6em;
+    line-height: 1.1;
+    font-size: 2.6em;
 }
 
 h3 {
-  line-height: 1.1;
-  font-size: 1.7em;
+    line-height: 1.1;
+    font-size: 1.7em;
 }
 
 a {
-  cursor: pointer;
-  text-decoration: underline;
-  font-weight: 600;
+    cursor: pointer;
+    text-decoration: underline;
+    font-weight: 600;
 }
 
 input {
-
-  border: 1px solid ;
-  background-color: $bg_light;
-  height: 40px;
+    border: 1px solid ;
+    background-color: $bg_light;
+    height: 40px;
 }

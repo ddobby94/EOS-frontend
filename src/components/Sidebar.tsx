@@ -13,7 +13,7 @@ interface UserAvatarProps {
 };
 
 const UserAvatar: React.FunctionComponent<UserAvatarProps> = ({ name, avatar, onClick }) => (
-    <div onClick={onClick}>
+    <div onClick={onClick} className="user-picNameContainer">
         <div className="user-picContainer">
             <img
                 className="user-pic"
@@ -54,26 +54,27 @@ export const SideBar: React.FunctionComponent<SideBarProps> = ({
                 paper: 'drawer',
             }}
         >
-            <Button
-                onClick={onClose}
-                color="primary"
-                variant="contained"
-            >
-                CLOSE SIDEBAR
-            </Button>
-            <h3>LOGO</h3>
+            <div className="drawer-topContainer">
+                <h3 className="drawer-logo">EOS</h3>
+                <Icon
+                    className="fa fa-bars drawer-menuIcon"
+                    onClick={onClose}
+                />
+            </div>
+
             <UserAvatar
                 name="User name"
                 avatar={AVATAR_URL}
                 onClick={() => console.log('user avatar clicked')}
             />
             <Button
+                className="fa fa-button drawer-newProject"
                 onClick={onStartNewProject}
                 color="primary"
                 variant="contained"
             >
                 <Icon
-                    className="fa fa-plus"
+                    className="fa fa-plus drawer-plusicon"
                 />
                 NEW PROJECT
             </Button>
@@ -82,12 +83,13 @@ export const SideBar: React.FunctionComponent<SideBarProps> = ({
                     <Button
                         key={index}
                         onClick={() => onMenuItemSelected(index)}
+                        className="menuItems-button"
+
                     >
                         <Icon
-                            color="primary"
                             className={`fa ${icon}`}
                         />
-                        <p>{title}</p>
+                        <p className="menuItems-text">{title}</p>
                     </Button>
                 ))
             }

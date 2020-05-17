@@ -16,9 +16,17 @@ const MENU_ITEMS = [
         title: 'PREVIOUS PROJECTS'
     },
     {
-        icon: 'fa-check',
+        icon: 'fa-arrow-right',
         title: 'NEXT PROJECTS'
     },
+    {
+        icon: 'fa-check',
+        title: 'CHECK RESULTS'
+    },
+    {
+        icon: 'fa-paw',
+        title: 'MENU ITEM'
+    }
 ];
 
 export class Dashboard extends React.Component<DashboardProps, DashboardStates> implements DashboardFuncTypes {
@@ -58,7 +66,6 @@ export class Dashboard extends React.Component<DashboardProps, DashboardStates> 
                     onStartNewProject={this.onStartNewProject}
                 ></SideBar>
                 <Icon
-                    color="primary"
                     className="fa fa-bars"
                     onClick={this.toggleSideBar}
                 />
