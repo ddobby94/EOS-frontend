@@ -1,0 +1,15 @@
+@import '../../styles/styles.scss';
+
+.accordionContent {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: $small_spacing;
+    align-items: flex-start;
+    & h3 {
+        margin: 0;
+    }
+    &-chart {
+        border: 1px solid;
+    }
+}

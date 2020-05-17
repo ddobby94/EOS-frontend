@@ -11,13 +11,13 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Checkbox from '@material-ui/core/Checkbox';
-import Tooltip from '@material-ui/core/Tooltip';
 import EnhancedTableHead from './TableHeader';
 import { EXPLORATORY_ANALYSIS_DATA_OBJECT } from '../../utils/mocks';
 import { ExploratoryObj, TableHeader } from '../_types/DataTable';
-import { TableDropdown } from './TableDropDown';
+import { TableDropdownMenu } from './TableDropdownMenu';
 import { SimpleObject } from '../../types/commonTypes';
 import { Icon } from '@material-ui/core';
+import AccordionContent from './AccordionContent';
 
 const rows = EXPLORATORY_ANALYSIS_DATA_OBJECT;
 
@@ -90,23 +90,10 @@ const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
                 [classes.highlight]: numSelected > 0,
             })}
         >
-        {numSelected > 0 ? (
+        {numSelected > 0 && (
             <Typography className={classes.title} color="inherit" variant="subtitle1" component="div">
                 {numSelected} selected
             </Typography>
-        ) : (
-            <Typography className={classes.title} variant="h6" id="tableTitle" component="div">
-                Nutrition
-            </Typography>
-        )}
-        {numSelected > 0 ? (
-            <Tooltip title="Delete">
-                <p>deleteIcon</p>
-            </Tooltip>
-        ) : (
-            <Tooltip title="Filter list">
-                <p>filterIcon</p>
-            </Tooltip>
         )}
         </Toolbar>
     );
@@ -140,6 +127,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function EnhancedTable() {
     const classes = useStyles();
+    const [forceUpdateCount, triggerForceUpdate] = React.useState<number>(0);
     const [order, setOrder] = React.useState<Order>('asc');
     const [orderBy, setOrderBy] = React.useState<keyof ExploratoryObj>('name');
     const [selected, setSelected] = React.useState<string[]>([]);
@@ -204,6 +192,11 @@ export default function EnhancedTable() {
         setPage(0);
     };
 
+    const changeRowItemValue = (row, prop, newValue) => {
+        row[prop] = newValue;
+        triggerForceUpdate(forceUpdateCount + 1);
+    }
+
     const isSelected = (name: string) => selected.indexOf(name) !== -1;
     const isOpened = (id: string) => opened[id];
 
@@ -217,13 +210,11 @@ export default function EnhancedTable() {
         .map((row, index) => {
             const isItemSelected = isSelected(row.name);
             const labelId = `enhanced-table-checkbox-${index}`;
-            console.log({ row });
 
             return (
                 <>
                     <TableRow
                         hover
-                        onClick={(event) => handleClick(event, row.name)}
                         role="dropdown"
                         aria-checked={isItemSelected}
                         tabIndex={-1}
@@ -234,23 +225,24 @@ export default function EnhancedTable() {
                             <Checkbox
                                 checked={isItemSelected}
                                 inputProps={{ 'aria-labelledby': labelId }}
+                                onClick={(e) => handleClick(e, row.name)}
                             />
                         </TableCell>
                         <TableCell component="th" id={labelId} scope="row" padding="none">
                             {row.name}
                         </TableCell>
                         <TableCell align="right">
-                            <TableDropdown
+                            <TableDropdownMenu
                                 type="ROLES"
                                 value={row.role}
-                                onChange={(v) => row.role = v}
+                                onChange={(v) => changeRowItemValue(row, 'role', v)}
                             />
                         </TableCell>
                         <TableCell align="right">
-                            <TableDropdown
+                            <TableDropdownMenu
                                 type="TYPES"
                                 value={row.type}
-                                onChange={(v) => row.type = v}
+                                onChange={(v) => changeRowItemValue(row, 'type', v)}
                             />
                         </TableCell>
                         <TableCell align="right">{row.missingValuessPercentage}</TableCell>
@@ -269,35 +261,10 @@ export default function EnhancedTable() {
                             />
                         </TableCell>
                     </TableRow>
-                    <TableRow
-                        style={{
-                            transition: 'all 235ms ease-in-out',
-                            height: !isOpened(row.name) ? 0 : '100px',
-                            maxHeight: !isOpened(row.name) ? 0 : '100px',
-                            opacity: !isOpened(row.name) ? 0 : 1,
-                        }}
-                    >
-                        <TableCell
-                            colSpan={6}
-                            style={{
-                                transition: 'all 235ms ease-in-out',
-                                height: !isOpened(row.name) ? 0 : '100px',
-                                maxHeight: !isOpened(row.name) ? 0 : '100px',
-                                padding: !isOpened(row.name) ? 0 : 'auto',
-                            }}
-                        >
-                            <div
-                                style={{
-                                    transition: 'all 235ms ease-in-out',
-                                    height: !isOpened(row.name) ? 0 : '100px',
-                                    width: '500px',
-                                    border: '1px solid red',
-                                }}
-                            >
-                                foooo
-                            </div>
-                        </TableCell>
-                    </TableRow>
+                    <AccordionContent
+                        row={row}
+                        isOpen={isOpened(row.name)}
+                    />
                 </>
             );
         })
@@ -328,7 +295,7 @@ export default function EnhancedTable() {
                     </Table>
                 </TableContainer>
                 <TablePagination
-                    rowsPerPageOptions={[5, 10, 25]}
+                    rowsPerPageOptions={[5, 10, 25, 50]}
                     component="div"
                     count={rows.length}
                     rowsPerPage={rowsPerPage}

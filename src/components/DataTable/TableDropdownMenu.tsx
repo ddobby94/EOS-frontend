@@ -48,7 +48,7 @@ const TABLE_DROPDOWN_VALUES = {
     TYPES,
 }
 
-interface TableDropdownProps {
+interface TableDropdownMenuProps {
     type: 'ROLES' | 'TYPES',
     onChange: (string) => void,
     value: keyof Roles | keyof Types;
@@ -73,7 +73,7 @@ const useStyles = (color) => makeStyles(() => ({
 }));
 
 
-export const TableDropdown: React.FunctionComponent<TableDropdownProps> = ({ type = 'ROLES', onChange, value = '' }) => {
+export const TableDropdownMenu: React.FunctionComponent<TableDropdownMenuProps> = ({ type = 'ROLES', onChange, value = '' }) => {
     const dataset = TABLE_DROPDOWN_VALUES[type];
     const firstItemKey = Object.keys(dataset)[0];
     const selected = dataset[value.toLowerCase() || firstItemKey];
@@ -86,7 +86,6 @@ export const TableDropdown: React.FunctionComponent<TableDropdownProps> = ({ typ
         const v = event.target.value;
         const newSelected = dataset[v];
         onChange(newSelected.value);
-        event.stopPropagation();
     };
 
     const classes = useStyles(selected.color)();
@@ -118,4 +117,4 @@ export const TableDropdown: React.FunctionComponent<TableDropdownProps> = ({ typ
     );
 };
 
-export default (TableDropdown);
+export default (TableDropdownMenu);

@@ -55,8 +55,18 @@ export interface ExploratoryObj extends TableHeader {
 export type Order = 'asc' | 'desc';
 
 export interface HeadCell {
-  disablePadding: boolean;
-  id: keyof TableHeader;
-  label: string;
-  numeric: boolean;
+    disablePadding: boolean;
+    id: keyof TableHeader;
+    label: string;
+    numeric: boolean;
 }
+
+export interface EnhancedTableHeaderProps {
+    numSelected: number;
+    onRequestSort: (event: React.MouseEvent<unknown>, property: keyof TableHeader) => void;
+    onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    order: Order;
+    orderBy: string;
+    rowCount: number;
+}
+

@@ -4,7 +4,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import { TableHeader, HeadCell, Order } from '../_types/DataTable';
+import { TableHeader, HeadCell, EnhancedTableHeaderProps } from '../_types/DataTable';
 
 export const EXPLORATORY_ANALYSIS_HEADERS =  [
     'Name',
@@ -26,16 +26,7 @@ const headCells: HeadCell[] = [
   { id: 'mean', numeric: true, disablePadding: false, label: 'Mean' },
 ];
 
-interface EnhancedTableProps {
-  numSelected: number;
-  onRequestSort: (event: React.MouseEvent<unknown>, property: keyof TableHeader) => void;
-  onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  order: Order;
-  orderBy: string;
-  rowCount: number;
-}
-
-export function EnhancedTableHead(props: EnhancedTableProps) {
+export const EnhancedTableHead: React.FunctionComponent<EnhancedTableHeaderProps> = (props) => {
     const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
     const createSortHandler = (property: keyof TableHeader) => (event: React.MouseEvent<unknown>) => {
         onRequestSort(event, property);

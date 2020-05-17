@@ -1,4 +1,4 @@
-import { ExploratoryObj } from "../components/_types/DataTable";
+import { ExploratoryObj } from '../components/_types/DataTable';
 
 export const EXPLORATORY_ANALYSIS_KEYS = [
     'name',
