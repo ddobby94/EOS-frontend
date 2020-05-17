@@ -2,15 +2,16 @@ import * as React from "react";
 import { shallow, ShallowWrapper } from 'enzyme';
 import { LoginPage } from './LoginPage';
 import { LoginPageProps } from "./types/LoginPage.types";
-import { useHistory, useLocation, useRouteMatch } from 'react-router-dom';
+import { match } from 'react-router-dom';
+import { History, Location } from "history";
 
 describe('<LoginPage />', () => {
     let wrapper: ShallowWrapper;
     const mockFunction = () => {};
 
-    const history = useHistory();
-    const location = useLocation();
-    const match = useRouteMatch();
+    const history = {} as History;
+    const location = {} as Location;
+    const match = {} as match;
 
     const mockedProps: LoginPageProps = {
         fetchAuthData: mockFunction,

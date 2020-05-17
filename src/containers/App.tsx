@@ -1,9 +1,7 @@
-/* eslint-disable import/no-named-as-default */
 import { Route, Switch } from "react-router-dom";
-
 import AboutPage from "../components/AboutPage";
 import LoginPage from "./LoginPage";
-import NotFoundPage from "../components/NotFoundPage.js";
+import NotFoundPage from "../components/NotFoundPage";
 import React from "react";
 import { hot } from "react-hot-loader";
 import { Dashboard } from "./Dashboard";

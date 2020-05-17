@@ -215,14 +215,14 @@ export default function EnhancedTable() {
                         <TableCell component="th" id={labelId} scope="row" padding="none">
                             {row.name}
                         </TableCell>
-                        <TableCell align="right">
+                        <TableCell align="left">
                             <TableDropdownMenu
                                 type="ROLES"
                                 value={row.role}
                                 onChange={(v) => changeRowItemValue(row, 'role', v)}
                             />
                         </TableCell>
-                        <TableCell align="right">
+                        <TableCell align="left">
                             <TableDropdownMenu
                                 type="TYPES"
                                 value={row.type}
