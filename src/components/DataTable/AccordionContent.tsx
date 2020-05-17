@@ -51,16 +51,15 @@ export const AccordionContent: React.FunctionComponent<AccordionContentProps> = 
                 }}
             >
                 <div className="accordionContent">
-                    <div>
-                        <h3>PREDICTOR DISTRIBUTION ANALYSIS</h3>
+                    <div className="accordionContent-chartContainer">
+                        <h3>Predictor distribution analysis</h3>
                         <div className="accordionContent-chart">
-                            CHART HERE
-                            {row.name}
+                            TODO CHART PLACEHOLDER
                         </div>
                     </div>
-                    <div>
-                        <h3>Detailed datas</h3>
-                        <table>
+                    <div className="accordionContent-detailedContainer" >
+                        <h3>Detailed information</h3>
+                        <table className="accordionContent-detailedTable" cellSpacing="0">
                             <thead>
                                 <tr>
                                     {HEAD.map((v) => (

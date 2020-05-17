@@ -3,13 +3,37 @@
 .accordionContent {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
     padding: $small_spacing;
     align-items: flex-start;
     & h3 {
-        margin: 0;
+        margin: 0 0 $small_spacing;
     }
     &-chart {
         border: 1px solid;
+        border-top: 0px;
+        height: 200px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    &-detailedContainer {
+        margin-left: $big_spacing;
+    }
+    &-chartContainer {
+        width: 50%;
+    }
+    &-detailedTable {
+        border: 1px solid;
+        padding: 0;
+        & th, td {
+            border: 1px solid $text_on_bg_transparent;
+            border-left: 0px;
+            border-right: 0px;
+            align-items: flex-start;
+            padding: $tiny_spacing;
+        }
+        & th {
+            width: 60px;
+        }
     }
 }
