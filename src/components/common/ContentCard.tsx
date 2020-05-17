@@ -17,6 +17,7 @@ export const ContentCard: React.FunctionComponent<ContentCardProps> = ({ title, 
         <h3
             style={{
                 margin: 0,
+                fontWeight: 'normal',
             }}
         >
             {title}

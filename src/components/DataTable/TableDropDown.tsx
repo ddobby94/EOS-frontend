@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { FormControl, Select, MenuItem, makeStyles } from "@material-ui/core";
+import { Roles, Types } from "../_types/DataTable";
 
 const transparentColor = (color: string) => `${color}44`;
 
-const ROLES = {
+
+export const ROLES: Roles = {
     target: {
         value: 'target',
         color: '#D79E80',
@@ -12,17 +14,21 @@ const ROLES = {
         value: 'predictor',
         color: '#1BB97F',
     },
+    explanatory: {
+        value: 'explanatory',
+        color: '#1BB97F',
+    },
     key: {
         value: 'key',
         color: '#38EFB9',
     },
-    ignored: {
-        value: 'ignored',
+    ignore: {
+        value: 'ignore',
         color: '#88FEE0',
     },
 };
 
-const TYPES = {
+export const TYPES: Types = {
     continuous: {
         value: 'continuous',
         color: '#B2F2FF',
@@ -37,7 +43,6 @@ const TYPES = {
     },
 };
 
-
 const TABLE_DROPDOWN_VALUES = {
     ROLES,
     TYPES,
@@ -46,6 +51,7 @@ const TABLE_DROPDOWN_VALUES = {
 interface TableDropdownProps {
     type: 'ROLES' | 'TYPES',
     onChange: (string) => void,
+    value: keyof Roles | keyof Types;
 };
 
 const useStyles = (color) => makeStyles(() => ({
@@ -67,17 +73,20 @@ const useStyles = (color) => makeStyles(() => ({
 }));
 
 
-export const TableDropdown: React.FunctionComponent<TableDropdownProps> = ({ type = 'ROLES', onChange }) => {
+export const TableDropdown: React.FunctionComponent<TableDropdownProps> = ({ type = 'ROLES', onChange, value = '' }) => {
     const dataset = TABLE_DROPDOWN_VALUES[type];
     const firstItemKey = Object.keys(dataset)[0];
+    const selected = dataset[value.toLowerCase() || firstItemKey];
 
-    const [selected, setSelected] = useState(dataset[firstItemKey]);
+    console.log({
+        value, selected, type
+    })
 
     const handleChange = (event: React.ChangeEvent<{ value: any }>) => {
         const v = event.target.value;
         const newSelected = dataset[v];
-        setSelected(newSelected);
         onChange(newSelected.value);
+        event.stopPropagation();
     };
 
     const classes = useStyles(selected.color)();
