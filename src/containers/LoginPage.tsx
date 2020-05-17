@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getUser, getAuthLoading } from '../redux/reducers/authReducer';
 import { fetchAuthData } from '../redux/actions/authActions';
