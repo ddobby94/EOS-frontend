@@ -70,3 +70,14 @@ export interface EnhancedTableHeaderProps {
     rowCount: number;
 }
 
+
+export type ComparatorValueTypes = string | number | boolean;
+export type ComparatorFunction = <Key extends keyof any>(a: { [key in Key]: ComparatorValueTypes }, b: { [key in Key]: ComparatorValueTypes }) => number;
+export type GetComparatorFunction = <Key extends keyof ExploratoryObj>(order: Order, orderBy: Key) => ComparatorFunction;
+
+
+export interface EnhancedTableToolbarProps {
+    selected: string[];
+    onExportSelected: () => void;
+    targetName?: string;
+}

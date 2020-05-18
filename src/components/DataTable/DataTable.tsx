@@ -1,108 +1,23 @@
 import React from 'react';
-import clsx from 'clsx';
-import { createStyles, lighten, makeStyles, Theme } from '@material-ui/core/styles';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import Checkbox from '@material-ui/core/Checkbox';
 import EnhancedTableHead from './TableHeader';
 import { EXPLORATORY_ANALYSIS_DATA_OBJECT } from '../../utils/mocks';
-import { ExploratoryObj, TableHeader } from '../_types/DataTable';
+import { ExploratoryObj, TableHeader, Order } from '../_types/DataTable';
 import { TableDropdownMenu, ROLES } from './TableDropdownMenu';
 import { SimpleObject } from '../../types/commonTypes';
 import { Icon } from '@material-ui/core';
 import AccordionContent from './AccordionContent';
+import TableToolbar from './TableToolbar';
+import { getRowsPerPage, getComparator, stableSort } from '../../utils/DataTableUtils';
 
 const rows = EXPLORATORY_ANALYSIS_DATA_OBJECT;
-const ROWS_PER_PAGE_BASE_NUMBERS = [5, 10, 25, 50, 100, 200];
-const getRowsPerPage = (max: number) => {
-    const smallerThanMaxIndex = ROWS_PER_PAGE_BASE_NUMBERS.findIndex((v) => v >= max);
-
-    return [...ROWS_PER_PAGE_BASE_NUMBERS.slice(0, smallerThanMaxIndex), max];
-}
-
-function descendingComparator<T>(a: T, b: T, orderBy: any) {
-    if (b[orderBy] < a[orderBy]) {
-        return -1;
-    }
-    if (b[orderBy] > a[orderBy]) {
-        return 1;
-    }
-    return 0;
-}
-
-type Order = 'asc' | 'desc';
-
-type ComparatorValueTypes = string | number | boolean;
-type ComparatorFunction = <Key extends keyof any>(a: { [key in Key]: ComparatorValueTypes }, b: { [key in Key]: ComparatorValueTypes }) => number;
-type GetComparatorFunction = <Key extends keyof ExploratoryObj>(order: Order, orderBy: Key) => ComparatorFunction;
-
-
-const getComparator: GetComparatorFunction = (order, orderBy) => {
-    return order === 'desc'
-        ? (a, b) => descendingComparator(a, b, orderBy)
-        : (a, b) => -descendingComparator(a, b, orderBy);
-};
-
-function stableSort<T>(array: T[], comparator: (a: T, b: T) => number) {
-    const stabilizedThis = array.map((el, index) => [el, index] as [T, number]);
-    stabilizedThis.sort((a, b) => {
-        const order = comparator(a[0], b[0]);
-        if (order !== 0) {
-            return order
-        };
-        return a[1] - b[1];
-    });
-    return stabilizedThis.map((el) => el[0]);
-}
-
-
-const useToolbarStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        root: {
-            paddingLeft: theme.spacing(2),
-            paddingRight: theme.spacing(1),
-        },
-        highlight: theme.palette.type === 'light' ? {
-                color: theme.palette.secondary.main,
-                backgroundColor: lighten(theme.palette.secondary.light, 0.85),
-            } : {
-                color: theme.palette.text.primary,
-                backgroundColor: theme.palette.secondary.dark,
-            },
-        title: {
-            flex: '1 1 100%',
-        },
-    }),
-);
-
-interface EnhancedTableToolbarProps {
-  numSelected: number;
-}
-
-const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
-    const classes = useToolbarStyles();
-    const { numSelected } = props;
-
-    return (
-        <Toolbar
-            className={clsx(classes.root, {
-                [classes.highlight]: numSelected > 0,
-            })}
-        >
-        {numSelected > 0 && (
-            <Typography className={classes.title} color="inherit" variant="subtitle1" component="div">
-                {numSelected} selected
-            </Typography>
-        )}
-        </Toolbar>
-    );
-};
 
 const useStyles = makeStyles(() =>
     createStyles({
@@ -121,7 +36,7 @@ export default function EnhancedTable() {
     const [selected, setSelected] = React.useState<string[]>([]);
     const [opened, setOpened] = React.useState<SimpleObject<boolean>>({});
     const [page, setPage] = React.useState(0);
-    const [targetIndex, setTargetIndex] = React.useState(-1);
+    const [targetName, setTargetName] = React.useState<string>();
     const [rowsPerPage, setRowsPerPage] = React.useState(ROWS_PER_PAGE[0]);
 
     const handleRequestSort = (event: React.MouseEvent<unknown>, property: keyof TableHeader) => {
@@ -186,19 +101,28 @@ export default function EnhancedTable() {
         triggerForceUpdate(forceUpdateCount + 1);
     }
 
-    const onRoleChange = (row, rowIndex, newValue) => {
+    const setValueInRowByName = (name, value, valueToSet) => {
+        const row = rows.find(({ name: currentName }) => currentName === name);
+        console.log({ row });
+        if (row) {
+            row[valueToSet] = value;
+        }
+    }
+
+    const onRoleChange = (row: ExploratoryObj, newValue) => {
 
         // new TARGET selected
+        console.log({ newValue, targetName, asd: ROLES.target.value, tureee: ROLES.target.value === newValue })
         if (newValue === ROLES.target.value) {
-            if (targetIndex !== -1) {
-                rows[targetIndex].role = ROLES.predictor.value;
+            if (!!targetName) {
+                setValueInRowByName(targetName, ROLES.predictor.value, 'role');
             }
-            setTargetIndex(rowIndex);
+            setTargetName(row.name);
         }
 
         // Current TARGET changed
-        if (newValue !== ROLES.target.value && rowIndex === targetIndex) {
-            setTargetIndex(-1);
+        if (newValue !== ROLES.target.value && row.name === targetName) {
+            setTargetName(undefined);
         }
         changeRowItemValue(row, 'role', newValue);
     }
@@ -248,7 +172,7 @@ export default function EnhancedTable() {
                             <TableDropdownMenu
                                 type="ROLES"
                                 value={row.role}
-                                onChange={(v) => onRoleChange(row, index, v)}
+                                onChange={(v) => onRoleChange(row, v)}
                             />
                         </TableCell>
                         <TableCell align="left">
@@ -284,11 +208,11 @@ export default function EnhancedTable() {
 
     return (
         <div className="tableContent-rootContainer">
-            <div>
-                <strong>TARGET</strong>
-                <p>{targetIndex === -1 ? 'NONE' : rows[targetIndex].name}</p>
-            </div>
-            <EnhancedTableToolbar numSelected={selected.length} />
+            <TableToolbar
+                selected={selected}
+                targetName={targetName}
+                onExportSelected={console.log}
+            />
             <TableContainer>
                 <Table
                     className={classes.table}

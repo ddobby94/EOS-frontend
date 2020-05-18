@@ -68,7 +68,7 @@ export const EXPLORATORY_ANALYSIS_DATA = [
     ['EVENT_RHHC', 'Not Available', 'ignore', 'discrete', 317347 ,262 ,0.08,1,0,0,,,0,0,0,0,0,0,0,0,0,0,0,true],
     ['EVENT_RM6SC', 'Not Available', 'ignore', 'discrete', 317347 ,262 ,0.08,1,0,0,,,0,0,0,0,0,0,0,0,0,0,0,true],
     ['EVENT_RPRI', 'Not Available', 'ignore', 'discrete', 317347 ,262 ,0.08,1,0,0,,,0,0,0,0,0,0,0,0,0,0,0,true],
-    ['UNPRODUCTIVE', 'Not Available', 'target', 'discrete', 317609 ,0 ,0,2,0,1,,,1,0,0,0,0,0,0,0,1,1,1,true],
+    ['UNPRODUCTIVE', 'Not Available', 'ignore', 'discrete', 317609 ,0 ,0,2,0,1,,,1,0,0,0,0,0,0,0,1,1,1,true],
 ];
 
 const transformRowDataToObj = (row) => {
