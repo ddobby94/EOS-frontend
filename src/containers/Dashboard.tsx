@@ -9,7 +9,7 @@ import { DashboardProps, DashboardStates, DashboardFuncTypes } from './types/Das
 import { SideBar } from '../components/Sidebar';
 import { Icon } from '@material-ui/core';
 import { ContentCard } from '../components/common/ContentCard';
-import EnhancedTable from '../components/DataTable/DataTable';
+// import EnhancedTable from '../components/DataTable/DataTable';
 import PreviousProjects from '../components/PreviousProjects';
 
 const MENU_ITEMS = [
@@ -76,11 +76,11 @@ export class Dashboard extends React.Component<DashboardProps, DashboardStates> 
                             projects={MOCKED_PREVIOUS_PROJECTS}
                         />
                     </ContentCard>
-                    <ContentCard
+                    {/* <ContentCard
                         title="DUMMY TABLE"
                     >
                         <EnhancedTable />
-                    </ContentCard>
+                    </ContentCard> */}
                 </div>
             </div>
         );
