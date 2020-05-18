@@ -9,8 +9,8 @@ import { DashboardProps, DashboardStates, DashboardFuncTypes } from './types/Das
 import { SideBar } from '../components/Sidebar';
 import { Icon } from '@material-ui/core';
 import { ContentCard } from '../components/common/ContentCard';
-// import EnhancedTable from '../components/DataTable/DataTable';
-import PreviousProjects from '../components/PreviousProjects';
+import EnhancedTable from '../components/DataTable/DataTable';
+// import PreviousProjects from '../components/PreviousProjects';
 
 const MENU_ITEMS = [
     {
@@ -31,7 +31,7 @@ const MENU_ITEMS = [
     }
 ];
 
-const MOCKED_PREVIOUS_PROJECTS = [];
+// const MOCKED_PREVIOUS_PROJECTS = [];
 
 export class Dashboard extends React.Component<DashboardProps, DashboardStates> implements DashboardFuncTypes {
     state = {
@@ -48,7 +48,7 @@ export class Dashboard extends React.Component<DashboardProps, DashboardStates> 
     }
 
     onStartNewProject = () => {
-        console.log('start new project')
+        this.props.history.push('/newproject');
     }
 
     render() {
@@ -69,18 +69,18 @@ export class Dashboard extends React.Component<DashboardProps, DashboardStates> 
                 <div
                     className={`content content_${this.state.open ? 'openSidebar' : 'closedSideBar'}`}
                 >
-                    <ContentCard
+                    {/* <ContentCard
                         title="PREVIOUS PROJECTS"
                     >
                         <PreviousProjects
                             projects={MOCKED_PREVIOUS_PROJECTS}
                         />
-                    </ContentCard>
-                    {/* <ContentCard
+                    </ContentCard> */}
+                    <ContentCard
                         title="DUMMY TABLE"
                     >
                         <EnhancedTable />
-                    </ContentCard> */}
+                    </ContentCard>
                 </div>
             </div>
         );

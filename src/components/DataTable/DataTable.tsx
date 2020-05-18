@@ -13,12 +13,18 @@ import Checkbox from '@material-ui/core/Checkbox';
 import EnhancedTableHead from './TableHeader';
 import { EXPLORATORY_ANALYSIS_DATA_OBJECT } from '../../utils/mocks';
 import { ExploratoryObj, TableHeader } from '../_types/DataTable';
-import { TableDropdownMenu } from './TableDropdownMenu';
+import { TableDropdownMenu, ROLES } from './TableDropdownMenu';
 import { SimpleObject } from '../../types/commonTypes';
 import { Icon } from '@material-ui/core';
 import AccordionContent from './AccordionContent';
 
 const rows = EXPLORATORY_ANALYSIS_DATA_OBJECT;
+const ROWS_PER_PAGE_BASE_NUMBERS = [5, 10, 25, 50, 100, 200];
+const getRowsPerPage = (max: number) => {
+    const smallerThanMaxIndex = ROWS_PER_PAGE_BASE_NUMBERS.findIndex((v) => v >= max);
+
+    return [...ROWS_PER_PAGE_BASE_NUMBERS.slice(0, smallerThanMaxIndex), max];
+}
 
 function descendingComparator<T>(a: T, b: T, orderBy: any) {
     if (b[orderBy] < a[orderBy]) {
@@ -100,9 +106,6 @@ const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
 
 const useStyles = makeStyles(() =>
     createStyles({
-        root: {
-            width: '100%',
-        },
         table: {
             minWidth: 750,
         },
@@ -110,6 +113,7 @@ const useStyles = makeStyles(() =>
 );
 
 export default function EnhancedTable() {
+    const ROWS_PER_PAGE = getRowsPerPage(rows.length);
     const classes = useStyles();
     const [forceUpdateCount, triggerForceUpdate] = React.useState<number>(0);
     const [order, setOrder] = React.useState<Order>('asc');
@@ -117,7 +121,8 @@ export default function EnhancedTable() {
     const [selected, setSelected] = React.useState<string[]>([]);
     const [opened, setOpened] = React.useState<SimpleObject<boolean>>({});
     const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(5);
+    const [targetIndex, setTargetIndex] = React.useState(-1);
+    const [rowsPerPage, setRowsPerPage] = React.useState(ROWS_PER_PAGE[0]);
 
     const handleRequestSort = (event: React.MouseEvent<unknown>, property: keyof TableHeader) => {
         console.log({ event });
@@ -181,6 +186,23 @@ export default function EnhancedTable() {
         triggerForceUpdate(forceUpdateCount + 1);
     }
 
+    const onRoleChange = (row, rowIndex, newValue) => {
+
+        // new TARGET selected
+        if (newValue === ROLES.target.value) {
+            if (targetIndex !== -1) {
+                rows[targetIndex].role = ROLES.predictor.value;
+            }
+            setTargetIndex(rowIndex);
+        }
+
+        // Current TARGET changed
+        if (newValue !== ROLES.target.value && rowIndex === targetIndex) {
+            setTargetIndex(-1);
+        }
+        changeRowItemValue(row, 'role', newValue);
+    }
+
     const isSelected = (name: string) => selected.indexOf(name) !== -1;
     const isOpened = (id: string) => opened[id];
 
@@ -204,6 +226,7 @@ export default function EnhancedTable() {
                         tabIndex={-1}
                         key={row.name}
                         selected={isItemSelected}
+                        className="tableContent-tableRow"
                     >
                         <TableCell padding="checkbox">
                             <Checkbox
@@ -212,14 +235,20 @@ export default function EnhancedTable() {
                                 onClick={(e) => handleClick(e, row.name)}
                             />
                         </TableCell>
-                        <TableCell component="th" id={labelId} scope="row" padding="none">
+                        <TableCell
+                            component="th"
+                            id={labelId}
+                            scope="row"
+                            padding="none"
+                            className={row.role === ROLES.ignore.value ? 'tableContent-nameCell_ignored' : ''}
+                        >
                             {row.name}
                         </TableCell>
                         <TableCell align="left">
                             <TableDropdownMenu
                                 type="ROLES"
                                 value={row.role}
-                                onChange={(v) => changeRowItemValue(row, 'role', v)}
+                                onChange={(v) => onRoleChange(row, index, v)}
                             />
                         </TableCell>
                         <TableCell align="left">
@@ -229,18 +258,17 @@ export default function EnhancedTable() {
                                 onChange={(v) => changeRowItemValue(row, 'type', v)}
                             />
                         </TableCell>
-                        <TableCell align="right">{row.missingValuessPercentage}</TableCell>
-                        <TableCell align="right">{row.uniqueValues}</TableCell>
-                        <TableCell align="right">{row.median}</TableCell>
-                        <TableCell align="right">{row.mean}</TableCell>
+                        <TableCell align="left">{row.missingValuessPercentage}</TableCell>
+                        <TableCell align="left">{row.uniqueValues}</TableCell>
+                        <TableCell align="left">{row.median}</TableCell>
+                        <TableCell align="left">{row.mean}</TableCell>
                         <TableCell >
                             <Icon
                                 color="secondary"
-                                className="fa fa-chevron-down"
+                                className="fa fa-chevron-down tableContent-openRowIcon"
                                 onClick={(e) => openRow(e, row.name)}
                                 style={{
                                     transform: isOpened(row.name) ? 'rotate(180deg)' : '',
-                                    transition: 'all 235ms ease-in-out',
                                 }}
                             />
                         </TableCell>
@@ -255,7 +283,11 @@ export default function EnhancedTable() {
     }
 
     return (
-        <div className={classes.root}>
+        <div className="tableContent-rootContainer">
+            <div>
+                <strong>TARGET</strong>
+                <p>{targetIndex === -1 ? 'NONE' : rows[targetIndex].name}</p>
+            </div>
             <EnhancedTableToolbar numSelected={selected.length} />
             <TableContainer>
                 <Table
@@ -278,7 +310,7 @@ export default function EnhancedTable() {
                 </Table>
             </TableContainer>
             <TablePagination
-                rowsPerPageOptions={[5, 10, 25, 50]}
+                rowsPerPageOptions={ROWS_PER_PAGE}
                 component="div"
                 count={rows.length}
                 rowsPerPage={rowsPerPage}

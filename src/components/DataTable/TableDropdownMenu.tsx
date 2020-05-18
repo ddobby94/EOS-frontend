@@ -1,6 +1,7 @@
 import React from "react";
 import { FormControl, Select, MenuItem, makeStyles } from "@material-ui/core";
 import { Roles, Types } from "../_types/DataTable";
+import { METRICS } from "../../styles/styles";
 
 const transparentColor = (color: string) => `${color}44`;
 
@@ -57,9 +58,15 @@ interface TableDropdownMenuProps {
 const useStyles = (color) => makeStyles(() => ({
     outlined: {
         backgroundColor: transparentColor(color),
+        width: '120px',
+        fontSize: '1em',
+        // fontWeight: '300',
+        padding: '12px',
+        margin: METRICS.tiny_spacing,
     },
     root: {
         backgroundColor: transparentColor(color),
+        margin: 0,
         '& .MuiOutlinedInput-root': {
             '& fieldset': {
               borderColor: `${color} !important`,
@@ -77,10 +84,6 @@ export const TableDropdownMenu: React.FunctionComponent<TableDropdownMenuProps> 
     const dataset = TABLE_DROPDOWN_VALUES[type];
     const firstItemKey = Object.keys(dataset)[0];
     const selected = dataset[value.toLowerCase() || firstItemKey];
-
-    console.log({
-        value, selected, type
-    })
 
     const handleChange = (event: React.ChangeEvent<{ value: any }>) => {
         const v = event.target.value;

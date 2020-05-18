@@ -1,22 +1,22 @@
 
 
-interface DropDownItem {
-    value: string;
+interface DropDownItem<T> {
+    value: T;
     color: string;
 }
 
 export interface Roles {
-    target: DropDownItem;
-    predictor: DropDownItem;
-    key: DropDownItem;
-    ignore: DropDownItem;
-    explanatory: DropDownItem;
+    target: DropDownItem<"target">;
+    predictor: DropDownItem<"predictor">;
+    key: DropDownItem<"key">;
+    ignore: DropDownItem<"ignore">;
+    explanatory: DropDownItem<"explanatory">;
 };
 
 export interface Types {
-    continuous: DropDownItem;
-    discrete: DropDownItem;
-    categorical: DropDownItem;
+    continuous: DropDownItem<"continuous">;
+    discrete: DropDownItem<"discrete">;
+    categorical: DropDownItem<"categorical">;
 }
 
 
@@ -58,7 +58,7 @@ export interface HeadCell {
     disablePadding: boolean;
     id: keyof TableHeader;
     label: string;
-    numeric: boolean;
+    numeric?: boolean;
 }
 
 export interface EnhancedTableHeaderProps {

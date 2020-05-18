@@ -5,6 +5,7 @@ import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import { TableHeader, HeadCell, EnhancedTableHeaderProps } from '../_types/DataTable';
+import '../_styles/DataTable.scss';
 
 export const EXPLORATORY_ANALYSIS_HEADERS =  [
     'Name',
@@ -17,17 +18,24 @@ export const EXPLORATORY_ANALYSIS_HEADERS =  [
 ];
 
 const headCells: HeadCell[] = [
-  { id: 'name', numeric: false, disablePadding: true, label: 'Name' },
-  { id: 'role', numeric: false, disablePadding: false, label: 'Role' },
-  { id: 'type', numeric: false, disablePadding: false, label: 'Type' },
-  { id: 'missingValuessPercentage', numeric: true, disablePadding: false, label: '%Missing values' },
-  { id: 'uniqueValues', numeric: true, disablePadding: false, label: 'Unique values' },
-  { id: 'median', numeric: true, disablePadding: false, label: 'Median' },
-  { id: 'mean', numeric: true, disablePadding: false, label: 'Mean' },
+    { id: 'name', disablePadding: true, label: 'Name' },
+    { id: 'role', disablePadding: false, label: 'Role' },
+    { id: 'type', disablePadding: false, label: 'Type' },
+    { id: 'missingValuessPercentage', disablePadding: false, label: '%Missing values' },
+    { id: 'uniqueValues', disablePadding: false, label: 'Unique values' },
+    { id: 'median', disablePadding: false, label: 'Median' },
+    { id: 'mean', disablePadding: false, label: 'Mean' },
 ];
 
-export const EnhancedTableHead: React.FunctionComponent<EnhancedTableHeaderProps> = (props) => {
-    const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
+export const EnhancedTableHead: React.FunctionComponent<EnhancedTableHeaderProps> = ({
+    onSelectAllClick,
+    order,
+    orderBy,
+    numSelected,
+    rowCount,
+    onRequestSort,
+}) => {
+
     const createSortHandler = (property: keyof TableHeader) => (event: React.MouseEvent<unknown>) => {
         onRequestSort(event, property);
     };
@@ -46,7 +54,7 @@ export const EnhancedTableHead: React.FunctionComponent<EnhancedTableHeaderProps
                 {headCells.map((headCell) => (
                     <TableCell
                         key={headCell.id}
-                        align={headCell.numeric ? 'right' : 'left'}
+                        align="left"
                         padding={headCell.disablePadding ? 'none' : 'default'}
                         sortDirection={orderBy === headCell.id ? order : false}
                     >
@@ -54,8 +62,9 @@ export const EnhancedTableHead: React.FunctionComponent<EnhancedTableHeaderProps
                             active={orderBy === headCell.id}
                             direction={orderBy === headCell.id ? order : 'asc'}
                             onClick={createSortHandler(headCell.id)}
+                            className="tableHeader-text"
                         >
-                        {headCell.label}
+                            {headCell.label}
                         </TableSortLabel>
                     </TableCell>
                 ))}
