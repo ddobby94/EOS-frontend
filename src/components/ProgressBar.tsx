@@ -27,8 +27,7 @@ export const ProgressBar: React.FunctionComponent<ProgressBarProps> = ({ items, 
                 <div
                     onClick={() => onPreviousSelected(index)}
                     className="bar-dot"
-                >
-                </div>
+                />
             </div>
             <p
                 onClick={() => onPreviousSelected(index)}

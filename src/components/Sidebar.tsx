@@ -3,6 +3,7 @@ import './_styles/sideBar.scss';
 import Drawer from '@material-ui/core/Drawer';
 import { Button, Icon } from "@material-ui/core";
 import { SimpleObject } from "../types/commonTypes";
+import { NavLink } from "react-router-dom";
 
 const AVATAR_URL = 'https://i0.wp.com/365webresources.com/wp-content/uploads/2016/09/FREE-PROFILE-AVATARS.png?w=502&ssl=1';
 
@@ -67,17 +68,19 @@ export const SideBar: React.FunctionComponent<SideBarProps> = ({
                 avatar={AVATAR_URL}
                 onClick={() => console.log('user avatar clicked')}
             />
-            <Button
-                className="fa fa-button drawer-newProject"
-                onClick={onStartNewProject}
-                color="primary"
-                variant="contained"
-            >
-                <Icon
-                    className="fa fa-plus drawer-plusicon"
-                />
-                NEW PROJECT
-            </Button>
+            <NavLink to="/newproject">
+                <Button
+                    className="fa fa-button drawer-newProject"
+                    onClick={onStartNewProject}
+                    color="primary"
+                    variant="contained"
+                >
+                    <Icon
+                        className="fa fa-plus drawer-plusicon"
+                    />
+                    NEW PROJECT
+                </Button>
+            </NavLink>
             {
                 items.map(({ icon, title }, index) => (
                     <Button

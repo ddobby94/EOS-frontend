@@ -6,11 +6,9 @@ import { fetchAuthData } from '../redux/actions/authActions';
 import { Button, TextField } from '@material-ui/core';
 import './styles/LoginPage.scss';
 import { InputProps, LoginPageProps, LoginPageStates, LoginPageFuncTypes } from './types/LoginPage.types';
-import { ProgressBar } from '../components/ProgressBar';
 import { withRouter } from 'react-router-dom';
 
 const IMG_SRC = require('../../public/images/login_bg.jpg');
-const PROGRESS_BAR_ELEMENTS = ['Import', 'Exploratory Analysis', 'Bivariate Analysis', 'pre-processing', 'Model development'];
 
 const Logo = () => (
     <div className="welcome-container">
@@ -147,11 +145,6 @@ export class LoginPage extends React.Component<LoginPageProps, LoginPageStates> 
                         <img src={IMG_SRC} className="img-pic" />
                     </div>
                     <div className="login-textContainer">
-                        <ProgressBar
-                            items={PROGRESS_BAR_ELEMENTS}
-                            active={2}
-                            onChange={console.log}
-                        />
                         <h1 className="login-header">STEP INTO THE FUTURE OF <strong>ARTIFICIAL INTELLIGENCE</strong></h1>
                         <h3 className="login-description">Check out how are we changing the datascience industry with our tool</h3>
                     </div>
