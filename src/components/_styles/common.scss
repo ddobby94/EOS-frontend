@@ -1,2 +1,28 @@
 @import '../../styles/styles.scss';
 
+.empty {
+    &-page{
+        height: 70%;
+    }
+    &-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+    }
+    &-icon{
+        font-size: 7em !important;
+        padding-bottom: $smallest_spacing;
+        color:  FFF4E7;
+
+    }
+    &-iconContainer{
+        background: radial-gradient( #315362 9%, #355868 40%, transparent 73%);
+        width: 250px;
+        height: 250px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+

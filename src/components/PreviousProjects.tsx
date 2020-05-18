@@ -10,10 +10,11 @@ export const PreviousProjects: React.FunctionComponent<PreviousProjectsPropertie
 
     if (!projects.length) {
         return (
-            <div>
+            <div className="empty-page">
                 <EmptyState
-                    icon="fa-address-card"
-                    description="No previous Projects found!"
+                    icon="fa-list empty-icon"
+                    title="No previous projects"
+                    description="Add a project using the NEW PROJECT button in the sidebar"
                 />
             </div>
         );
