@@ -5,8 +5,9 @@ import {
 } from "../actions/actionTypes";
 import { createReducer } from "../helpers";
 import { AuthState, StoreReducerSelector } from '../helpers/types';
+import { initialAuthState } from "../helpers/store";
 
-export const authReducer = createReducer({
+export const authReducer = createReducer<AuthState>({
     [LOGIN_START]: (state) => ({
         ...state,
         loading: true
@@ -19,7 +20,7 @@ export const authReducer = createReducer({
         ...state,
         error,
     }),
-});
+}, initialAuthState);
 
 export default authReducer;
 

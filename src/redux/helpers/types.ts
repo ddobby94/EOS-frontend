@@ -12,10 +12,20 @@ export interface AuthState {
     }
 };
 
+export interface ProjectState {
+    editing: {
+        meta: {
+            datasetName: string;
+            title: string;
+        }
+    }
+    previousProjects: SimpleObject;
+}
+
 export interface StoreInterface {
     router: RouterState,
-    fuelSavings: {},
     authReducer: AuthState,
+    project: ProjectState,
 }
 
 export type StoreReducerSelector<T> = (s: StoreInterface) => T;

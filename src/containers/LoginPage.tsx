@@ -4,8 +4,8 @@ import { bindActionCreators } from 'redux';
 import { getUser, getAuthLoading } from '../redux/reducers/authReducer';
 import { fetchAuthData } from '../redux/actions/authActions';
 import { Button, TextField } from '@material-ui/core';
-import './styles/LoginPage.scss';
-import { InputProps, LoginPageProps, LoginPageStates, LoginPageFuncTypes } from './types/LoginPage.types';
+import './_styles/LoginPage.scss';
+import { InputProps, LoginPageProps, LoginPageStates, LoginPageFuncTypes } from './_types/LoginPage.types';
 import { withRouter } from 'react-router-dom';
 
 const IMG_SRC = require('../../public/images/login_bg.jpg');

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { shallow, ShallowWrapper } from 'enzyme';
 import { LoginPage } from './LoginPage';
-import { LoginPageProps } from "./types/LoginPage.types";
+import { LoginPageProps } from "./_types/LoginPage.types";
 import { match } from 'react-router-dom';
 import { History, Location } from "history";
 

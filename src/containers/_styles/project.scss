@@ -1,0 +1,83 @@
+@import '../../styles/styles.scss';
+
+.project {
+    &-headerContainer {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    &-closeButton {
+        background-color: $danger !important;
+        margin: $small_spacing !important;
+    }
+
+    &-logo{
+        margin: $small_spacing !important;
+    }
+
+    &-footerContainer{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        background-color: $bg_main;
+        height: fit-content;
+        position: fixed;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+    }
+
+    &-previoustButton{
+        background-color: $bg_main !important;
+        color: #D79E80 !important;
+        border: 2px;
+        border-color: #D79E80;
+    }
+
+    &-progressBar {
+        width: 65%
+    }
+}
+
+.import {
+    &-container {
+        display: flex;
+        flex-direction: row;
+        margin: $small_spacing;
+    }
+    &-input {
+        max-width: 300px;
+        margin-top: $medium_spacing !important;
+    }
+    &-inputContainer {
+        display: flex;
+        flex-direction: column;
+        width: 50%;
+        margin: $medium_spacing;
+        margin-top: 0;
+    }
+    &-uploadContainer {
+        width: 33vw;
+        border: 1px solid $bg_light;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: $small_spacing;
+        &:dragover {
+            background-color: red;
+        }
+    }
+    &-cloudIcon {
+        font-size: 10em !important;
+        width: 100%;
+        overflow: inherit !important;
+        margin-top: $medium_spacing;
+    }
+    &-filesBtn {
+        & > span {
+            color: $primary;
+        }
+    }
+}

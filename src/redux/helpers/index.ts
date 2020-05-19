@@ -1,5 +1,4 @@
 import { FetchActionHandler, ReducerObject } from "./types";
-import { initialState } from "./store";
 
 export const handleSuccess = (dispatch, successFunction, response, args) => {
     if (response && response.error) {
@@ -31,7 +30,7 @@ export const fetchActionHandler: FetchActionHandler = (types, serviceCall, args 
     };
 };
 
-export const createReducer = (redObj: ReducerObject) => (state = initialState, action) => {
+export const createReducer = <T>(redObj: ReducerObject<T>, initialState) => (state = initialState, action) => {
     try {
         if (redObj[action.type] === undefined) {
             return { ...state };

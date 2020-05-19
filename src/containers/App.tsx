@@ -5,7 +5,7 @@ import NotFoundPage from "../components/NotFoundPage";
 import React from "react";
 import { hot } from "react-hot-loader";
 import { Dashboard } from "./Dashboard";
-import { ProjectContainer } from "./ProjectContainer";
+import ProjectContainer from "./project/ProjectContainer";
 
 class App extends React.Component {
   render() {

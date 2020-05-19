@@ -4,13 +4,12 @@ import { bindActionCreators } from 'redux';
 import { getUser, getAuthLoading } from '../redux/reducers/authReducer';
 import { fetchAuthData } from '../redux/actions/authActions';
 // import { Button, TextField } from '@material-ui/core';
-import './styles/dashboard.scss';
-import { DashboardProps, DashboardStates, DashboardFuncTypes } from './types/Dashboard.types';
+import './_styles/dashboard.scss';
+import { DashboardProps, DashboardStates, DashboardFuncTypes } from './_types/Dashboard.types';
 import { SideBar } from '../components/Sidebar';
 import { Icon } from '@material-ui/core';
 import { ContentCard } from '../components/common/ContentCard';
-import EnhancedTable from '../components/DataTable/DataTable';
-// import PreviousProjects from '../components/PreviousProjects';
+import PreviousProjects from '../components/PreviousProjects';
 
 const MENU_ITEMS = [
     {
@@ -31,11 +30,11 @@ const MENU_ITEMS = [
     }
 ];
 
-// const MOCKED_PREVIOUS_PROJECTS = [];
+const MOCKED_PREVIOUS_PROJECTS = [];
 
 export class Dashboard extends React.Component<DashboardProps, DashboardStates> implements DashboardFuncTypes {
     state = {
-        open: false,
+        open: true,
         active: 0,
     }
 
@@ -69,17 +68,12 @@ export class Dashboard extends React.Component<DashboardProps, DashboardStates> 
                 <div
                     className={`content content_${this.state.open ? 'openSidebar' : 'closedSideBar'}`}
                 >
-                    {/* <ContentCard
+                    <ContentCard
                         title="PREVIOUS PROJECTS"
                     >
                         <PreviousProjects
                             projects={MOCKED_PREVIOUS_PROJECTS}
                         />
-                    </ContentCard> */}
-                    <ContentCard
-                        title="DUMMY TABLE"
-                    >
-                        <EnhancedTable />
                     </ContentCard>
                 </div>
             </div>

@@ -1,10 +1,10 @@
 import * as ActionTypes from '../actions/actionTypes';
 import reducer from './authReducer';
-import { initialState } from '../helpers/store';
+import { initialAuthState } from '../helpers/store';
 
 describe('Reducers::AuthReducer', () => {
     const getStateWithOptions = (options = {}) => ({
-        ...initialState,
+        ...initialAuthState,
         ...options,
     });
 
