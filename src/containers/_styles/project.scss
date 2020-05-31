@@ -5,6 +5,7 @@
         display: flex;
         flex-direction: row;
         justify-content: space-between;
+
     }
 
     &-closeButton {
@@ -12,11 +13,15 @@
         margin: $small_spacing !important;
     }
 
-    &-logo{
+    &-logo {
         margin: $small_spacing !important;
     }
 
-    &-footerContainer{
+    &-name {
+        margin: $small_spacing !important;
+    }
+
+    &-footerContainer {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
@@ -26,13 +31,35 @@
         bottom: 0px;
         left: 0px;
         right: 0px;
+        height: 63px;
     }
 
-    &-previoustButton{
-        background-color: $bg_main !important;
-        color: #D79E80 !important;
-        border: 2px;
-        border-color: #D79E80;
+    &-previousButton {
+        background-color: #234050 !important;
+        border-radius: 0px !important;
+        margin: 0px !important;
+        width: 12%;
+        box-shadow: none !important;
+        & span, p {
+            color: $primary;
+            margin: 0;
+        }
+        & p {
+            margin-left: $tiny_spacing;
+        }
+        &_hidden {
+            visibility: hidden;
+        }
+    }
+
+    &-nextButton {
+        margin: 0px !important;
+        border-radius: 0px !important;
+        width: 12%;
+    }
+
+    &-nextPic{
+        color:  $secondary;
     }
 
     &-progressBar {
@@ -46,10 +73,12 @@
         flex-direction: row;
         margin: $small_spacing;
     }
+
     &-input {
         max-width: 300px;
         margin-top: $medium_spacing !important;
     }
+
     &-inputContainer {
         display: flex;
         flex-direction: column;
@@ -57,6 +86,7 @@
         margin: $medium_spacing;
         margin-top: 0;
     }
+
     &-uploadContainer {
         width: 33vw;
         border: 1px solid $bg_light;
@@ -68,16 +98,111 @@
         &:dragover {
             background-color: red;
         }
+        &_active {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
     }
+
     &-cloudIcon {
         font-size: 10em !important;
         width: 100%;
         overflow: inherit !important;
         margin-top: $medium_spacing;
     }
+
     &-filesBtn {
         & > span {
             color: $primary;
         }
+    }
+
+    &-selectedIcon {
+        font-size: 10em !important;
+        width: auto !important;
+        height: auto !important;
+        overflow: inherit !important;
+        margin-top: $medium_spacing;
+        color: $success;
+    }
+
+    &-selectedFile {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        & > p {
+            font-weight: 600;
+            max-width: 70%;
+        }
+    }
+
+    &-selectedRemove {
+        font-size: 1em !important;
+        width: 100%;
+        cursor: pointer;
+        &:hover {
+            color: $danger;
+        }
+    }
+
+    &-selectedTitle {
+        color: $success;
+    }
+}
+
+// enter nextAnimation = leave prev
+@keyframes nextAnimation {
+    0% {
+        transform: translateX(50%) scale(0.3);
+        opacity: 0;
+    }
+    50% {
+        transform: translateX(0) scale(0.3);
+        opacity: 0.7;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+// enter prevAnimation = leave next
+@keyframes previousAnimation {
+    0% {
+        transform: translateX(-50%) scale(0.3);
+        opacity: 0;
+    }
+    50% {
+        transform: translateX(0) scale(0.3);
+        opacity: 0.7;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+
+.animations {
+    transition: all 235ms ease-in-out;
+    &-MOUNTING_NEXT {
+        animation: nextAnimation 0.8s ease-in-out;
+    }
+    &-MOUNTING_PREVIOUS {
+        animation: previousAnimation 0.8s ease-in-out;
+    }
+    &-MOUNTED {
+        display: initial;
+    }
+    &-UNMOUNTING_NEXT {
+        animation: previousAnimation 0.8s ease-in-out 0s 1 reverse;
+    }
+    &-UNMOUNTING_PREVIOUS {
+        // animation: name duration timing-function delay iteration-count direction fill-mode;
+        animation: nextAnimation 0.8s ease-in-out 0s 1 reverse;
+    }
+    &-UNMOUNTED {
+        display: none;
     }
 }

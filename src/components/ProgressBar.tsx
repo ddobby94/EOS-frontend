@@ -26,7 +26,7 @@ export const ProgressBar: React.FunctionComponent<ProgressBarProps> = ({ items, 
                 {getHr(index, arr)}
                 <div
                     onClick={() => onPreviousSelected(index)}
-                    className="bar-dot"
+                    className={isActiveClassName(index <= active, 'bar-dot')}
                 />
             </div>
             <p

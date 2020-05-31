@@ -4,6 +4,7 @@ export const COLORS = {
     primary: '#D79E80',
     secondary: '#000000',
     danger: '#E36565',
+    success: '#64A623',
     text_on_bg: '#FFF4E7',
     text_on_primary: '#000000',
     text_on_secondary: '#FFFFFF',

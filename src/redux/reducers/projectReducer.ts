@@ -1,5 +1,6 @@
 import {
     SET_PROJECT_TITLE,
+    SET_SELECTED_FILE,
 } from "../actions/actionTypes";
 import { createReducer } from "../helpers";
 import { StoreReducerSelector, ProjectState } from '../helpers/types';
@@ -16,6 +17,13 @@ export const projectReducer = createReducer<ProjectState>({
             }
         }
     }),
+    [SET_SELECTED_FILE]: (state, { payload }) => ({
+        ...state,
+        editing: {
+            ...state.editing,
+            selectedFile: payload,
+        }
+    }),
 }, initialProjectState);
 
 export default projectReducer;
@@ -25,3 +33,4 @@ export default projectReducer;
 const selectProjectState: StoreReducerSelector<ProjectState> = (s) => s.project;
 
 export const getProjectTitle = (s) => selectProjectState(s).editing.meta.title;
+export const getSelectedFile = (s) => selectProjectState(s).editing.selectedFile;

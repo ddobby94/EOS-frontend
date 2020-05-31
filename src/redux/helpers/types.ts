@@ -14,6 +14,7 @@ export interface AuthState {
 
 export interface ProjectState {
     editing: {
+        selectedFile?: File,
         meta: {
             datasetName: string;
             title: string;

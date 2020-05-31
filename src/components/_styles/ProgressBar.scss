@@ -1,5 +1,14 @@
 @import '../../styles/styles.scss';
 
+@keyframes enterAnimation {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.5);
+    }
+}
+
 .bar {
     &-dot {
         min-width: $small_spacing;
@@ -11,33 +20,40 @@
         display: flex;
         justify-content: center;
         z-index: 1;
+
+        &_active {
+            background-color: $primary;
+            color: $primary;
+            cursor: pointer;
+            animation: enterAnimation 1s;
+        }
     }
+
     &-progContainer {
         display: flex;
         flex-direction: row;
         justify-content: space-evenly;
+        padding: $smallest_spacing 0px;
     }
+
     &-dotLineContainer {
         display: flex;
         flex-direction: row;
         justify-content: flex-start;
     }
+
     &-items {
         align-items: center;
         display: flex;
         flex-direction: column;
         &_active {
-            & > * > div {
-                background-color: $primary;
-                color: $primary;
-                cursor: pointer;
-            }
             & p {
                 color: $primary;
                 cursor: pointer;
             }
         }
     }
+
     &-line {
         height: 3px;
         background-color: white;
@@ -51,6 +67,7 @@
             background-color: $primary;
         }
     }
+
     &-title {
         position: absolute;
         margin-top: $medium_spacing;
