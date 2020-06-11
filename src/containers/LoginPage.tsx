@@ -5,10 +5,40 @@ import { getUser, getAuthLoading } from '../redux/reducers/authReducer';
 import { fetchAuthData } from '../redux/actions/authActions';
 import { Button, TextField } from '@material-ui/core';
 import './_styles/LoginPage.scss';
-import { InputProps, LoginPageProps, LoginPageStates, LoginPageFuncTypes } from './_types/LoginPage.types';
+import { InputProps, LoginPageProps, LoginPageStates, LoginPageFuncTypes, InputItem } from './_types/LoginPage.types';
 import { withRouter } from 'react-router-dom';
 
 const IMG_SRC = require('../../public/images/login_bg.jpg');
+
+const REGISTER_FIELDS: InputItem[] = [
+    {
+        label: 'Login',
+        stateVal: 'email',
+        type: '',
+    },
+    {
+        label: 'Password',
+        stateVal: 'pwd',
+        type: 'password',
+    },
+    {
+        label: 'Confirm Password',
+        stateVal: 'confirmPwd',
+        type: 'password',
+    },
+    {
+        label: 'Full name',
+        stateVal: 'name',
+        type: '',
+    },
+    {
+        label: 'Company name',
+        stateVal: 'companyName',
+        type: '',
+    },
+];
+
+const LOGIN_FIELDS = REGISTER_FIELDS.slice(0, 2);
 
 const Logo = () => (
     <div className="welcome-container">
@@ -41,7 +71,7 @@ export class LoginPage extends React.Component<LoginPageProps, LoginPageStates> 
     }
 
     loadAuthData = () => {
-        this.props.history.push('/dashboard');
+        this.props.history.push('/');
         // this.props.fetchAuthData(this.state.email, this.state.pwd);
     }
 
@@ -56,17 +86,15 @@ export class LoginPage extends React.Component<LoginPageProps, LoginPageStates> 
 
     getLogin = () => (
         <>
-            <Input
-                label="Login"
-                value={this.state.email}
-                onChange={(e) => this.onChangeHandler('email', e)}
-            />
-            <Input
-                label="Password"
-                value={this.state.pwd}
-                type="password"
-                onChange={(e) => this.onChangeHandler('pwd', e)}
-            />
+            {LOGIN_FIELDS.map(({ label, stateVal, type }) => (
+                <Input
+                    key={label}
+                    label={label}
+                    value={this.state[stateVal]}
+                    onChange={(e) => this.onChangeHandler(stateVal, e)}
+                    type={type}
+                />
+            ))}
             <Button
                 onClick={this.loadAuthData}
                 className="login-button"
@@ -78,34 +106,18 @@ export class LoginPage extends React.Component<LoginPageProps, LoginPageStates> 
         </>
     )
 
+
     getRegister = () => (
         <>
-             <Input
-                label="Login"
-                value={this.state.email}
-                onChange={(e) => this.onChangeHandler('email', e)}
-            />
-            <Input
-                label="Password"
-                value={this.state.pwd}
-                type="password"
-                onChange={(e) => this.onChangeHandler('pwd', e)}
-            />
-            <Input
-                label="Confirm Password"
-                value={this.state.confirmPwd}
-                onChange={(e) => this.onChangeHandler('confirmPwd', e)}
-            />
-            <Input
-                label="Full name"
-                value={this.state.name}
-                onChange={(e) => this.onChangeHandler('name', e)}
-            />
-            <Input
-                label="Company name"
-                value={this.state.companyName}
-                onChange={(e) => this.onChangeHandler('companyName', e)}
-            />
+            {REGISTER_FIELDS.map(({ label, stateVal, type }) => (
+                <Input
+                    key={label}
+                    label={label}
+                    value={this.state[stateVal]}
+                    onChange={(e) => this.onChangeHandler(stateVal, e)}
+                    type={type}
+                />
+            ))}
             <Button
                 onClick={this.loadAuthData}
                 className="login-button"
@@ -114,10 +126,6 @@ export class LoginPage extends React.Component<LoginPageProps, LoginPageStates> 
                 children="REGISTER"
             />
             <p>Already have an account? <a onClick={() => this.changeState('isRegister', false)}>LOG IN</a></p>
-            {/* <p>Logged in user: </p>
-            {this.props.user && this.props.user.userId && (<p>
-                UID: {this.props.user.userId}
-            </p>)} */}
         </>
     )
 
@@ -127,8 +135,6 @@ export class LoginPage extends React.Component<LoginPageProps, LoginPageStates> 
         }
         return this.getLogin();
     }
-
-
 
     render() {
         return (
@@ -142,7 +148,7 @@ export class LoginPage extends React.Component<LoginPageProps, LoginPageStates> 
                 <div className="login-content">
                     <div className="img-container">
                         <div className="img-layer" ></div>
-                        <img src={IMG_SRC} className="img-pic" />
+                        <img src={IMG_SRC} className="img-pic" alt="" />
                     </div>
                     <div className="login-textContainer">
                         <h1 className="login-header">STEP INTO THE FUTURE OF <strong>ARTIFICIAL INTELLIGENCE</strong></h1>

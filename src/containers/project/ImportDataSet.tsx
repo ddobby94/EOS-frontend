@@ -10,7 +10,6 @@ import { isActiveClassName } from '../../utils/stylingHelpers';
 import { getSelectedFile } from '../../redux/reducers/projectReducer';
 
 const ALLOWED_FILE_TYPES_CHECKER = {
-    png: '.png',
     xls: '.xls',
     xlsx: '.xlsx',
     txt: '.txt',

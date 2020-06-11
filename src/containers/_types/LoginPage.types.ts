@@ -32,3 +32,9 @@ export interface LoginPageFuncTypes {
     onChangeHandler: (k: LoginPageStateItem, e: React.ChangeEvent<HTMLInputElement>) => void;
     changeState:  (k: LoginPageStateItem, val: any) => void;
 }
+
+export interface InputItem {
+    label: string;
+    stateVal: keyof Omit<LoginPageStates, 'isRegister'>;
+    type?: string;
+}

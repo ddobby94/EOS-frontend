@@ -6,6 +6,7 @@ export type SimpleAction = (...args) => SimpleObject;
 export interface AuthState {
     loading: boolean;
     error: string | null;
+    loggedIn: boolean;
     user: {
         userId?: string;
         name?: string;

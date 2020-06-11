@@ -15,6 +15,7 @@ export const authReducer = createReducer<AuthState>({
     [LOGIN_START_SUCCESS]: (state, { user }) => ({
         ...state,
         user,
+        loggedIn: true,
     }),
     [LOGIN_START_ERROR]: (state, { error }) => ({
         ...state,
@@ -28,6 +29,7 @@ export default authReducer;
 
 const selectAuthStateItem: StoreReducerSelector<AuthState> = (s) => s.authReducer;
 
+export const isUserLoggedIn = (s) => selectAuthStateItem(s).loggedIn;
 export const getUser = (s) => selectAuthStateItem(s).user;
 export const getAuthLoading = (s) => selectAuthStateItem(s).loading;
 export const getAuthError = (s) => selectAuthStateItem(s).error;

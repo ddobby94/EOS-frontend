@@ -87,7 +87,7 @@ export const ProjectContainer: React.FunctionComponent<ProjectContainerProps> = 
     }
 
     const onClose = () => {
-        setRedirect('dashboard');
+        setRedirect('/');
     }
 
     if (redirect) {

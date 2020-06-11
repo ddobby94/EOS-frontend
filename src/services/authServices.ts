@@ -6,10 +6,6 @@ export class AuthService extends BaseApiFunctions {
         REGISTER: 'https://jsonplaceholder.typicode.com/todos/1',
     };
 
-    constructor() {
-        super();
-    }
-
     fetchTestData = (d) => {
         console.log({ d });
         return this.fetchApi(this.URLS.TEST);

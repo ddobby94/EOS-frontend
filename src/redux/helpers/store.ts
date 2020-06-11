@@ -3,6 +3,7 @@ import { AuthState, ProjectState } from './types';
 export const initialAuthState: AuthState = {
     loading: false,
     error: null,
+    loggedIn: false,
     user: {},
 };
 
