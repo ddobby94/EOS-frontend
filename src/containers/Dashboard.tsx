@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getUser, getAuthLoading } from '../redux/reducers/authReducer';
-import { fetchAuthData } from '../redux/actions/authActions';
+import { sendLoginAction } from '../redux/actions/authActions';
 // import { Button, TextField } from '@material-ui/core';
 import './_styles/dashboard.scss';
 import { DashboardProps, DashboardStates, DashboardFuncTypes } from './_types/Dashboard.types';
@@ -87,7 +87,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    fetchAuthData: bindActionCreators(fetchAuthData, dispatch),
+    sendLoginAction: bindActionCreators(sendLoginAction, dispatch),
 });
 
 export default connect(

@@ -8,6 +8,7 @@ export const COLORS = {
     text_on_bg: '#FFF4E7',
     text_on_primary: '#000000',
     text_on_secondary: '#FFFFFF',
+    makeTransparent: (color, percentage) => `rgba(${color.slice(1).match(/.{1,2}/g).map((v) => parseInt(v, 16)).join(', ')},${percentage / 100})`
 };
 
 export const METRICS = {

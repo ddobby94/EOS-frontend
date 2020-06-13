@@ -14,7 +14,7 @@ describe('<LoginPage />', () => {
     const match = {} as match;
 
     const mockedProps: LoginPageProps = {
-        fetchAuthData: mockFunction,
+        sendLoginAction: mockFunction,
         user: {
             userId: 'foo',
             name: 'nameee',
@@ -24,6 +24,7 @@ describe('<LoginPage />', () => {
         history,
         location,
         match,
+        isLoggedIn: false,
     }
 
     beforeEach(() => {

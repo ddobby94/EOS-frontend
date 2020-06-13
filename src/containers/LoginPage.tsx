@@ -1,12 +1,13 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getUser, getAuthLoading } from '../redux/reducers/authReducer';
-import { fetchAuthData } from '../redux/actions/authActions';
+import { getUser, getAuthLoading, isUserLoggedIn, getAuthError } from '../redux/reducers/authReducer';
+import { sendLoginAction } from '../redux/actions/authActions';
 import { Button, TextField } from '@material-ui/core';
 import './_styles/LoginPage.scss';
 import { InputProps, LoginPageProps, LoginPageStates, LoginPageFuncTypes, InputItem } from './_types/LoginPage.types';
 import { withRouter } from 'react-router-dom';
+import { ErrorCard } from '../components/common/ErrorCard';
 
 const IMG_SRC = require('../../public/images/login_bg.jpg');
 
@@ -70,9 +71,17 @@ export class LoginPage extends React.Component<LoginPageProps, LoginPageStates> 
         companyName: '',
     }
 
+    componentWillReceiveProps(nextProps: LoginPageProps) {
+        if (nextProps.isLoggedIn) {
+            this.props.history.push('/');
+        }
+    }
+
     loadAuthData = () => {
-        this.props.history.push('/');
-        // this.props.fetchAuthData(this.state.email, this.state.pwd);
+        this.props.sendLoginAction({
+            email: this.state.email,
+            password: this.state.pwd
+        });
     }
 
     onChangeHandler = (key, e) => {
@@ -135,13 +144,15 @@ export class LoginPage extends React.Component<LoginPageProps, LoginPageStates> 
         }
         return this.getLogin();
     }
-
     render() {
         return (
             <div className="login-container">
                 <div className="login-sidebar">
                     <Logo />
                     <div className="login-main">
+                        <ErrorCard
+                            errorMsg={this.props.authError}
+                        />
                         {this.getInputs()}
                     </div>
                 </div>
@@ -163,10 +174,12 @@ export class LoginPage extends React.Component<LoginPageProps, LoginPageStates> 
 const mapStateToProps = (state) => ({
     user: getUser(state),
     isLoading: getAuthLoading(state),
-})
+    isLoggedIn: isUserLoggedIn(state),
+    authError: getAuthError(state),
+});
 
 const mapDispatchToProps = (dispatch) => ({
-    fetchAuthData: bindActionCreators(fetchAuthData, dispatch),
+    sendLoginAction: bindActionCreators(sendLoginAction, dispatch),
 });
 
 export default withRouter(connect(

@@ -13,7 +13,7 @@ export const handleError = (dispatch, errorFunction, errorResponse) => {
     if (typeof errorResponse === 'string') {
         error = errorResponse
     } else {
-        error = errorResponse.error;
+        error = errorResponse.error || errorResponse.message;
     }
 
     return dispatch(errorFunction(error));

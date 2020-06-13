@@ -8,7 +8,7 @@ import {
 } from "./actionTypes";
 import Services from '../../services';
 import { fetchActionHandler } from "../helpers";
-import { SimpleAction } from "../helpers/types";
+import { SimpleAction, SendLoginDetails, SendRegisterDetails } from "../helpers/types";
 
 // -------------------- Actions --------------------
 
@@ -17,9 +17,12 @@ export const loginStartAction: SimpleAction = (detials) => ({
     payload: detials,
 });
 
-export const loginSuccessAction: SimpleAction = (user) => ({
+export const loginSuccessAction: SimpleAction = (user, details: SendLoginDetails) => ({
     type: LOGIN_START_SUCCESS,
-    user,
+    payload: {
+        user,
+        email: details.email,
+    }
 });
 
 export const loginErrorAction: SimpleAction = (error) => ({
@@ -32,7 +35,7 @@ export const registertStart: SimpleAction = (details) => ({
     payload: details
 });
 
-export const registerSuccessAction: SimpleAction = (user, details) => ({
+export const registerSuccessAction: SimpleAction = (user, details: SendRegisterDetails) => ({
     type: REGISTER_START_SUCCESS,
     user,
     details,
@@ -43,24 +46,24 @@ export const registerErrorAction: SimpleAction = (error) => ({
     error,
 });
 
-// -------------------- API callers --------------------
+// -------------------- API caller ACTIONS --------------------
 
-export const fetchAuthData = (...detials) => {
+export const sendLoginAction = (detials: SendLoginDetails) => {
     const types = [
         loginStartAction,
         loginSuccessAction,
         loginErrorAction,
     ];
 
-    return fetchActionHandler(types, Services.auth.fetchTestData, detials);
+    return fetchActionHandler(types, Services.auth.sendLogin, [detials]);
 };
 
-export const registerFetch = (details) => {
+export const registerFetch = (details: SendRegisterDetails) => {
     const types = [
         registertStart,
         registerSuccessAction,
         registerErrorAction,
     ];
 
-    return fetchActionHandler(types, Services.auth.sendRegisterData, details);
+    return fetchActionHandler(types, Services.auth.sendRegisterData, [details]);
 };

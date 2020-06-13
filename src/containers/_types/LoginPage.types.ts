@@ -4,10 +4,12 @@ import { RouteChildrenProps } from "react-router-dom";
 
 
 export interface LoginPageProps extends RouteChildrenProps {
-    fetchAuthData: (email: string, pwd: string) => void;
+    sendLoginAction: ({ email, password }) => void;
     user: AuthState['user'];
     children: string;
     isLoading: boolean;
+    isLoggedIn: boolean;
+    authError?: string;
 };
 
 export interface LoginPageStates {

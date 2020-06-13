@@ -10,7 +10,8 @@ import { initialAuthState } from "../helpers/store";
 export const authReducer = createReducer<AuthState>({
     [LOGIN_START]: (state) => ({
         ...state,
-        loading: true
+        loading: true,
+        error: null,
     }),
     [LOGIN_START_SUCCESS]: (state, { user }) => ({
         ...state,
@@ -20,6 +21,7 @@ export const authReducer = createReducer<AuthState>({
     [LOGIN_START_ERROR]: (state, { error }) => ({
         ...state,
         error,
+        loading: false,
     }),
 }, initialAuthState);
 

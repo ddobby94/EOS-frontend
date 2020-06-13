@@ -24,7 +24,7 @@ export const setSelectedFile: SimpleAction = (file: File) => {
 
 // -------------------- API callers --------------------
 
-// export const fetchAuthData = (...detials) => {
+// export const sendLoginAction = (...detials) => {
 //     const types = [
 //         loginStartAction,
 //         loginSuccessAction,

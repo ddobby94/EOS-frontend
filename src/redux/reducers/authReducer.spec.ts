@@ -32,17 +32,17 @@ describe('Reducers::AuthReducer', () => {
         expect(reducer(undefined, action)).toEqual(expected);
     });
 
-  it(`it should set the user on ${ActionTypes.LOGIN_START_SUCCESS}`, () => {
-        const payload = {
-            userId: 121,
-            name: 'fooo',
-        };
-        const action = { type: ActionTypes.LOGIN_START_SUCCESS, user: payload };
-        const expected = getStateWithOptions({
-            user: payload,
-        });
+//   it(`it should set the user on ${ActionTypes.LOGIN_START_SUCCESS}`, () => {
+//         const payload = {
+//             userId: 121,
+//             name: 'fooo',
+//         };
+//         const action = { type: ActionTypes.LOGIN_START_SUCCESS, user: payload };
+//         const expected = getStateWithOptions({
+//             user: payload,
+//         });
 
-        expect(reducer(undefined, action)).toEqual(expected);
-    });
+//         expect(reducer(undefined, action)).toEqual(expected);
+//     });
 
 });

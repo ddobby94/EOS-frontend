@@ -3,7 +3,7 @@ import { RouteChildrenProps } from "react-router-dom";
 
 
 export interface DashboardProps extends RouteChildrenProps {
-    fetchAuthData: (email: string, pwd: string) => void;
+    sendLoginAction: (email: string, pwd: string) => void;
     user: AuthState['user'];
     children: string;
     isLoading: boolean;
