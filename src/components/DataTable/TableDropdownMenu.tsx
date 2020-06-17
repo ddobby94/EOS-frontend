@@ -15,14 +15,6 @@ export const ROLES: Roles = {
         value: 'predictor',
         color: '#1BB97F',
     },
-    explanatory: {
-        value: 'explanatory',
-        color: '#1BB97F',
-    },
-    key: {
-        value: 'key',
-        color: '#38EFB9',
-    },
     ignore: {
         value: 'ignore',
         color: '#88FEE0',
@@ -93,6 +85,17 @@ export const TableDropdownMenu: React.FunctionComponent<TableDropdownMenuProps> 
 
     const classes = useStyles(selected.color)();
 
+    const canBeChanged = () => {
+        // TODO
+        // categorical can't be changed
+    }
+
+    // TODO
+    // if not categorical remove categorical from the list
+    // only when type === 'TYPES'
+
+
+
     return (
         <div>
             <FormControl
@@ -110,6 +113,7 @@ export const TableDropdownMenu: React.FunctionComponent<TableDropdownMenuProps> 
                     id="demo-simple-select-outlined"
                     value={selected.value}
                     onChange={handleChange}
+                    disabled={canBeChanged()}
                 >
                     {Object.values(dataset).map(({ value }, i) => (
                         <MenuItem key={value + i} value={value}>{value.toUpperCase()}</MenuItem>

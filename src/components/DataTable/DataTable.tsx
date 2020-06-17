@@ -142,7 +142,7 @@ export default function EnhancedTable() {
             const labelId = `enhanced-table-checkbox-${index}`;
 
             return (
-                <>
+                <div key={row.name}>
                     <TableRow
                         hover
                         role="dropdown"
@@ -201,7 +201,7 @@ export default function EnhancedTable() {
                         row={row}
                         isOpen={isOpened(row.name)}
                     />
-                </>
+                </div>
             );
         })
     }

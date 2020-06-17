@@ -11,6 +11,7 @@ export const authReducer = createReducer<AuthState>({
     [LOGIN_START]: (state) => ({
         ...state,
         loading: true,
+        loggedIn: true,
         error: null,
     }),
     [LOGIN_START_SUCCESS]: (state, { user }) => ({
@@ -21,6 +22,7 @@ export const authReducer = createReducer<AuthState>({
     [LOGIN_START_ERROR]: (state, { error }) => ({
         ...state,
         error,
+        loggedIn: true,
         loading: false,
     }),
 }, initialAuthState);
