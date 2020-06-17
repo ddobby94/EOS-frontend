@@ -73,7 +73,7 @@ const useStyles = (color) => makeStyles(() => ({
 
 
 export const TableDropdownMenu: React.FunctionComponent<TableDropdownMenuProps> = ({ type = 'ROLES', onChange, value = '' }) => {
-    const dataset = TABLE_DROPDOWN_VALUES[type];
+    const dataset = { ...TABLE_DROPDOWN_VALUES[type] };
     const firstItemKey = Object.keys(dataset)[0];
     const selected = dataset[value.toLowerCase() || firstItemKey];
 
@@ -85,16 +85,13 @@ export const TableDropdownMenu: React.FunctionComponent<TableDropdownMenuProps> 
 
     const classes = useStyles(selected.color)();
 
-    const canBeChanged = () => {
-        // TODO
-        // categorical can't be changed
+    const cantBeChanged = () => {
+        return type === 'TYPES' && value === TYPES.categorical.value;
     }
 
-    // TODO
-    // if not categorical remove categorical from the list
-    // only when type === 'TYPES'
-
-
+    if (type === 'TYPES' && value !== TYPES.categorical.value) {
+        delete (dataset as Types).categorical;
+    }
 
     return (
         <div>
@@ -113,7 +110,7 @@ export const TableDropdownMenu: React.FunctionComponent<TableDropdownMenuProps> 
                     id="demo-simple-select-outlined"
                     value={selected.value}
                     onChange={handleChange}
-                    disabled={canBeChanged()}
+                    disabled={cantBeChanged()}
                 >
                     {Object.values(dataset).map(({ value }, i) => (
                         <MenuItem key={value + i} value={value}>{value.toUpperCase()}</MenuItem>
