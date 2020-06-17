@@ -44,7 +44,7 @@ const LOGIN_FIELDS = REGISTER_FIELDS.slice(0, 2);
 const Logo = () => (
     <div className="welcome-container">
         <h3 className="welcome-welcome">WELCOME TO</h3>
-        <h2 className="welcome-eos">EOS</h2>
+        <h2 className="welcome-eos">DOBBY</h2>
     </div>
 );
 

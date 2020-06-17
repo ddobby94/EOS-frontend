@@ -61,7 +61,7 @@ export interface HeadCell {
 
 export interface EnhancedTableHeaderProps {
     numSelected: number;
-    onRequestSort: (event: React.MouseEvent<unknown>, property: keyof TableHeader) => void;
+    onRequestSort: (property: keyof TableHeader) => void;
     onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
     order: Order;
     orderBy: string;

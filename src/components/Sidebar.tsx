@@ -40,7 +40,7 @@ export const SideBar: React.FunctionComponent<SideBarProps> = ({
     onClose,
     onMenuItemSelected,
     active,
-    open
+    open,
 }) => {
     console.log({ active, open });
 
@@ -55,7 +55,7 @@ export const SideBar: React.FunctionComponent<SideBarProps> = ({
             }}
         >
             <div className="drawer-topContainer">
-                <h3 className="drawer-logo">EOS</h3>
+                <h3 className="drawer-logo">DOBBY</h3>
                 <Icon
                     className="fa fa-bars drawer-menuIcon"
                     onClick={onClose}

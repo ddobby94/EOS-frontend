@@ -36,8 +36,8 @@ export const EnhancedTableHead: React.FunctionComponent<EnhancedTableHeaderProps
     onRequestSort,
 }) => {
 
-    const createSortHandler = (property: keyof TableHeader) => (event: React.MouseEvent<unknown>) => {
-        onRequestSort(event, property);
+    const createSortHandler = (property: keyof TableHeader) => () => {
+        onRequestSort(property);
     };
 
     return (

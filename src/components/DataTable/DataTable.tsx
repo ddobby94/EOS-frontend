@@ -15,7 +15,7 @@ import { SimpleObject } from '../../types/commonTypes';
 import { Icon } from '@material-ui/core';
 import AccordionContent from './AccordionContent';
 import TableToolbar from './TableToolbar';
-import { getRowsPerPage, getComparator, stableSort } from '../../utils/DataTableUtils';
+import { getRowsPerPage, getComparator, stableSort, ROLE_HANDLING_LOGIC } from '../../utils/DataTableUtils';
 
 const rows = EXPLORATORY_ANALYSIS_DATA_OBJECT;
 
@@ -39,8 +39,7 @@ export default function EnhancedTable() {
     const [targetName, setTargetName] = React.useState<string>();
     const [rowsPerPage, setRowsPerPage] = React.useState(ROWS_PER_PAGE[0]);
 
-    const handleRequestSort = (event: React.MouseEvent<unknown>, property: keyof TableHeader) => {
-        console.log({ event });
+    const handleRequestSort = (property: keyof TableHeader) => {
         const isAsc = orderBy === property && order === 'asc';
         setOrder(isAsc ? 'desc' : 'asc');
         setOrderBy(property);
@@ -55,8 +54,7 @@ export default function EnhancedTable() {
         setSelected([]);
     };
 
-    const handleClick = (event: React.MouseEvent<unknown>, name: string) => {
-        console.log({ event });
+    const handleClick = (name: string) => {
         const selectedIndex = selected.indexOf(name);
         let newSelected: string[] = [];
 
@@ -78,18 +76,12 @@ export default function EnhancedTable() {
 
     const openRow = (e: React.MouseEvent<unknown>, id: string) => {
         e.stopPropagation();
-        // TODO currently using name as id
-        // will it be unique ??
+
         setOpened({
             ...opened,
             [id]: !opened[id],
         });
     }
-
-    const handleChangePage = (event: unknown, newPage: number) => {
-        console.log(event);
-        setPage(newPage);
-    };
 
     const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
         setRowsPerPage(parseInt(event.target.value, 10));
@@ -103,7 +95,6 @@ export default function EnhancedTable() {
 
     const setValueInRowByName = (name, value, valueToSet) => {
         const row = rows.find(({ name: currentName }) => currentName === name);
-        console.log({ row });
         if (row) {
             row[valueToSet] = value;
         }
@@ -112,7 +103,6 @@ export default function EnhancedTable() {
     const onRoleChange = (row: ExploratoryObj, newValue) => {
 
         // new TARGET selected
-        console.log({ newValue, targetName, asd: ROLES.target.value, tureee: ROLES.target.value === newValue })
         if (newValue === ROLES.target.value) {
             if (!!targetName) {
                 setValueInRowByName(targetName, ROLES.predictor.value, 'role');
@@ -127,12 +117,18 @@ export default function EnhancedTable() {
         changeRowItemValue(row, 'role', newValue);
     }
 
+    const onTypeChange = (row: ExploratoryObj, newValue) => {
+        if (row.role === 'target' && newValue !== 'discrete') {
+            onRoleChange(row, 'predictor');
+        }
+        changeRowItemValue(row, 'type', newValue);
+    }
+
+
     const isSelected = (name: string) => selected.indexOf(name) !== -1;
     const isOpened = (id: string) => opened[id];
 
     const paginationSlice = () => [page * rowsPerPage, page * rowsPerPage + rowsPerPage];
-
-    // const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
     const getTableBody = () => {
         return stableSort(EXPLORATORY_ANALYSIS_DATA_OBJECT, getComparator(order, orderBy))
@@ -142,7 +138,7 @@ export default function EnhancedTable() {
             const labelId = `enhanced-table-checkbox-${index}`;
 
             return (
-                <div key={row.name}>
+                <>
                     <TableRow
                         hover
                         role="dropdown"
@@ -156,7 +152,7 @@ export default function EnhancedTable() {
                             <Checkbox
                                 checked={isItemSelected}
                                 inputProps={{ 'aria-labelledby': labelId }}
-                                onClick={(e) => handleClick(e, row.name)}
+                                onClick={() => handleClick(row.name)}
                             />
                         </TableCell>
                         <TableCell
@@ -173,13 +169,15 @@ export default function EnhancedTable() {
                                 type="ROLES"
                                 value={row.role}
                                 onChange={(v) => onRoleChange(row, v)}
+                                canBeTarget={ROLE_HANDLING_LOGIC.canBeTarget(row)}
+                                autoIgnore={ROLE_HANDLING_LOGIC.autoIgnore(row)}
                             />
                         </TableCell>
                         <TableCell align="left">
                             <TableDropdownMenu
                                 type="TYPES"
                                 value={row.type}
-                                onChange={(v) => changeRowItemValue(row, 'type', v)}
+                                onChange={(v) => onTypeChange(row, v)}
                             />
                         </TableCell>
                         <TableCell align="left">{row.missingValuessPercentage}</TableCell>
@@ -198,10 +196,11 @@ export default function EnhancedTable() {
                         </TableCell>
                     </TableRow>
                     <AccordionContent
+                        key={`accordion-${row.name}`}
                         row={row}
                         isOpen={isOpened(row.name)}
                     />
-                </div>
+                </>
             );
         })
     }
@@ -239,7 +238,7 @@ export default function EnhancedTable() {
                 count={rows.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
-                onChangePage={handleChangePage}
+                onChangePage={(e, newPage) => setPage(newPage)}
                 onChangeRowsPerPage={handleChangeRowsPerPage}
             />
         </div>

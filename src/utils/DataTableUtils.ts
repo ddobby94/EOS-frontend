@@ -1,6 +1,7 @@
-import { GetComparatorFunction } from "../components/_types/DataTable";
+import { GetComparatorFunction, ExploratoryObj } from "../components/_types/DataTable";
+import { SimpleObject } from "../types/commonTypes";
 
-export const ROWS_PER_PAGE_BASE_NUMBERS = [5, 10, 25, 50, 100, 200];
+export const ROWS_PER_PAGE_BASE_NUMBERS = [10, 25, 50, 100, 200, 400];
 export const getRowsPerPage = (max: number) => {
     const smallerThanMaxIndex = ROWS_PER_PAGE_BASE_NUMBERS.findIndex((v) => v >= max);
 
@@ -34,3 +35,12 @@ export const stableSort = <T>(array: T[], comparator: (a: T, b: T) => number) =>
     });
     return stabilizedThis.map((el) => el[0]);
 }
+
+export const ROLE_HANDLING_LOGIC: SimpleObject<(rowItem: ExploratoryObj) => boolean> = {
+    canBeTarget: (row) => {
+        return row.min === 0 && row.max === 1 && row.uniqueValues === 2 && row.type === 'discrete';
+    },
+    autoIgnore: (row) => {
+        return row.missingValuessPercentage === 100 || row.uniqueValues === 1 || (row.type === 'categorical' && row.uniqueValues > 100);
+    }
+};

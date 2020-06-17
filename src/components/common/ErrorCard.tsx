@@ -8,7 +8,6 @@ interface ErrorCardProps {
 
 export const ErrorCard: React.FunctionComponent<ErrorCardProps> = ({ errorMsg, ...props }) => {
     const [show, setShow] = useState<boolean>(true);
-    console.log({ errorMsg });
 
     useEffect(() => {
         setShow(true);

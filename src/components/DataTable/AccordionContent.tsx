@@ -13,7 +13,7 @@ interface AccordionContentProps {
 
 export const AccordionContent: React.FunctionComponent<AccordionContentProps> = ({ row, isOpen }) => {
     if (!isOpen) {
-        return (<div />);
+        return (<></>);
     }
 
 

@@ -43,6 +43,9 @@ const theme = createMuiTheme({
             root: {
                 marginTop: METRICS.tiny_spacing,
                 marginBottom: METRICS.small_spacing,
+                disabled: {
+                    cursor: 'not-allowed'
+                }
             },
         },
         MuiButton: {
@@ -53,7 +56,12 @@ const theme = createMuiTheme({
             label: {
                 color: COLORS.text_on_primary,
             }
-        }
+        },
+        MuiInputBase: {
+            disabled: {
+                cursor: 'not-allowed'
+            }
+        },
     },
 });
 
