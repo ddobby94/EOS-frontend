@@ -7,16 +7,6 @@ import Checkbox from '@material-ui/core/Checkbox';
 import { TableHeader, HeadCell, EnhancedTableHeaderProps } from '../_types/DataTable';
 import '../_styles/DataTable.scss';
 
-export const EXPLORATORY_ANALYSIS_HEADERS =  [
-    'Name',
-    'Role',
-    'Type',
-    '%Missing values',
-    'Unique values',
-    'Median',
-    'Mean',
-];
-
 const headCells: HeadCell[] = [
     { id: 'name', disablePadding: true, label: 'Name' },
     { id: 'role', disablePadding: false, label: 'Role' },

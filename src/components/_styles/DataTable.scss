@@ -31,6 +31,8 @@
             border-right: 0px;
             align-items: flex-start;
             padding: $tiny_spacing;
+            max-width: 50px;
+            overflow: hidden;
         }
         & th {
             width: 60px;

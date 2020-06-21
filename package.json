@@ -37,15 +37,18 @@
     "connected-react-router": "6.5.2",
     "lodash": "4.17.15",
     "object-assign": "4.1.1",
+    "plotly.js": "1.54.3",
     "react": "16.11.0",
     "react-dom": "16.11.0",
     "react-hot-loader": "4.12.15",
+    "react-plotly.js": "2.4.0",
     "react-redux": "7.1.1",
     "react-router-dom": "5.1.2",
     "redux": "4.0.4",
     "redux-logger": "3.0.6",
     "redux-persist": "6.0.0",
-    "redux-thunk": "2.3.0"
+    "redux-thunk": "2.3.0",
+    "xlsx": "0.16.2"
   },
   "devDependencies": {
     "@babel/cli": "7.6.4",

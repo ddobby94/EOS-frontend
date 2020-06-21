@@ -8,16 +8,14 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import Checkbox from '@material-ui/core/Checkbox';
 import EnhancedTableHead from './TableHeader';
-import { EXPLORATORY_ANALYSIS_DATA_OBJECT } from '../../utils/mocks';
+import { EXPLORATORY_ANALYSIS_DATA_OBJECT } from '../../../__mocks__/exploratoryMocks';
 import { ExploratoryObj, TableHeader, Order } from '../_types/DataTable';
 import { TableDropdownMenu, ROLES } from './TableDropdownMenu';
 import { SimpleObject } from '../../types/commonTypes';
 import { Icon } from '@material-ui/core';
 import AccordionContent from './AccordionContent';
 import TableToolbar from './TableToolbar';
-import { getRowsPerPage, getComparator, stableSort, ROLE_HANDLING_LOGIC } from '../../utils/DataTableUtils';
-
-const rows = EXPLORATORY_ANALYSIS_DATA_OBJECT;
+import { getRowsPerPage, getComparator, stableSort, ROLE_HANDLING_LOGIC, downloadSelectedExploratory } from '../../utils/DataTableUtils';
 
 const useStyles = makeStyles(() =>
     createStyles({
@@ -28,7 +26,8 @@ const useStyles = makeStyles(() =>
 );
 
 export default function EnhancedTable() {
-    const ROWS_PER_PAGE = getRowsPerPage(rows.length);
+    const baseData = EXPLORATORY_ANALYSIS_DATA_OBJECT;
+    const ROWS_PER_PAGE = getRowsPerPage(baseData.length);
     const classes = useStyles();
     const [forceUpdateCount, triggerForceUpdate] = React.useState<number>(0);
     const [order, setOrder] = React.useState<Order>('asc');
@@ -47,7 +46,7 @@ export default function EnhancedTable() {
 
     const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.checked) {
-            const newSelecteds = rows.map((n) => n.name);
+            const newSelecteds = baseData.map((n) => n.name);
             setSelected(newSelecteds);
             return;
         }
@@ -94,7 +93,7 @@ export default function EnhancedTable() {
     }
 
     const setValueInRowByName = (name, value, valueToSet) => {
-        const row = rows.find(({ name: currentName }) => currentName === name);
+        const row = baseData.find(({ name: currentName }) => currentName === name);
         if (row) {
             row[valueToSet] = value;
         }
@@ -131,78 +130,78 @@ export default function EnhancedTable() {
     const paginationSlice = () => [page * rowsPerPage, page * rowsPerPage + rowsPerPage];
 
     const getTableBody = () => {
-        return stableSort(EXPLORATORY_ANALYSIS_DATA_OBJECT, getComparator(order, orderBy))
-        .slice(...paginationSlice())
-        .map((row, index) => {
-            const isItemSelected = isSelected(row.name);
-            const labelId = `enhanced-table-checkbox-${index}`;
+        return stableSort(baseData, getComparator(order, orderBy))
+            .slice(...paginationSlice())
+            .map((row, index) => {
+                const isItemSelected = isSelected(row.name);
+                const labelId = `enhanced-table-checkbox-${index}`;
 
-            return (
-                <>
-                    <TableRow
-                        hover
-                        role="dropdown"
-                        aria-checked={isItemSelected}
-                        tabIndex={-1}
-                        key={row.name}
-                        selected={isItemSelected}
-                        className="tableContent-tableRow"
-                    >
-                        <TableCell padding="checkbox">
-                            <Checkbox
-                                checked={isItemSelected}
-                                inputProps={{ 'aria-labelledby': labelId }}
-                                onClick={() => handleClick(row.name)}
-                            />
-                        </TableCell>
-                        <TableCell
-                            component="th"
-                            id={labelId}
-                            scope="row"
-                            padding="none"
-                            className={row.role === ROLES.ignore.value ? 'tableContent-nameCell_ignored' : ''}
+                return (
+                    <>
+                        <TableRow
+                            hover
+                            role="dropdown"
+                            aria-checked={isItemSelected}
+                            tabIndex={-1}
+                            key={row.name}
+                            selected={isItemSelected}
+                            className="tableContent-tableRow"
                         >
-                            {row.name}
-                        </TableCell>
-                        <TableCell align="left">
-                            <TableDropdownMenu
-                                type="ROLES"
-                                value={row.role}
-                                onChange={(v) => onRoleChange(row, v)}
-                                canBeTarget={ROLE_HANDLING_LOGIC.canBeTarget(row)}
-                                autoIgnore={ROLE_HANDLING_LOGIC.autoIgnore(row)}
-                            />
-                        </TableCell>
-                        <TableCell align="left">
-                            <TableDropdownMenu
-                                type="TYPES"
-                                value={row.type}
-                                onChange={(v) => onTypeChange(row, v)}
-                            />
-                        </TableCell>
-                        <TableCell align="left">{row.missingValuessPercentage}</TableCell>
-                        <TableCell align="left">{row.uniqueValues}</TableCell>
-                        <TableCell align="left">{row.median}</TableCell>
-                        <TableCell align="left">{row.mean}</TableCell>
-                        <TableCell >
-                            <Icon
-                                color="secondary"
-                                className="fa fa-chevron-down tableContent-openRowIcon"
-                                onClick={(e) => openRow(e, row.name)}
-                                style={{
-                                    transform: isOpened(row.name) ? 'rotate(180deg)' : '',
-                                }}
-                            />
-                        </TableCell>
-                    </TableRow>
-                    <AccordionContent
-                        key={`accordion-${row.name}`}
-                        row={row}
-                        isOpen={isOpened(row.name)}
-                    />
-                </>
-            );
-        })
+                            <TableCell padding="checkbox">
+                                <Checkbox
+                                    checked={isItemSelected}
+                                    inputProps={{ 'aria-labelledby': labelId }}
+                                    onClick={() => handleClick(row.name)}
+                                />
+                            </TableCell>
+                            <TableCell
+                                component="th"
+                                id={labelId}
+                                scope="row"
+                                padding="none"
+                                className={row.role === ROLES.ignore.value ? 'tableContent-nameCell_ignored' : ''}
+                            >
+                                {row.name}
+                            </TableCell>
+                            <TableCell align="left">
+                                <TableDropdownMenu
+                                    type="ROLES"
+                                    value={row.role}
+                                    onChange={(v) => onRoleChange(row, v)}
+                                    canBeTarget={ROLE_HANDLING_LOGIC.canBeTarget(row)}
+                                    autoIgnore={ROLE_HANDLING_LOGIC.autoIgnore(row)}
+                                />
+                            </TableCell>
+                            <TableCell align="left">
+                                <TableDropdownMenu
+                                    type="TYPES"
+                                    value={row.type}
+                                    onChange={(v) => onTypeChange(row, v)}
+                                />
+                            </TableCell>
+                            <TableCell align="left">{row.missingValuessPercentage}</TableCell>
+                            <TableCell align="left">{row.uniqueValues}</TableCell>
+                            <TableCell align="left">{row.median}</TableCell>
+                            <TableCell align="left">{row.mean}</TableCell>
+                            <TableCell >
+                                <Icon
+                                    color="secondary"
+                                    className="fa fa-chevron-down tableContent-openRowIcon"
+                                    onClick={(e) => openRow(e, row.name)}
+                                    style={{
+                                        transform: isOpened(row.name) ? 'rotate(180deg)' : '',
+                                    }}
+                                />
+                            </TableCell>
+                        </TableRow>
+                        <AccordionContent
+                            key={`accordion-${row.name}`}
+                            row={row}
+                            isOpen={isOpened(row.name)}
+                        />
+                    </>
+                );
+            })
     }
 
     return (
@@ -210,7 +209,7 @@ export default function EnhancedTable() {
             <TableToolbar
                 selected={selected}
                 targetName={targetName}
-                onExportSelected={console.log}
+                onExportSelected={() => downloadSelectedExploratory(baseData, selected, 'EXP_TEST')}
             />
             <TableContainer>
                 <Table
@@ -225,7 +224,7 @@ export default function EnhancedTable() {
                         orderBy={orderBy}
                         onSelectAllClick={handleSelectAllClick}
                         onRequestSort={handleRequestSort}
-                        rowCount={rows.length}
+                        rowCount={baseData.length}
                     />
                     <TableBody>
                         {getTableBody()}
@@ -235,7 +234,7 @@ export default function EnhancedTable() {
             <TablePagination
                 rowsPerPageOptions={ROWS_PER_PAGE}
                 component="div"
-                count={rows.length}
+                count={baseData.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 onChangePage={(e, newPage) => setPage(newPage)}

@@ -27,7 +27,6 @@ export const ImportDataSet: React.FunctionComponent<ImportPageProps> = ({
     const [dragEventCounter, setDragEventCounter] = useState<number>(0);
 
     useEffect(() => {
-        // TODO setNextButtonAvailability check
         setNextButtonAvailability(!!selectedFile && projectTitle.length > 3);
     });
 
@@ -70,7 +69,6 @@ export const ImportDataSet: React.FunctionComponent<ImportPageProps> = ({
         setDragEventCounter(0);
     }
 
-    // TODO add throttle / debounce
     const onDragOver = (e: React.DragEvent) => {
         // setFilesDraggedOver(true);
         e.preventDefault();

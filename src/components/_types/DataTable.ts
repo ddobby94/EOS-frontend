@@ -1,5 +1,3 @@
-
-
 interface DropDownItem<T> {
     value: T;
     color: string;
@@ -48,6 +46,9 @@ export interface ExploratoryObj extends TableHeader {
     P95: number;
     P99: number;
     autoIgnored: boolean;
+    chartData: ExpChartData;
+    IQR: number;
+    CV: number;
 }
 
 export type Order = 'asc' | 'desc';
@@ -68,8 +69,7 @@ export interface EnhancedTableHeaderProps {
     rowCount: number;
 }
 
-
-export type ComparatorValueTypes = string | number | boolean;
+export type ComparatorValueTypes = string | number | boolean | ExpChartData;
 export type ComparatorFunction = <Key extends keyof any>(
     a: { [key in Key]: ComparatorValueTypes }, b: { [key in Key]: ComparatorValueTypes }) => number;
 export type GetComparatorFunction = <Key extends keyof ExploratoryObj>(
@@ -80,4 +80,17 @@ export interface EnhancedTableToolbarProps {
     selected: string[];
     onExportSelected: () => void;
     targetName?: string;
+}
+
+export interface ContentChartProps {
+    chartData: ExpChartData;
+}
+
+export interface ExpChartData {
+    [categoryId: string]: {
+        categoryName: string;
+        totalTrips: number;
+        totalTripsPercentage: number;
+        unproductiveTrips: number;
+    }
 }
