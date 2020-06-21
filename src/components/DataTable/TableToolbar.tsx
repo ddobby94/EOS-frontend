@@ -2,25 +2,8 @@ import React from 'react';
 import { EnhancedTableToolbarProps } from "../_types/DataTable";
 import { Toolbar, Button } from "@material-ui/core";
 import '../_styles/DataTable.scss';
-
-// const useToolbarStyles = makeStyles((theme: Theme) =>
-//     createStyles({
-//         root: {
-//             paddingLeft: theme.spacing(2),
-//             paddingRight: theme.spacing(1),
-//         },
-//         highlight: theme.palette.type === 'light' ? {
-//                 color: theme.palette.secondary.main,
-//                 backgroundColor: lighten(theme.palette.secondary.light, 0.85),
-//             } : {
-//                 color: theme.palette.text.primary,
-//                 backgroundColor: theme.palette.secondary.dark,
-//             },
-//         title: {
-//             flex: '1 1 100%',
-//         },
-//     }),
-// );
+import { Chip } from '../common/Chip';
+import { COLORS } from '../../styles/styles';
 
 export const EnhancedTableToolbar: React.FunctionComponent<EnhancedTableToolbarProps> = ({ selected, onExportSelected, targetName }) => {
     const numSelected = selected.length;
@@ -36,10 +19,21 @@ export const EnhancedTableToolbar: React.FunctionComponent<EnhancedTableToolbarP
                     EXPORT {numSelected} ITEM
                 </Button>
             )}
-            <div className="toolbar-targetChip">
-                <p>TARGET:</p>
-                <strong>{!!targetName ? targetName : '-'}</strong>
-            </div>
+            <Chip
+                title="TARGET"
+                description={targetName || 'Not selected'}
+                color={COLORS.primary}
+            />
+            <Chip
+                title="#VARIABLES"
+                description="39"
+                color={COLORS.ocean}
+            />
+            <Chip
+                title="#Records"
+                description="427,020"
+                color={COLORS.orange}
+            />
         </Toolbar>
     );
 };
