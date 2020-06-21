@@ -80,21 +80,3 @@
         cursor: pointer;
     }
 }
-
-.toolbar {
-    &-targetChip {
-        background-color: $primary_transparent_20_perc;
-        border: 2px solid $primary;
-        display: flex;
-        padding: $smallest_spacing;
-        align-items: center;
-        justify-content: space-around;
-        margin-left: $small_spacing;
-        & > strong {
-            padding-left: $smallest_spacing;
-        }
-        & > p {
-            margin: 0;
-        }
-    }
-}
