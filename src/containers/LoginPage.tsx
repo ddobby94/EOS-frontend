@@ -3,13 +3,23 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getUser, getAuthLoading, isUserLoggedIn, getAuthError } from '../redux/reducers/authReducer';
 import { sendLoginAction } from '../redux/actions/authActions';
-import { Button, TextField } from '@material-ui/core';
+import { Button, TextField, FormControlLabel, Checkbox } from '@material-ui/core';
 import './_styles/LoginPage.scss';
 import { InputProps, LoginPageProps, LoginPageStates, LoginPageFuncTypes, InputItem } from './_types/LoginPage.types';
 import { withRouter } from 'react-router-dom';
 import { ErrorCard } from '../components/common/ErrorCard';
+import { PopUp } from '../components/common/PopUp'
 
 const IMG_SRC = require('../../public/images/login_bg.jpg');
+
+
+function mockCancelFunction() {
+    console.log('CANCEL is Called!!!!');
+}
+
+function mockApproveFunction() {
+    console.log('APPROVE is Called!!!!');
+}
 
 const REGISTER_FIELDS: InputItem[] = [
     {
@@ -166,10 +176,28 @@ export class LoginPage extends React.Component<LoginPageProps, LoginPageStates> 
                         <h3 className="login-description">Check out how are we changing the datascience industry with our tool</h3>
                     </div>
                 </div>
+                <PopUp
+                    title="PRE-PROCESSING FILTER"
+                    description="Lorem ipsum dolor sit amet!"
+                    onClose={mockCancelFunction}
+                    onApprove={mockApproveFunction}
+                    positiveButtonText="APPROVE"
+                    secondaryButtonComponent={(
+                        <FormControlLabel
+                            control={<Checkbox checked={false} onChange={console.log} name="antoine" />}
+                            label="create another"
+                        />
+                    )}
+                >
+                    <h1>wow</h1>
+                    <p>is this working</p>
+
+                </PopUp>
             </div>
         );
     }
 }
+
 
 const mapStateToProps = (state) => ({
     user: getUser(state),

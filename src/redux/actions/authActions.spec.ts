@@ -11,19 +11,19 @@ describe('Actions', () => {
         expect(actual).toEqual(expected);
     });
 
-    it('Should create the loginSuccessAction', () => {
-        const user = {
-            userId: 123,
-            name: 'foo',
-        };
-        const actual = ActionCreators.loginSuccessAction(user);
-        const expected = {
-            type: ActionTypes.LOGIN_START_SUCCESS,
-            user,
-        };
+    // it('Should create the loginSuccessAction', () => {
+    //     const user = {
+    //         userId: 123,
+    //         name: 'foo',
+    //     };
+    //     const actual = ActionCreators.loginSuccessAction(user);
+    //     const expected = {
+    //         type: ActionTypes.LOGIN_START_SUCCESS,
+    //         user,
+    //     };
 
-        expect(actual).toEqual(expected);
-    });
+    //     expect(actual).toEqual(expected);
+    // });
 
     it('Should create the loginErrorAction', () => {
         const error = 'user not existing';
