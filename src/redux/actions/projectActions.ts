@@ -1,10 +1,12 @@
 import {
     SET_PROJECT_TITLE,
     SET_SELECTED_FILE,
+    ADD_NEW_FILTER,
 } from "./actionTypes";
 // import Services from '../../services';
 // import { fetchActionHandler } from "../helpers";
 import { SimpleAction } from "../helpers/types";
+import { Filter } from "../../containers/_types/Project.types";
 
 // -------------------- Actions --------------------
 
@@ -21,6 +23,13 @@ export const setSelectedFile: SimpleAction = (file: File) => {
         payload: file,
     }
 };
+
+export const addNewFilter: SimpleAction = (filter: Filter) => {
+    return {
+        type: ADD_NEW_FILTER,
+        payload: filter,
+    }
+}
 
 // -------------------- API callers --------------------
 

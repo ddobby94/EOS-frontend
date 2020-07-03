@@ -1,10 +1,10 @@
 /* eslint-disable max-len */
 /* eslint-disable no-sparse-arrays */
-import { ExploratoryObj, ExpChartData } from '../src/components/_types/DataTable';
 import { EXPLORATORY_ANALYSIS_KEYS, EMPTY_DATA } from '../src/utils/DataTableUtils';
 import { SimpleObject } from '../src/types/commonTypes';
+import { Variable } from '../src/components/_types/DataTable';
 
-const EXPLORATORY_CHART_MOCK: SimpleObject<ExpChartData> = {
+const EXPLORATORY_CHART_MOCK: SimpleObject<Variable['chartData']> = {
     APPT_LENGTH_HRS: {
         '<=1': {
             categoryName: '<=1',
@@ -315,8 +315,8 @@ export const EXPLORATORY_ANALYSIS_DATA = [
     ['UNPRODUCTIVE', 'Not Available', 'predictor', 'discrete', 317609 ,0 ,0,2,0,1,,,1,0,0,0,0,0,0,0,1,1,1,true],
 ];
 
-const calcIQR = (o: ExploratoryObj) => o.Q3 - o.Q1;
-const calcCV = (o: ExploratoryObj) => (o.mean / o.stdDev) || EMPTY_DATA;
+const calcIQR = (o: Variable) => o.Q3 - o.Q1;
+const calcCV = (o: Variable) => (o.mean / o.stdDev) || EMPTY_DATA;
 
 const checkForMissingValues = (val) => {
     if (val === undefined) {
@@ -337,10 +337,10 @@ const transformRowDataToObj = (row) => {
         o.chartData = EXPLORATORY_CHART_MOCK[o.name];
     }
 
-    o.IQR = calcIQR(o as ExploratoryObj);
-    o.CV = calcCV(o as ExploratoryObj);
+    o.IQR = calcIQR(o as Variable);
+    o.CV = calcCV(o as Variable);
 
-    return { ...o } as ExploratoryObj;
+    return { ...o } as Variable;
 };
 
-export const EXPLORATORY_ANALYSIS_DATA_OBJECT: ExploratoryObj[] = EXPLORATORY_ANALYSIS_DATA.map((row) => transformRowDataToObj(row));
+export const EXPLORATORY_ANALYSIS_DATA_OBJECT: Variable[] = EXPLORATORY_ANALYSIS_DATA.map((row) => transformRowDataToObj(row));

@@ -9,13 +9,15 @@ import TableRow from '@material-ui/core/TableRow';
 import Checkbox from '@material-ui/core/Checkbox';
 import EnhancedTableHead from './TableHeader';
 import { EXPLORATORY_ANALYSIS_DATA_OBJECT } from '../../../__mocks__/exploratoryMocks';
-import { ExploratoryObj, TableHeader, Order } from '../_types/DataTable';
+import { TableHeader, Order } from '../_types/DataTable';
 import { TableDropdownMenu, ROLES } from './TableDropdownMenu';
 import { SimpleObject } from '../../types/commonTypes';
 import { Icon } from '@material-ui/core';
 import AccordionContent from './AccordionContent';
 import TableToolbar from './TableToolbar';
 import { getRowsPerPage, getComparator, stableSort, ROLE_HANDLING_LOGIC, downloadSelectedExploratory } from '../../utils/DataTableUtils';
+import { FilterPopUp } from '../PreProcessing/FilterPopUp';
+import { Variable } from '../_types/DataTable';
 
 const useStyles = makeStyles(() =>
     createStyles({
@@ -29,9 +31,10 @@ export default function EnhancedTable() {
     const baseData = EXPLORATORY_ANALYSIS_DATA_OBJECT;
     const ROWS_PER_PAGE = getRowsPerPage(baseData.length);
     const classes = useStyles();
+    const [showFilterPopUp, setShowFilterPopUp] = React.useState<boolean>(false);
     const [forceUpdateCount, triggerForceUpdate] = React.useState<number>(0);
     const [order, setOrder] = React.useState<Order>('asc');
-    const [orderBy, setOrderBy] = React.useState<keyof ExploratoryObj>('name');
+    const [orderBy, setOrderBy] = React.useState<keyof Variable>('name');
     const [selected, setSelected] = React.useState<string[]>([]);
     const [opened, setOpened] = React.useState<SimpleObject<boolean>>({});
     const [page, setPage] = React.useState(0);
@@ -99,7 +102,7 @@ export default function EnhancedTable() {
         }
     }
 
-    const onRoleChange = (row: ExploratoryObj, newValue) => {
+    const onRoleChange = (row: Variable, newValue) => {
 
         // new TARGET selected
         if (newValue === ROLES.target.value) {
@@ -116,7 +119,7 @@ export default function EnhancedTable() {
         changeRowItemValue(row, 'role', newValue);
     }
 
-    const onTypeChange = (row: ExploratoryObj, newValue) => {
+    const onTypeChange = (row: Variable, newValue) => {
         if (row.role === 'target' && newValue !== 'discrete') {
             onRoleChange(row, 'predictor');
         }
@@ -126,6 +129,11 @@ export default function EnhancedTable() {
 
     const isSelected = (name: string) => selected.indexOf(name) !== -1;
     const isOpened = (id: string) => opened[id];
+
+    const openFilterPopUp = (preSelectedId: string) => {
+        setShowFilterPopUp(true);
+        console.log({ TODO: preSelectedId });
+    }
 
     const paginationSlice = () => [page * rowsPerPage, page * rowsPerPage + rowsPerPage];
 
@@ -198,7 +206,14 @@ export default function EnhancedTable() {
                             key={`accordion-${row.name}`}
                             row={row}
                             isOpen={isOpened(row.name)}
+                            openFilterCreator={openFilterPopUp}
                         />
+                        {showFilterPopUp && (
+                            <FilterPopUp
+                                onClose={() => setShowFilterPopUp(false)}
+                                variables={baseData}
+                            />
+                        )}
                     </>
                 );
             })

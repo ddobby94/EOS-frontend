@@ -103,3 +103,22 @@
         margin-bottom: 60px;
     }
 }
+
+.togglegroup {
+    width: 100%;
+    & > button {
+        border: 1px solid $text_on_bg;
+        border-radius: 0px;
+        max-width: 200px;
+    }
+    & > button:first-child {
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+        max-width: 200px;
+    }
+    & > button:last-child {
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+        max-width: 200px;
+    }
+}

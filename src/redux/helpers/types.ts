@@ -1,6 +1,7 @@
 import { SimpleObject } from "../../types/commonTypes";
 import { RouterState } from "connected-react-router";
-
+import { Filter } from "../../containers/_types/Project.types";
+import { Variable } from '../../components/_types/DataTable';
 // Action detial types
 
 export interface SendLoginDetails {
@@ -36,6 +37,8 @@ export interface ProjectState {
             datasetName: string;
             title: string;
         }
+        filters: Filter[];
+        variables: SimpleObject<Variable>;
     }
     previousProjects: SimpleObject;
 }
