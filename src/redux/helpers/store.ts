@@ -12,7 +12,9 @@ export const initialProjectState: ProjectState = {
         meta: {
             title: '',
             datasetName: '',
-        }
+        },
+        filters: [],
+        variables: {},
     },
     previousProjects: {},
 };

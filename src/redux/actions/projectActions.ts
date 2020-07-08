@@ -4,10 +4,12 @@ import {
     UPLOAD_FILE,
     UPLOAD_FILE_SUCCESS,
     UPLOAD_FILE_ERROR,
+    ADD_NEW_FILTER,
 } from "./actionTypes";
 import Services from '../../services';
 import { SimpleAction, FetchSuccessAction, FetchErrorAction } from "../helpers/types";
 import { fetchActionHandler } from "../helpers";
+import { Filter } from "../../containers/_types/Project.types";
 
 // -------------------- Actions --------------------
 
@@ -42,6 +44,13 @@ export const uploadErrorAction: FetchErrorAction = (error) => ({
     type: UPLOAD_FILE_ERROR,
     error,
 });
+
+export const addNewFilter: SimpleAction = (filter: Filter) => {
+    return {
+        type: ADD_NEW_FILTER,
+        payload: filter,
+    }
+}
 
 // -------------------- API callers --------------------
 

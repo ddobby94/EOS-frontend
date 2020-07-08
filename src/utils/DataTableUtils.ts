@@ -1,4 +1,4 @@
-import { GetComparatorFunction, ExploratoryObj, ExpChartData } from "../components/_types/DataTable";
+import { GetComparatorFunction, Variable, ExpChartData } from "../components/_types/DataTable";
 import { SimpleObject } from "../types/commonTypes";
 import XLSX from 'xlsx';
 
@@ -65,7 +65,7 @@ export const stableSort = <T>(array: T[], comparator: (a: T, b: T) => number) =>
     return stabilizedThis.map((el) => el[0]);
 }
 
-export const ROLE_HANDLING_LOGIC: SimpleObject<(rowItem: ExploratoryObj) => boolean> = {
+export const ROLE_HANDLING_LOGIC: SimpleObject<(rowItem: Variable) => boolean> = {
     canBeTarget: (row) => {
         return row.min === 0 && row.max === 1 && row.uniqueValues === 2 && row.type === 'discrete';
     },
@@ -81,7 +81,7 @@ const getChartHeaders = (varName: string): string[] => [varName, ...CHART_HEADER
 
 const getFullDate = (separator = '_') => `${new Date().getFullYear()}${separator}${new Date().getMonth() + 1}${separator}${new Date().getDate()}`
 
-const expObjMapper = (expObj: ExploratoryObj) => {
+const expObjMapper = (expObj: Variable) => {
     const arr: (number | string | boolean)[] = [];
     EXPLORATORY_ANALYSIS_KEYS.forEach((headerKey: string) => {
         arr.push(expObj[headerKey]);
@@ -90,7 +90,7 @@ const expObjMapper = (expObj: ExploratoryObj) => {
     return arr;
 }
 
-const constructExpDataSheet = (selectedData: ExploratoryObj[]) => {
+const constructExpDataSheet = (selectedData: Variable[]) => {
     let expSheetData = [
         EXPLORATORY_ANALYSIS_KEYS,
         ...selectedData.map(expObjMapper),
@@ -123,7 +123,7 @@ const constructChartDataSheet = (chartData: SimpleObject<ExpChartData>) => {
     return XLSX.utils.aoa_to_sheet(sheetData);
 }
 
-export const downloadSelectedExploratory = (baseData: ExploratoryObj[], selected: string[], fileName: string) => {
+export const downloadSelectedExploratory = (baseData: Variable[], selected: string[], fileName: string) => {
     let newWorkBook = XLSX.utils.book_new();
     const selectedChartData = {};
 

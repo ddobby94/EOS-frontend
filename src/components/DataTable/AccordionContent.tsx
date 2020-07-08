@@ -1,10 +1,11 @@
 import React from 'react';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
-import { ExploratoryObj } from '../_types/DataTable';
 import '../_styles/DataTable.scss';
 import { EMPTY_DATA } from '../../utils/DataTableUtils';
 import ContentChart from './ContentChart';
+import { Button } from '@material-ui/core';
+import { Variable } from '../_types/DataTable';
 
 export const HEAD = ['MIN', 'MAX', 'MODE', 'RANGE', 'CV', 'IQR', 'SD'];
 export const CONTENT_KEYS = ['min', 'max', 'mode', 'range', 'CV', 'IQR', 'stdDev'];
@@ -17,11 +18,12 @@ const formatNumber = (num: number) => {
 }
 
 interface AccordionContentProps {
-    row: ExploratoryObj;
+    row: Variable;
     isOpen: boolean;
+    openFilterCreator: (id: string) => void;
 };
 
-export const AccordionContent: React.FunctionComponent<AccordionContentProps> = ({ row, isOpen }) => {
+export const AccordionContent: React.FunctionComponent<AccordionContentProps> = ({ row, isOpen, openFilterCreator }) => {
     if (!isOpen) {
         return (<></>);
     }
@@ -70,6 +72,14 @@ export const AccordionContent: React.FunctionComponent<AccordionContentProps> = 
                                 </tr>
                             </tbody>
                         </table>
+                        <Button
+                            className="project-nextButton"
+                            color="primary"
+                            variant="contained"
+                            onClick={() => openFilterCreator(row.name)}
+                        >
+                            CREATE FILTER
+                        </Button>
                     </div>
                 </div>
             </TableCell>

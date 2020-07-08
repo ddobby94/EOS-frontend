@@ -3,7 +3,7 @@ import '../_styles/common.scss';
 import { Icon, Fab, Button } from '@material-ui/core';
 
 
-interface PopUpProperties {
+export interface PopUpProperties {
     title: string;
     description?: string;
     positiveButtonText?: string;
@@ -38,7 +38,7 @@ export const PopUp: React.FunctionComponent<PopUpProperties> = ({
                 </div>
                 <Fab
                     className="popup-closeButton"
-                    size="medium"
+                    size="small"
                     aria-label="close"
                     onClick={onClose}
                 >
