@@ -15,6 +15,10 @@ export interface SendRegisterDetails extends SendLoginDetails {
 
 export type SimpleAction = (...args) => SimpleObject;
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type FetchSuccessAction = (response: SimpleObject, args: any[]) => SimpleObject;
+export type FetchErrorAction = (error: SimpleObject | string) => SimpleObject;
+
 // Store state
 
 export interface AuthState {
@@ -35,6 +39,9 @@ export interface ProjectState {
         meta: {
             datasetName: string;
             title: string;
+        },
+        data: {
+
         }
     }
     previousProjects: SimpleObject;
