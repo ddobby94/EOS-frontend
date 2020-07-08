@@ -27,7 +27,11 @@ const useStyles = makeStyles(() =>
     }),
 );
 
-export default function EnhancedTable() {
+interface EnhancedTableProps {
+    setTargetVariable: (v?: Variable) => void;
+}
+
+export const EnhancedTable: React.FunctionComponent<EnhancedTableProps> = ({ setTargetVariable }) => {
     const baseData = EXPLORATORY_ANALYSIS_DATA_OBJECT;
     const ROWS_PER_PAGE = getRowsPerPage(baseData.length);
     const classes = useStyles();
@@ -102,6 +106,11 @@ export default function EnhancedTable() {
         }
     }
 
+    const updateAllTargetInstances = (v?: Variable) => {
+        setTargetVariable(v);
+        setTargetName((v || {}).name);
+    }
+
     const onRoleChange = (row: Variable, newValue) => {
 
         // new TARGET selected
@@ -109,12 +118,12 @@ export default function EnhancedTable() {
             if (!!targetName) {
                 setValueInRowByName(targetName, ROLES.predictor.value, 'role');
             }
-            setTargetName(row.name);
+            updateAllTargetInstances(row);
         }
 
         // Current TARGET changed
         if (newValue !== ROLES.target.value && row.name === targetName) {
-            setTargetName(undefined);
+            updateAllTargetInstances(undefined);
         }
         changeRowItemValue(row, 'role', newValue);
     }
@@ -258,3 +267,5 @@ export default function EnhancedTable() {
         </div>
     );
 }
+
+export default EnhancedTable;

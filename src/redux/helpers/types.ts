@@ -1,7 +1,8 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 import { SimpleObject } from "../../types/commonTypes";
 import { RouterState } from "connected-react-router";
-import { Filter } from "../../containers/_types/Project.types";
-import { Variable } from '../../components/_types/DataTable';
+import { SingleProject } from "../../containers/_types/Project.types";
+
 // Action detial types
 
 export interface SendLoginDetails {
@@ -35,19 +36,8 @@ export interface AuthState {
 };
 
 export interface ProjectState {
-    editing: {
-        selectedFile?: File,
-        meta: {
-            datasetName: string;
-            title: string;
-        },
-        data: {
-
-        }
-        filters: Filter[];
-        variables: SimpleObject<Variable>;
-    }
-    previousProjects: SimpleObject;
+    editing: SingleProject;
+    previousProjects: SimpleObject<SingleProject>;
 }
 
 export interface StoreInterface {
@@ -58,11 +48,15 @@ export interface StoreInterface {
 
 export type StoreReducerSelector<T> = (s: StoreInterface) => T;
 
+ /* eslint-disable @typescript-eslint/no-explicit-any */
+
 export type FetchActionHandler = (
     types: SimpleAction[],
     serviceCall: (...args) => Promise<any>,
     args?: any[],
 ) => ((dispatch) => void);
+
+/* eslint-enable @typescript-eslint/no-explicit-any */
 
 export interface ReducerObject<T = AuthState> {
     [key: string]: (state: T, action) => T;

@@ -44,3 +44,13 @@ export const createReducer = <T>(redObj: ReducerObject<T>, initialState) => (sta
         };
     }
 }
+
+export const START_LOADING = {
+    loading: true,
+    error: null,
+};
+
+export const SET_ERROR = (error) => ({
+    loading: false,
+    error,
+});

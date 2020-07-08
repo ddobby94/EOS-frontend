@@ -17,9 +17,8 @@ import { ProjectContainerProps } from '../_types/Project.types';
 const PAGE_INDEXES = {
     IMPORT: 0,
     EPLORATORY: 1,
-    BIVARIATE: 2,
-    PRE_PROCESSING: 3,
-    MODEL_DEVELOPMENT: 4,
+    PRE_PROCESSING: 2,
+    MODEL_DEVELOPMENT: 3,
 };
 
 const InOutAnimationHandler = ({ mountingState, children }) => (
@@ -60,6 +59,10 @@ export const ProjectContainer: React.FunctionComponent<ProjectContainerProps> = 
             case PAGE_INDEXES.EPLORATORY:
                 return (
                     <Exploratory setNextButtonAvailability={setEnableNext} />
+                );
+            case PAGE_INDEXES.PRE_PROCESSING:
+                return (
+                    <ContentCard title="PRE PROCESSING"> PRE PROCESSING </ContentCard>
                 );
             default:
                 return (

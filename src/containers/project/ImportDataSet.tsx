@@ -4,7 +4,7 @@ import { ImportPageProps } from '../_types/Project.types';
 import ContentCard from '../../components/common/ContentCard';
 import { TextField, Icon, Button } from '@material-ui/core';
 import { bindActionCreators } from 'redux';
-import { setSelectedFile } from '../../redux/actions/projectActions';
+import * as ProjectStoreActions from '../../redux/actions/projectActions';
 import '../_styles/project.scss';
 import { isActiveClassName } from '../../utils/stylingHelpers';
 import { getSelectedFile } from '../../redux/reducers/projectReducer';
@@ -21,7 +21,8 @@ export const ImportDataSet: React.FunctionComponent<ImportPageProps> = ({
     onProjectNameChange,
     projectTitle,
     selectedFile,
-    setSelectedFile: setSelectedFileStore,
+    setSelectedFile,
+    uploadSelectedFile,
 }) => {
     const [datasetName, setDataSetName] = useState<string>('');
     const [dragEventCounter, setDragEventCounter] = useState<number>(0);
@@ -48,7 +49,7 @@ export const ImportDataSet: React.FunctionComponent<ImportPageProps> = ({
             const typeFromName = file.name.split('.').slice(-1)[0];
 
             if (ALLOWED_FILE_TYPES_CHECKER[typeFromName]) {
-                setSelectedFileStore(file);
+                uploadSelectedFile(file);
             } else {
                 window.alert(`File type ".${typeFromName}" not allowed!`);
             }
@@ -86,7 +87,7 @@ export const ImportDataSet: React.FunctionComponent<ImportPageProps> = ({
 
     const onFileSelected = (event) => {
         const file: File = event.target.files[0];
-        setSelectedFileStore(file);
+        uploadSelectedFile(file);
     }
 
     const openChooseFile = () => {
@@ -110,7 +111,7 @@ export const ImportDataSet: React.FunctionComponent<ImportPageProps> = ({
                 <p>{fileName}</p>
                 <Icon
                     className="fa fa-times import-selectedRemove"
-                    onClick={() => setSelectedFileStore(undefined)}
+                    onClick={() => setSelectedFile(undefined)}
                 />
             </div>
         </div>
@@ -180,7 +181,8 @@ const mapStateToProps = (s) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    setSelectedFile: bindActionCreators(setSelectedFile, dispatch),
+    setSelectedFile: bindActionCreators(ProjectStoreActions.setSelectedFile, dispatch),
+    uploadSelectedFile: bindActionCreators(ProjectStoreActions.uploadSelectedFile, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ImportDataSet);

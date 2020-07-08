@@ -5,11 +5,13 @@ import {
     UPLOAD_FILE_SUCCESS,
     UPLOAD_FILE_ERROR,
     ADD_NEW_FILTER,
+    SET_TARGET_VARIABLE,
 } from "./actionTypes";
 import Services from '../../services';
 import { SimpleAction, FetchSuccessAction, FetchErrorAction } from "../helpers/types";
 import { fetchActionHandler } from "../helpers";
 import { Filter } from "../../containers/_types/Project.types";
+import { Variable } from "../../components/_types/DataTable";
 
 // -------------------- Actions --------------------
 
@@ -45,23 +47,26 @@ export const uploadErrorAction: FetchErrorAction = (error) => ({
     error,
 });
 
-export const addNewFilter: SimpleAction = (filter: Filter) => {
-    return {
-        type: ADD_NEW_FILTER,
-        payload: filter,
-    }
-}
+export const addNewFilter: SimpleAction = (filter: Filter) => ({
+    type: ADD_NEW_FILTER,
+    payload: filter,
+});
+
+export const setTargetVariable: SimpleAction = (target: Variable | null) => ({
+    type: SET_TARGET_VARIABLE,
+    payload: target,
+})
 
 // -------------------- API callers --------------------
 
-export const uploadSelectedFile = (...detials) => {
+export const uploadSelectedFile = (...details) => {
     const types = [
         uploadStart,
         uploadSuccessAction,
         uploadErrorAction,
     ];
 
-    return fetchActionHandler(types, Services.project.uploadFile, detials);
+    return fetchActionHandler(types, Services.project.uploadFile, details);
 }
 
 // export const sendLoginAction = (...detials) => {
