@@ -30,7 +30,7 @@ export const fetchActionHandler: FetchActionHandler = (types, serviceCall, args 
     };
 };
 
-export const createReducer = <T>(redObj: ReducerObject<T>, initialState) => (state = initialState, action) => {
+export const createReducer = <T>(redObj: ReducerObject<T>, initialState) => (state: T = initialState, action): T => {
     try {
         if (redObj[action.type] === undefined) {
             return { ...state };

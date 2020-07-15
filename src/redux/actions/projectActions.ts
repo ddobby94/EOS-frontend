@@ -6,6 +6,8 @@ import {
     UPLOAD_FILE_ERROR,
     ADD_NEW_FILTER,
     SET_TARGET_VARIABLE,
+    REMOVE_FILTER,
+    TOGGLE_FILTER_ISACTIVE,
 } from "./actionTypes";
 import Services from '../../services';
 import { SimpleAction, FetchSuccessAction, FetchErrorAction } from "../helpers/types";
@@ -50,6 +52,19 @@ export const uploadErrorAction: FetchErrorAction = (error) => ({
 export const addNewFilter: SimpleAction = (filter: Filter) => ({
     type: ADD_NEW_FILTER,
     payload: filter,
+});
+
+export const removeFilter: SimpleAction = (id: string) => ({
+    type: REMOVE_FILTER,
+    payload: id,
+});
+
+export const toggleFilter: SimpleAction = (id: string, isActive: boolean) => ({
+    type: TOGGLE_FILTER_ISACTIVE,
+    payload: {
+        id,
+        isActive,
+    },
 });
 
 export const setTargetVariable: SimpleAction = (target: Variable | null) => ({

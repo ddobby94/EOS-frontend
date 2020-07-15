@@ -239,7 +239,7 @@ export const EnhancedTable: React.FunctionComponent<EnhancedTableProps> = ({ set
                 <Table
                     className={classes.table}
                     aria-labelledby="tableTitle"
-                    size="medium"
+                    size="small"
                     aria-label="enhanced table"
                 >
                     <EnhancedTableHead

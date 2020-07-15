@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import { ContentCard } from '../../components/common/ContentCard';
 import { Redirect } from 'react-router-dom';
 import Exploratory from './Exploratory';
+import PreProcessing from './PreProcessing';
 import { bindActionCreators } from 'redux';
 import { setProjectTitle } from '../../redux/actions/projectActions';
 import { useDelayedUnmounting, MOUNTING_STATES } from '../../utils';
@@ -62,7 +63,7 @@ export const ProjectContainer: React.FunctionComponent<ProjectContainerProps> = 
                 );
             case PAGE_INDEXES.PRE_PROCESSING:
                 return (
-                    <ContentCard title="PRE PROCESSING"> PRE PROCESSING </ContentCard>
+                    <PreProcessing setNextButtonAvailability={setEnableNext} />
                 );
             default:
                 return (

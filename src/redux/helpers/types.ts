@@ -61,3 +61,7 @@ export type FetchActionHandler = (
 export interface ReducerObject<T = AuthState> {
     [key: string]: (state: T, action) => T;
 };
+
+export type PayloadType<T> = {
+    payload: T
+}

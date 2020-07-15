@@ -206,3 +206,29 @@
         display: none;
     }
 }
+
+.preProcessing {
+    &-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin: $small_spacing;
+    }
+    &-colContainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        width: 100%;
+    }
+}
+
+.baseData {
+    &-container {
+        display: flex;
+        flex-direction: row;
+    }
+    &-list {
+    }
+    &-chart {
+    }
+}

@@ -1,4 +1,5 @@
 import { Variable } from "../../components/_types/DataTable";
+import { ProjectState } from "../../redux/helpers/types";
 
 export interface BaseProjectContentCard {
     setNextButtonAvailability: (available: boolean) => void;
@@ -15,6 +16,12 @@ export interface ImportPageProps extends BaseProjectContentCard {
 export interface ExpolratoryProps extends BaseProjectContentCard {
     targetVariable?: Variable;
     setTargetVariable: (v?: Variable) => void;
+}
+
+export interface PreProcessingProps extends BaseProjectContentCard {
+    projectBaseData: ProjectState['editing']['meta'];
+    toggleFilterIsActive: (id: string, isActive: boolean) => void;
+    filters: ProjectState['editing']['filters'];
 }
 
 export interface ProjectContainerProps {
@@ -34,12 +41,15 @@ export interface FilterSelectedValuesData {
 }
 
 export interface Filter {
+    id: string;
+    isActive: boolean;
     type: 'range' | 'values';
     name: string;
     variable: string;
     data: FilterRangeData | FilterSelectedValuesData;
+    criteria?: string;
+    criteriaValues?: string[];
 }
-
 
 type VersionMetaData = {
     '0': number;
