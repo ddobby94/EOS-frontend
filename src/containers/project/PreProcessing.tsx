@@ -6,9 +6,10 @@ import { getProjectBaseData, getFilters } from '../../redux/reducers/projectRedu
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as ProjectActions from '../../redux/actions/projectActions';
-import Plot from 'react-plotly.js';
+
 import { Fab, Icon } from '@material-ui/core';
 import SimpleTableComponent from '../../components/common/SimpleTableComponent';
+import { PieChart } from '../../components/common/PieChart';
 
 const SAMPLE_FILTER_HEADERS = [
     {
@@ -105,19 +106,10 @@ export const PreProcessing: React.FunctionComponent<PreProcessingProps> = ({
                                 </ul>
                             </div>
                             <div className="baseData-chart">
-                                <Plot
-                                    data={[
-                                        {
-                                            values: [20, 80],
-                                            labels: ['0', '1'],
-                                            type: 'pie'
-                                        },
-                                    ]}
-                                    layout={{
-                                        width: 200,
-                                        height: 200,
-                                        backgroundColor: 'transparent',
-                                    }}
+                                <PieChart
+                                    values={[11, 88]}
+                                    labels={['First', 'sec']}
+                                    title="CHart titTle"
                                 />
                             </div>
                         </div>
