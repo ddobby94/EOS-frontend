@@ -45,11 +45,10 @@ export interface EnhancedTableHeaderProps {
 }
 
 export type ComparatorValueTypes = string | number | boolean | ExpChartData;
+// eslint-disable-next-line
 export type ComparatorFunction = <Key extends keyof any>(
     a: { [key in Key]: ComparatorValueTypes }, b: { [key in Key]: ComparatorValueTypes }) => number;
-export type GetComparatorFunction = <Key extends keyof Variable>(
-    order: Order, orderBy: Key) => ComparatorFunction;
-
+export type GetComparatorFunction<T> = <Key extends keyof T>(order: Order, orderBy: Key) => ComparatorFunction;
 
 export interface EnhancedTableToolbarProps {
     selected: string[];

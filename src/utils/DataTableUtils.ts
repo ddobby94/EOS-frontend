@@ -47,7 +47,7 @@ export const descendingComparator = <T>(a: T, b: T, orderBy: any) => {
     return 0;
 }
 
-export const getComparator: GetComparatorFunction = (order, orderBy) => {
+export const getComparator: GetComparatorFunction<Variable> = (order, orderBy) => {
     return order === 'desc'
         ? (a, b) => descendingComparator(a, b, orderBy)
         : (a, b) => -descendingComparator(a, b, orderBy);

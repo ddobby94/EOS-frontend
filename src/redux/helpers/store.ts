@@ -14,7 +14,8 @@ export const initialProjectState: ProjectState = {
             datasetName: '',
         },
         filters: [],
-        variables: {},
+        variables: [],
+        versions: [],
     },
     previousProjects: {},
 };

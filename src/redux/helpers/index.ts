@@ -30,7 +30,7 @@ export const fetchActionHandler: FetchActionHandler = (types, serviceCall, args 
     };
 };
 
-export const createReducer = <T>(redObj: ReducerObject<T>, initialState) => (state = initialState, action) => {
+export const createReducer = <T>(redObj: ReducerObject<T>, initialState) => (state: T = initialState, action): T => {
     try {
         if (redObj[action.type] === undefined) {
             return { ...state };
@@ -44,3 +44,13 @@ export const createReducer = <T>(redObj: ReducerObject<T>, initialState) => (sta
         };
     }
 }
+
+export const START_LOADING = {
+    loading: true,
+    error: null,
+};
+
+export const SET_ERROR = (error) => ({
+    loading: false,
+    error,
+});

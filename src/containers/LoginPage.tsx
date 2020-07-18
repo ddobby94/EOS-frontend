@@ -170,10 +170,10 @@ export class LoginPage extends React.Component<LoginPageProps, LoginPageStates> 
                         <h3 className="login-description">Check out how are we changing the datascience industry with our tool</h3>
                     </div>
                 </div>
-                <FilterPopUp
+                {false && <FilterPopUp
                     onClose={console.log}
                     variables={baseData}
-                />
+                />}
             </div>
         );
     }

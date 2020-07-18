@@ -155,3 +155,20 @@
     }
 }
 
+.sectionBox {
+    border: 1px solid $bg_light;
+    background-color: transparent;
+    padding: $small_spacing;
+    margin: $smallest_spacing;
+
+    & h1, h2, h3, h4, h5, h6, p, b, strong, label, a, li, div, span {
+        color: $text_on_bg;
+    }
+
+    &-title {
+        position: relative;
+        top: -26px;
+        background-color: $bg_main;
+        padding: 0 $smallest_spacing;
+    }
+}

@@ -1,28 +1,32 @@
 import React from 'react';
-import { COLORS, METRICS } from '../../styles/styles';
+import { SimpleObject } from '../../types/commonTypes';
+import '../_styles/common.scss';
 
 interface SectionBoxProps {
     title: string;
     titleComponent?: React.ReactNode,
+    style?: SimpleObject<string | number>;
+    titleStyle?: SimpleObject<string | number>;
 }
 
-export const SectionBox: React.FunctionComponent<SectionBoxProps> = ({ title, titleComponent, children, ...props }) => (
+export const SectionBox: React.FunctionComponent<SectionBoxProps> = ({
+    title,
+    titleComponent,
+    children,
+    style,
+    titleStyle,
+}) => (
     <div
         style={{
-            border: `1px solid ${COLORS.bg_light}`,
-            backgroundColor: 'transparent',
-            padding: METRICS.small_spacing,
-            margin: METRICS.smallest_spacing,
-            ...props,
+            ...style,
         }}
+        className="sectionBox"
     >
         {titleComponent || (
             <strong
+                className="sectionBox-title"
                 style={{
-                    position: 'relative',
-                    top: '-26px',
-                    backgroundColor: COLORS.bg_main,
-                    padding: `0 ${METRICS.smallest_spacing}`,
+                    ...titleStyle,
                 }}
             >{title.toUpperCase()}</strong>
         )}
