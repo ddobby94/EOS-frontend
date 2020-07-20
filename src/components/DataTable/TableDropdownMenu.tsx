@@ -1,10 +1,9 @@
 import React from "react";
-import { FormControl, Select, MenuItem, makeStyles } from "@material-ui/core";
+import { FormControl, Select, MenuItem } from "@material-ui/core";
 import { Roles, Types } from "../_types/DataTable";
-import { METRICS } from "../../styles/styles";
+import { TableDropDownMenuOverride } from "../../styles/materialUIoverrides";
 
 // const transparentColor = (color: string) => `${color}44`;
-
 
 export const ROLES: Roles = {
     target: {
@@ -49,35 +48,6 @@ interface TableDropdownMenuProps {
     autoIgnore?: boolean;
 };
 
-const useStyles = (color) => makeStyles(() => ({
-    outlined: {
-        backgroundColor: 'transparent',
-        width: '120px',
-        fontSize: '1em',
-        // fontWeight: '300',
-        padding: METRICS.smallest_spacing,
-        margin: METRICS.tiny_spacing,
-    },
-    root: {
-        // backgroundColor: transparentColor(color),
-        margin: 0,
-        '& .MuiOutlinedInput-root': {
-            '& fieldset': {
-              borderColor: 'transparent',
-              borderWidth: '0px',
-              '&:focus': {
-                borderColor: 'transparent',
-              }
-            },
-            '&[aria-disabled=true]': {
-                cursor: 'not-allowed',
-            },
-            '&[aria-disabled]': {
-                cursor: 'not-allowed',
-            }
-        },
-    }
-}));
 
 
 export const TableDropdownMenu: React.FunctionComponent<TableDropdownMenuProps> = ({
@@ -97,7 +67,7 @@ export const TableDropdownMenu: React.FunctionComponent<TableDropdownMenuProps> 
         onChange(newSelected.value);
     };
 
-    const classes = useStyles(selected.color)();
+    const classes = TableDropDownMenuOverride(selected.color)();
 
     const cantBeChanged = () => {
         return (type === 'TYPES' && value === TYPES.categorical.value) || autoIgnore;

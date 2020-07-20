@@ -8,7 +8,7 @@ import './_styles/LoginPage.scss';
 import { InputProps, LoginPageProps, LoginPageStates, LoginPageFuncTypes, InputItem } from './_types/LoginPage.types';
 import { withRouter } from 'react-router-dom';
 import { ErrorCard } from '../components/common/ErrorCard';
-import { FilterPopUp } from '../components/PreProcessing/FilterPopUp';
+import { FilterPopUp } from '../components/PreProcessing/FilterPopUp/FilterPopUp';
 import { EXPLORATORY_ANALYSIS_DATA_OBJECT } from '../../__mocks__/exploratoryMocks';
 
 
@@ -170,7 +170,7 @@ export class LoginPage extends React.Component<LoginPageProps, LoginPageStates> 
                         <h3 className="login-description">Check out how are we changing the datascience industry with our tool</h3>
                     </div>
                 </div>
-                {false && <FilterPopUp
+                {true && <FilterPopUp
                     onClose={console.log}
                     variables={baseData}
                 />}

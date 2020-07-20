@@ -2,7 +2,7 @@ import React from 'react';
 import { PreProcessingProps, Filter } from '../_types/Project.types';
 import ContentCard from '../../components/common/ContentCard';
 import SectionBox from '../../components/common/SectionBox';
-import { getProjectBaseData, getFilters } from '../../redux/reducers/projectReducer';
+import { getProjectBaseData, getFilters, getVariables } from '../../redux/reducers/projectReducer';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as ProjectActions from '../../redux/actions/projectActions';
@@ -10,6 +10,7 @@ import * as ProjectActions from '../../redux/actions/projectActions';
 import { Fab, Icon } from '@material-ui/core';
 import SimpleTableComponent from '../../components/common/SimpleTableComponent';
 import { PieChart } from '../../components/common/PieChart';
+import { FilterPopUp } from '../../components/PreProcessing/FilterPopUp/FilterPopUp';
 
 const SAMPLE_FILTER_HEADERS = [
     {
@@ -79,9 +80,10 @@ const convertFilters = ({ id, name, isActive, variable, criteria, criteriaValues
 
 export const PreProcessing: React.FunctionComponent<PreProcessingProps> = ({
     setNextButtonAvailability,
-    projectBaseData,
     toggleFilterIsActive,
+    projectBaseData,
     filters,
+    variables,
 }) => {
     const [showFilter, setShowFilter] = React.useState<boolean>(false);
     console.log(setNextButtonAvailability);
@@ -149,12 +151,17 @@ export const PreProcessing: React.FunctionComponent<PreProcessingProps> = ({
                     </SectionBox>
                 </div>
             </div>
+            {true && <FilterPopUp
+                onClose={console.log}
+                variables={variables}
+            />}
         </ContentCard>
     );
 };
 
 const mapStateToProps = (state) => ({
     projectBaseData: getProjectBaseData(state),
+    variables: getVariables(state),
     filters: getFilters(state),
 });
 

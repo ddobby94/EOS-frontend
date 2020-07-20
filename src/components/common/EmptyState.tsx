@@ -5,7 +5,7 @@ import '../_styles/common.scss';
 interface EmptyStateProperties {
     icon: string;
     title: string;
-    description: string;
+    description?: string;
 }
 
 export const EmptyState: React.FunctionComponent<EmptyStateProperties> = ({ icon, title, description }) => {

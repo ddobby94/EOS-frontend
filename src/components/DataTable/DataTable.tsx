@@ -1,5 +1,4 @@
 import React from 'react';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -16,16 +15,9 @@ import { Icon } from '@material-ui/core';
 import AccordionContent from './AccordionContent';
 import TableToolbar from './TableToolbar';
 import { getRowsPerPage, getComparator, stableSort, ROLE_HANDLING_LOGIC, downloadSelectedExploratory } from '../../utils/DataTableUtils';
-import { FilterPopUp } from '../PreProcessing/FilterPopUp';
+import { FilterPopUp } from '../PreProcessing/FilterPopUp/FilterPopUp';
 import { Variable } from '../_types/DataTable';
-
-const useStyles = makeStyles(() =>
-    createStyles({
-        table: {
-            minWidth: 750,
-        },
-    }),
-);
+import { DataTableOverride } from '../../styles/materialUIoverrides';
 
 interface EnhancedTableProps {
     setTargetVariable: (v?: Variable) => void;
@@ -34,7 +26,7 @@ interface EnhancedTableProps {
 export const EnhancedTable: React.FunctionComponent<EnhancedTableProps> = ({ setTargetVariable }) => {
     const baseData = EXPLORATORY_ANALYSIS_DATA_OBJECT;
     const ROWS_PER_PAGE = getRowsPerPage(baseData.length);
-    const classes = useStyles();
+    const classes = DataTableOverride();
     const [showFilterPopUp, setShowFilterPopUp] = React.useState<boolean>(false);
     const [forceUpdateCount, triggerForceUpdate] = React.useState<number>(0);
     const [order, setOrder] = React.useState<Order>('asc');

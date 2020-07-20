@@ -22,6 +22,7 @@ export interface PreProcessingProps extends BaseProjectContentCard {
     projectBaseData: ProjectState['editing']['meta'];
     toggleFilterIsActive: (id: string, isActive: boolean) => void;
     filters: ProjectState['editing']['filters'];
+    variables: ProjectState['editing']['variables'];
 }
 
 export interface ProjectContainerProps {

@@ -57,7 +57,7 @@
 .popup {
     &-container {
         background-color: $bg_main;
-        width: 60%;
+        width: 70%;
         margin: auto;
         position: relative;
         top: 50%;
@@ -104,6 +104,9 @@
     }
     &-slider {
         color: $primary;
+        & span[class^="PrivateValueLabel-circle-"] {
+            color: $primary !important;
+        }
     }
     &-sliderValues {
         display: flex;
@@ -118,12 +121,18 @@
 
 .togglegroup {
     width: 100%;
+    transform: translateY(-50%);
     & > button {
         border: 1px solid $text_on_bg;
         border-radius: 0px;
         max-width: 200px;
+        margin: 0px;
+        background-color: $bg_main;
         & > span {
             color: $text_on_bg;
+        }
+        &:hover {
+            background-color: $bg_light;
         }
     }
     & > button:first-child {
@@ -135,6 +144,99 @@
         border-top-right-radius: 5px;
         border-bottom-right-radius: 5px;
         max-width: 200px;
+    }
+    &-ranges {
+        & > span {
+            font-weight: 100;
+            padding-left: $smallest_spacing;
+            padding-right: $smallest_spacing;
+        }
+        &_active {
+            & span {
+                font-weight: 900;
+            }
+        }
+
+    }
+    &-values {
+        & > span {
+            font-weight: 100;
+            padding-left: $smallest_spacing;
+            padding-right: $smallest_spacing;
+        }
+        &_active {
+            & span {
+                font-weight: 900;
+            }
+        }
+    }
+}
+
+.filterBase {
+    &-container {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        & > * {
+            width: 100%;
+            margin: 0 $small_spacing;
+        }
+        & > *:last-child {
+            width: 200px;
+        }
+    }
+    &-name {
+        & input {
+            height: 24px !important;
+        }
+    }
+    &-autocomplete {
+        width: 100%;
+    }
+    &-selected {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        white-space: nowrap;
+        & > p {
+            margin-left: $tiny_spacing;
+            font-weight: 400;
+        }
+    }
+}
+
+.chipListInput {
+    display: flex;
+    flex-direction: column;
+
+    &-container {
+        display: flex;
+        flex-direction: column;
+    }
+    &-chipsContainer {
+        margin: $smallest_spacing;
+        margin-left: 0;
+    }
+    &-chip {
+        margin: $tiny_spacing $smallest_spacing;
+        & > span {
+            color: $text_on_primary;
+            font-size: 1.1em;
+        }
+    }
+    &-inputFields {
+        display: flex;
+        justify-content: baseline;
+        & > div {
+            width: 100%;
+            margin-right: $small_spacing;
+            margin-top: 0;
+        }
+        & > Button {
+            width: 30%;
+            height: 50px;
+            margin: 0;
+        }
     }
 }
 
@@ -158,16 +260,16 @@
 .sectionBox {
     border: 1px solid $bg_light;
     background-color: transparent;
-    padding: $small_spacing;
+    padding: $smallest_spacing $small_spacing;
     margin: $smallest_spacing;
 
-    & h1, h2, h3, h4, h5, h6, p, b, strong, label, a, li, div, span {
+    & > h1, > h2, > h3, > h4, > h5, > h6, > p, > b, > strong, > label, > a, > li, > div, > span {
         color: $text_on_bg;
     }
 
     &-title {
         position: relative;
-        top: -26px;
+        top: -19px;
         background-color: $bg_main;
         padding: 0 $smallest_spacing;
     }
