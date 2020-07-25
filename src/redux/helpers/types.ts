@@ -65,3 +65,10 @@ export interface ReducerObject<T = AuthState> {
 export type PayloadType<T> = {
     payload: T
 }
+
+export type SuccessPayload = {
+    payload: {
+        response: SimpleObject;
+        args: any[];
+    }
+}

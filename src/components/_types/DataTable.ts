@@ -97,4 +97,5 @@ export interface Variable {
     chartData: ExpChartData;
     IQR: number;
     CV: number;
+    IVvalue: number;
 };

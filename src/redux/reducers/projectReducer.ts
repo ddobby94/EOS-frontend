@@ -8,16 +8,22 @@ import {
     SET_TARGET_VARIABLE,
     REMOVE_FILTER,
     TOGGLE_FILTER_ISACTIVE,
+    GENERATE_SAMPLE,
+    GENERATE_SAMPLE_SUCCESS,
+    GENERATE_SAMPLE_ERROR,
 } from "../actions/actionTypes";
 import { createReducer, START_LOADING, SET_ERROR } from "../helpers";
-import { StoreReducerSelector, ProjectState, PayloadType } from '../helpers/types';
+import { StoreReducerSelector, ProjectState, PayloadType, SuccessPayload } from '../helpers/types';
 import { initialProjectState } from "../helpers/store";
 import { EXPLORATORY_ANALYSIS_DATA_OBJECT } from "../../../__mocks__/exploratoryMocks";
-import { Version, Filter } from "../../containers/_types/Project.types";
+import { Filter, IVresults } from "../../containers/_types/Project.types";
+import { IV_RESULTS_MOCK, NEW_VERSION_DATA_MOCK } from "../../../__mocks__/preProcessingMocks";
+
+
 
 // reducer helpers
 
-const uploadFileSuccess = (state: ProjectState, { payload }) => {
+const uploadFileSuccess = (state: ProjectState, { payload }: SuccessPayload) => {
     const { response = {} } = payload;
 
     return {
@@ -29,9 +35,41 @@ const uploadFileSuccess = (state: ProjectState, { payload }) => {
                 ...state.editing.meta,
                 totalRecords: response.totalRecords,
                 numberOfVariables: response.numberOfVariables,
-                currentVersion: new Version(),
+                currentVersion: -1,
             },
             variables: response.variable || EXPLORATORY_ANALYSIS_DATA_OBJECT,
+        }
+    } as ProjectState;
+}
+
+const generateSampleSuccess = (state: ProjectState, { payload }: SuccessPayload) => {
+    const { response = {} } = payload;
+
+    console.log(response);
+
+    let IVresults: IVresults = response.IVresults || IV_RESULTS_MOCK;
+    let newVersion: number = response.newVersion || NEW_VERSION_DATA_MOCK;
+
+    const IVresultsObj = {};
+    IVresults.forEach(({ variableId, IVvalue }) => IVresultsObj[variableId] = IVvalue);
+
+    const variables = [...state.editing.variables.map((v) => {
+        if (IVresultsObj[v.name] !== undefined) {
+            v.IVvalue = IVresultsObj[v.name]
+        }
+        return {...v};
+    })];
+
+    return {
+        ...state,
+        loading: false,
+        editing: {
+            ...state.editing,
+            meta: {
+                ...state.editing.meta,
+                currentVersion: newVersion,
+            },
+            variables,
         }
     } as ProjectState;
 }
@@ -79,7 +117,17 @@ export const projectReducer = createReducer<ProjectState>({
         }
     }),
     [UPLOAD_FILE_SUCCESS]: uploadFileSuccess,
-    [UPLOAD_FILE_ERROR]: (state, { payload }) => ({
+    [UPLOAD_FILE_ERROR]: (state) =>  uploadFileSuccess(state, { payload: { response: {}, args: [] } }), // TODO REMOVEME!!!
+    // [UPLOAD_FILE_ERROR]: (state, { payload }) => ({
+    //     ...state,
+    //     ...SET_ERROR(payload),
+    // }),
+    [GENERATE_SAMPLE]: (state) => ({
+        ...state,
+        ...START_LOADING,
+    }),
+    [GENERATE_SAMPLE_SUCCESS]: generateSampleSuccess,
+    [GENERATE_SAMPLE_ERROR]: (state, { payload }) => ({
         ...state,
         ...SET_ERROR(payload),
     }),
@@ -127,6 +175,8 @@ const selectProjectState: StoreReducerSelector<ProjectState> = (s) => s.project;
 export const getProjectTitle = (s) => selectProjectState(s).editing.meta.title;
 export const getSelectedFile = (s) => selectProjectState(s).editing.selectedFile;
 export const getVariables = (s) => selectProjectState(s).editing.variables;
+export const hasVariablesWithFineIV = (s) => selectProjectState(s).editing.variables.find((v) => v.IVvalue !== undefined);
 export const getTargetVariable = (s) => selectProjectState(s).editing.meta.targetVariable;
 export const getProjectBaseData = (s) => selectProjectState(s).editing.meta;
 export const getFilters = (s) => selectProjectState(s).editing.filters;
+export const getActiveFiltersList = (s) => selectProjectState(s).editing.filters.filter((f) => f.isActive);

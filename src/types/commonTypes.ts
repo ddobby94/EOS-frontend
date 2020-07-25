@@ -5,7 +5,7 @@ export interface SimpleObject<T = any> {
     [key: string]: T
 };
 
-export type fetchFunction = (url: string, options?: SimpleObject) => Promise<any>;
+export type fetchFunction = (url: string, options?: SimpleObject, mockTimeOut?: number) => Promise<any>;
 
 export type FunctionComponentInRoute = React.FunctionComponent<RouteComponentProps>;
 

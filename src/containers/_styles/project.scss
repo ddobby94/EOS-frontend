@@ -222,12 +222,44 @@
     }
 }
 
+.modelingSample {
+    &-inputContainer {
+        display: flex;
+        justify-content: space-between;
+        & > div {
+            margin: 0 $tiny_spacing;
+        }
+    }
+}
+
+.filtersBox {
+
+}
+
 .baseData {
     &-container {
         display: flex;
         flex-direction: row;
+        justify-content: space-between;
     }
     &-list {
+        & ul {
+            padding: 0;
+        }
+        & li {
+            margin: $tiny_spacing 0;
+            display: flex;
+            &::before {
+                content: "•";
+                color: $text_on_bg;
+                margin-right: $tiny_spacing;
+                font-size: 1.4em;
+            }
+        }
+        & strong {
+            justify-self: flex-start;
+            margin-right: $small_spacing;
+        }
     }
     &-chart {
     }

@@ -12,6 +12,7 @@ export const initialProjectState: ProjectState = {
         meta: {
             title: '',
             datasetName: '',
+            currentVersion: -1,
         },
         filters: [],
         variables: [],

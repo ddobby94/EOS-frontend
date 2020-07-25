@@ -8,7 +8,9 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-
+        h3 {
+            margin: $tiny_spacing;
+        }
     }
     &-icon{
         font-size: 7em !important;
@@ -17,7 +19,7 @@
 
     }
     &-iconContainer{
-        background: radial-gradient( #315362 9%, #355868 40%, transparent 73%);
+        background: radial-gradient( #315362 0%, #315362 5%, #325463 10%, #325564 15%, #335665 20%, #345666 25%, #345767 30%, #355868F0 35%, #355868E0 40%, #355868E0 42%, #355868C0 45%, #355868A0 50%, #35586880 55%, #35586860 60%, #35586830 65%, #35586810 70%, transparent 73%, transparent 100%);
         width: 250px;
         height: 250px;
         display: flex;
@@ -25,6 +27,8 @@
         align-items: center;
     }
 }
+
+
 
 
 .chipContainer {
@@ -74,7 +78,7 @@
     }
     &-blurredBg {
         background-color: $bg_light_transparent;
-        position: absolute;
+        position: fixed;
         top: 0px;
         bottom: 0px;
         left: 0px;
@@ -114,6 +118,7 @@
         font-size: 80%;
     }
     &-createButton {
+        white-space: nowrap;
         width: 200px;
     }
 
@@ -182,7 +187,8 @@
             margin: 0 $small_spacing;
         }
         & > *:last-child {
-            width: 200px;
+            width: 170px;
+            min-width: 170px;
         }
     }
     &-name {
@@ -260,16 +266,17 @@
 .sectionBox {
     border: 1px solid $bg_light;
     background-color: transparent;
-    padding: $smallest_spacing $small_spacing;
+    padding: $small_spacing;
     margin: $smallest_spacing;
+    position: relative;
 
     & > h1, > h2, > h3, > h4, > h5, > h6, > p, > b, > strong, > label, > a, > li, > div, > span {
         color: $text_on_bg;
     }
 
     &-title {
-        position: relative;
-        top: -19px;
+        position: absolute;
+        top: -12px;
         background-color: $bg_main;
         padding: 0 $smallest_spacing;
     }

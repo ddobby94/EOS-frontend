@@ -37,6 +37,7 @@ const STATES = {
     DELETE_INCLUDE: 'DELETE_INCLUDE',
     ADD_EXCLUDE: 'ADD_EXCLUDE',
     DELETE_EXCLUDE: 'DELETE_EXCLUDE',
+    RESET: 'RESET',
 }
 
 function reducer(state: InitialStateType, action: { type: string, payload: string }): InitialStateType {
@@ -67,12 +68,26 @@ function reducer(state: InitialStateType, action: { type: string, payload: strin
                 valuesToExclude: new Set(state.valuesToExclude),
             };
         }
+        case STATES.RESET: {
+            return {
+                valuesToInclude: new Set(),
+                valuesToExclude: new Set(),
+            };
+        }
         default:
             throw new Error();
     }
-};
+}
 
-export const VariableSelectableChipList: React.FunctionComponent<{ type: keyof typeof CHIPLIST_TYPES }> = ({ type }) => {
+interface VariableSelectableChipListProps {
+    type: keyof typeof CHIPLIST_TYPES;
+    onChange: (valuesList: string[]) => void;
+}
+
+export const VariableSelectableChipList: React.FunctionComponent<VariableSelectableChipListProps> = ({
+    type,
+    onChange,
+}) => {
     const [state, dispatch] = React.useReducer(reducer, initialState);
     const [inputValue, setInputValue] = React.useState<string>('');
 
@@ -83,9 +98,13 @@ export const VariableSelectableChipList: React.FunctionComponent<{ type: keyof t
     const onAdd = () => {
         dispatch({ type: addFunctionKey, payload: inputValue });
         setInputValue('');
-    }
+        onChange([ ...valuesList ]);
+    };
 
-    console.log({ state });
+    const onDelete = (key: string) => {
+        dispatch({ type: deleteFunctionKey, payload: key });
+        onChange([ ...valuesList ]);
+    };
 
     return (
         <SectionBox
@@ -93,7 +112,7 @@ export const VariableSelectableChipList: React.FunctionComponent<{ type: keyof t
         >
             <ChipList
                 variablesList={[...valuesList]}
-                onDelete={(key) => dispatch({ type: deleteFunctionKey, payload: key })}
+                onDelete={onDelete}
             />
             <div className="chipListInput-inputFields">
                 <TextField

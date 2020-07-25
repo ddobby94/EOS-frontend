@@ -2,11 +2,11 @@ import { FetchActionHandler, ReducerObject } from "./types";
 
 export const handleSuccess = (dispatch, successFunction, response, args) => {
     if (response && response.error) {
-      throw response.error;
+        throw response.error;
     }
 
     return dispatch(successFunction(response, args));
-  }
+}
 
 export const handleError = (dispatch, errorFunction, errorResponse) => {
     let error;

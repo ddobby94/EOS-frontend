@@ -4,7 +4,7 @@ import PopUp from '../../common/PopUp';
 import { FormControlLabel, Checkbox, TextField, Button, Slider } from '@material-ui/core';
 import { Autocomplete } from '@material-ui/lab';
 import SectionBox from '../../common/SectionBox';
-import { addNewFilter } from '../../../redux/actions/projectActions';
+import * as ProjectActions from '../../../redux/actions/projectActions';
 import { getVariables } from '../../../redux/reducers/projectReducer';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -14,6 +14,7 @@ import { METRICS } from '../../../styles/styles';
 import { FilterPopUpUseStyles } from '../../../styles/materialUIoverrides';
 import { ToggleGroupSectionBoxTitleProps, FILTER_TYPES, FilterPopUpProps, FilterTypes } from '../../_types/PreProcessing';
 import VariableSelectableChipList from './ChipListContainer';
+import { Filter, FILTER_CRITERIAS } from '../../../containers/_types/Project.types';
 
 const checkValidRange = (selectedVariable) => typeof selectedVariable?.min === 'number' && selectedVariable?.min < selectedVariable?.max - 1;
 
@@ -40,22 +41,80 @@ const ToggleGroupSectionBoxTitle: React.FunctionComponent<ToggleGroupSectionBoxT
 export const FilterPopUp: React.FunctionComponent<FilterPopUpProps> = ({
     onClose,
     variables,
+    addNewFilter,
 }) => {
     const [filterName, setFilterName] = React.useState<string>('');
+    const [selectedVariable, setSelectedVariable] = React.useState<Variable | null>();
     const [selectedType, setselectedType] = React.useState<FilterTypes>(FILTER_TYPES.RANGES);
-    const [rangesValues, setRangesValues] = React.useState<number[]>([0, 100]);
+    const [rangesValues, setRangesValues] = React.useState<[number, number]>([0, 100]);
     const [includeBorders, setIncludeBorders] = React.useState<boolean>(false);
     const [createAnother, setCreateAnother] = React.useState<boolean>(false);
-    const [selectedVariable, setSelectedVariable] = React.useState<Variable | null>();
+    const [valuesList, setValuesList] = React.useState<{ inculde: string[], exclude: string[]}>({ inculde: [], exclude: [] });
 
     const classes = FilterPopUpUseStyles();
+    const hasValidRange = checkValidRange(selectedVariable);
 
-    const onCreate = () => {
-        console.log('TODO: filterName, rangeOrValue, selectedVariable, includeBorders, min, max, valuesToInclude, valuesToExclude ');
+    const createFilter = () => {
+        if (!selectedVariable) {
+            alert('No selected variable!');
+            return;
+        }
+        if (!filterName) {
+            alert('No filter name provided!');
+            return;
+        }
+
+        const filterBaseData = {
+            name: filterName,
+            variable: selectedVariable,
+        };
+
+        if (hasValidRange) {
+            if (rangesValues[0] !== selectedVariable.min) {
+                addNewFilter(new Filter({
+                    ...filterBaseData,
+                    type: 'range',
+                    criteriaRange: rangesValues[0],
+                    criteria: includeBorders ? FILTER_CRITERIAS.GREATER_EQUAL : FILTER_CRITERIAS.GREATER,
+                }));
+            }
+            if (rangesValues[1] !== selectedVariable.max) {
+                addNewFilter(new Filter({
+                    ...filterBaseData,
+                    type: 'range',
+                    criteriaRange: rangesValues[1],
+                    criteria: includeBorders ? FILTER_CRITERIAS.LESS_EQUAL : FILTER_CRITERIAS.LESS,
+                }));
+            }
+        }
+        if (valuesList.inculde.length) {
+            addNewFilter(new Filter({
+                ...filterBaseData,
+                type: 'values',
+                criteria: FILTER_CRITERIAS.INCLUDE,
+                criteriaValues: valuesList.inculde,
+            }));
+        }
+        if (valuesList.exclude.length) {
+            addNewFilter(new Filter({
+                ...filterBaseData,
+                type: 'values',
+                criteria: FILTER_CRITERIAS.EXCLUDE,
+                criteriaValues: valuesList.exclude,
+            }));
+        }
+
+        if (!createAnother) {
+            onClose();
+        } else {
+            setFilterName('');
+            setSelectedVariable(undefined);
+            setValuesList({ inculde: [], exclude: [] });
+        }
     }
 
     const handleChange = (event: any, newValue: number | number[]) => {
-        setRangesValues(newValue as number[]);
+        setRangesValues(newValue as [number, number]);
     };
 
     const onAutoCompleteSelected = (e, variable: Variable | null) => {
@@ -66,14 +125,11 @@ export const FilterPopUp: React.FunctionComponent<FilterPopUpProps> = ({
         }
     }
 
-    const hasValidRange = checkValidRange(selectedVariable);
-
-
     return (
         <PopUp
-            title="PRE-PROCESSING FILTER"
+            title="NEW FILTER"
             onClose={onClose}
-            onApprove={onCreate}
+            onApprove={createFilter}
             positiveButtonText="CREATE"
             secondaryButtonComponent={(
                 <FormControlLabel
@@ -129,38 +185,47 @@ export const FilterPopUp: React.FunctionComponent<FilterPopUpProps> = ({
             >
                 {selectedType === FILTER_TYPES.RANGES ? (
                     <>
-                        <FormControlLabel
-                            control={
-                                <Checkbox
-                                    checked={includeBorders}
-                                    onChange={() => setIncludeBorders(!includeBorders)}
-                                />
-                            }
-                            label="Include borders"
-                        />
                         {hasValidRange ? (
-                            <Slider
-                                className="popup-slider"
-                                value={rangesValues}
-                                onChange={handleChange}
-                                classes={{
-                                    root: classes.slider,
-                                }}
-                                valueLabelDisplay="on"
-                                aria-labelledby="range-slider"
-                                color="primary"
-                                min={selectedVariable?.min}
-                                max={selectedVariable?.max}
-                            />
+                            <>
+                                <FormControlLabel
+                                    control={
+                                        <Checkbox
+                                            checked={includeBorders}
+                                            onChange={() => setIncludeBorders(!includeBorders)}
+                                        />
+                                    }
+                                    label="Include borders"
+                                    style={{ marginBottom: METRICS.big_spacing }}
+                                />
+                                <Slider
+                                    className="popup-slider"
+                                    value={rangesValues}
+                                    onChange={handleChange}
+                                    classes={{
+                                        root: classes.slider,
+                                    }}
+                                    valueLabelDisplay="on"
+                                    aria-labelledby="range-slider"
+                                    color="primary"
+                                    min={selectedVariable?.min}
+                                    max={selectedVariable?.max}
+                                />
+                            </>
                         ) : (
-                            <p>No valid range!</p>
+                            <p>Can't create value range restriction for the selected variable!</p>
                         )}
                     </>
                 ) : (
                     <>
                         <div style={{ display: 'flex', flexDirection: 'column' }}>
-                            <VariableSelectableChipList type="INCLUDE" />
-                            <VariableSelectableChipList type="EXCLUDE" />
+                            <VariableSelectableChipList
+                                onChange={(inc) => setValuesList({ ...valuesList, inculde: inc })}
+                                type="INCLUDE"
+                            />
+                            <VariableSelectableChipList
+                                onChange={(exc) => setValuesList({ ...valuesList, exclude: exc })}
+                                type="EXCLUDE"
+                            />
                         </div>
                     </>
                 )}
@@ -175,7 +240,7 @@ const mapStateToProps = (s) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    setSelectedFile: bindActionCreators(addNewFilter, dispatch),
+    addNewFilter: bindActionCreators(ProjectActions.addNewFilter, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FilterPopUp);

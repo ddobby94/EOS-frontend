@@ -1,0 +1,38 @@
+import { IVresults } from "../src/containers/_types/Project.types";
+
+export const IV_RESULTS_MOCK: IVresults = [
+    { variableId: 'ACTION_CNT', role: 'Explanatory', type: 'Continuous', IVvalue: 0.124 },
+    { variableId: 'APPT_LENGTH_HRS', role: 'Explanatory', type: 'Continuous', IVvalue: 3.937 },
+    { variableId: 'BONDED', role: 'Explanatory', type: 'Categorical', IVvalue: 0.053 },
+    { variableId: 'CALENDAR_ORDER_TYPE', role: 'Explanatory', type: 'Categorical', IVvalue: 0.008 },
+    { variableId: 'CALL_COUNT_L1', role: 'Ignore', type: 'Continuous', IVvalue: 0 },
+    { variableId: 'CALL_ID', role: 'Explanatory', type: 'Continuous', IVvalue: 0.01 },
+    { variableId: 'DISCO_REASON', role: 'Explanatory', type: 'Categorical', IVvalue: 1.999 },
+    { variableId: 'DURATION', role: 'Explanatory', type: 'Continuous', IVvalue: 0.075 },
+    { variableId: 'ENV', role: 'Explanatory', type: 'Categorical', IVvalue: 0.018 },
+    { variableId: 'EVENT_COMP', role: 'Explanatory', type: 'Discrete', IVvalue: 7.856 },
+    { variableId: 'EVENT_RCWA', role: 'Explanatory', type: 'Discrete', IVvalue: 0.055 },
+    { variableId: 'EVENT_RDIS', role: 'Explanatory', type: 'Continuous', IVvalue: 0.115 },
+    { variableId: 'EVENT_REFSSO', role: 'Explanatory', type: 'Continuous', IVvalue: 0.167 },
+    { variableId: 'EVENT_RFRRSN', role: 'Explanatory', type: 'Continuous', IVvalue: 0.114 },
+    { variableId: 'EVENT_RNOA', role: 'Explanatory', type: 'Discrete', IVvalue: 3.108 },
+    { variableId: 'EVENT_RPTCBR', role: 'Explanatory', type: 'Continuous', IVvalue: 1.464 },
+    { variableId: 'EVENT_RSAV', role: 'Explanatory', type: 'Discrete', IVvalue: 0.104 },
+    { variableId: 'FIELD_CALENDAR', role: 'Ignore', type: 'Categorical', IVvalue: 0 },
+    { variableId: 'FIRST_APPT_SELECTED', role: 'Explanatory', type: 'Categorical', IVvalue: 0.029 },
+    { variableId: 'LOG_PREVCALLS', role: 'Ignore', type: 'Continuous', IVvalue: 0 },
+    { variableId: 'LONGMSG_CANCEL', role: 'Explanatory', type: 'Discrete', IVvalue: 1.489 },
+    { variableId: 'MISSED_DUEDT', role: 'Explanatory', type: 'Categorical', IVvalue: 1.164 },
+    { variableId: 'MSOSO_FLAG', role: 'Explanatory', type: 'Discrete', IVvalue: 0.002 },
+    { variableId: 'NUM_PREV_CALL_COUNT', role: 'Ignore', type: 'Continuous', IVvalue: 0 },
+    { variableId: 'PRODUCT_CLASS', role: 'Explanatory', type: 'Categorical', IVvalue: 0.057 },
+    { variableId: 'REFER_REASON_GRP_L1', role: 'Ignore', type: 'Categorical', IVvalue: 0 },
+    { variableId: 'REFER_REASON_L1', role: 'Ignore', type: 'Categorical', IVvalue: 0 },
+    { variableId: 'RESPONSE_CODE_L1', role: 'Ignore', type: 'Categorical', IVvalue: 0 },
+    { variableId: 'START_STOP_MINS', role: 'Explanatory', type: 'Continuous', IVvalue: 1.74 },
+    { variableId: 'START_STOP_MINS_L1', role: 'Ignore', type: 'Continuous', IVvalue: 0 },
+    { variableId: 'TOTAL_EVENT_CNT', role: 'Explanatory', type: 'Continuous', IVvalue: 0.688 },
+    { variableId: 'TRIP_B4_DUEDT', role: 'Explanatory', type: 'Categorical', IVvalue: 2.349 },
+];
+
+export const NEW_VERSION_DATA_MOCK = 1;

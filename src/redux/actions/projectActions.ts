@@ -8,11 +8,14 @@ import {
     SET_TARGET_VARIABLE,
     REMOVE_FILTER,
     TOGGLE_FILTER_ISACTIVE,
+    GENERATE_SAMPLE,
+    GENERATE_SAMPLE_SUCCESS,
+    GENERATE_SAMPLE_ERROR,
 } from "./actionTypes";
 import Services from '../../services';
 import { SimpleAction, FetchSuccessAction, FetchErrorAction } from "../helpers/types";
 import { fetchActionHandler } from "../helpers";
-import { Filter } from "../../containers/_types/Project.types";
+import { Filter, generateRequestPayload } from "../../containers/_types/Project.types";
 import { Variable } from "../../components/_types/DataTable";
 
 // -------------------- Actions --------------------
@@ -49,6 +52,28 @@ export const uploadErrorAction: FetchErrorAction = (error) => ({
     error,
 });
 
+export const generateStart: SimpleAction = (...details: generateRequestPayload) => ({
+    type: GENERATE_SAMPLE,
+    payload: {
+        activeFilters: details[0],
+        metaData: details[1],
+        target: details[2],
+    },
+});
+
+export const generateSuccessAction: FetchSuccessAction = (response, args) => ({
+    type: GENERATE_SAMPLE_SUCCESS,
+    payload: {
+        response,
+        selectedFile: args[0],
+    },
+});
+
+export const generateErrorAction: FetchErrorAction = (error) => ({
+    type: GENERATE_SAMPLE_ERROR,
+    error,
+});
+
 export const addNewFilter: SimpleAction = (filter: Filter) => ({
     type: ADD_NEW_FILTER,
     payload: filter,
@@ -82,6 +107,16 @@ export const uploadSelectedFile = (...details) => {
     ];
 
     return fetchActionHandler(types, Services.project.uploadFile, details);
+}
+
+export const generateIVsample = (...details: generateRequestPayload) => {
+    const types = [
+        generateStart,
+        generateSuccessAction,
+        generateErrorAction,
+    ];
+
+    return fetchActionHandler(types, Services.project.generateIVsample, details[0]);
 }
 
 // export const sendLoginAction = (...detials) => {

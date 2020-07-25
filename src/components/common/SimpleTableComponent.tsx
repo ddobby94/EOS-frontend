@@ -26,7 +26,7 @@ interface HeaderObj {
 }
 
 interface BaseRowObject<T = any> {
-    isActive: boolean;
+    isActive?: boolean;
     id: string;
     values: SimpleObject<T>;
 }
@@ -121,7 +121,7 @@ const SimpleTableComponent: React.FunctionComponent<SimpleTableComponentProps> =
                                 <TableCell padding="checkbox">
                                     <Checkbox
                                         checked={row.isActive}
-                                        onChange={() => onSetActive(row.id, row.isActive)}
+                                        onChange={() => onSetActive(row.id, !row.isActive)}
                                         inputProps={{ 'aria-labelledby': labelId }}
                                     />
                                 </TableCell>
