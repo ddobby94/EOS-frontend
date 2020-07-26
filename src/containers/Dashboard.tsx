@@ -10,6 +10,7 @@ import { SideBar } from '../components/Sidebar';
 import { Icon } from '@material-ui/core';
 import { ContentCard } from '../components/common/ContentCard';
 import PreviousProjects from '../components/PreviousProjects';
+import { ProjectVersionPopUp } from './preprocessing/ProjectVersionPopUp';
 
 const MENU_ITEMS = [
     {
@@ -36,6 +37,7 @@ export class Dashboard extends React.Component<DashboardProps, DashboardStates> 
     state = {
         open: true,
         active: 0,
+        showProjectVersionPopUps: false,
     }
 
     changeState = (key, val) => {
@@ -50,6 +52,8 @@ export class Dashboard extends React.Component<DashboardProps, DashboardStates> 
         this.props.history.push('/newproject');
     }
 
+
+
     render() {
         return (
             <div>
@@ -58,7 +62,7 @@ export class Dashboard extends React.Component<DashboardProps, DashboardStates> 
                     active={this.state.active}
                     open={this.state.open}
                     onClose={this.toggleSideBar}
-                    onMenuItemSelected={console.log}
+                    onMenuItemSelected={() => this.setState({ showProjectVersionPopUps: true })}
                     onStartNewProject={this.onStartNewProject}
                 ></SideBar>
                 <Icon
@@ -76,6 +80,11 @@ export class Dashboard extends React.Component<DashboardProps, DashboardStates> 
                         />
                     </ContentCard>
                 </div>
+                {this.state.showProjectVersionPopUps && (
+                    <ProjectVersionPopUp
+                        onClose={() => this.setState({ showProjectVersionPopUps: false })}
+                    />
+                )}
             </div>
         );
     }

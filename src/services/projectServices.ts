@@ -22,7 +22,7 @@ export class ProjectService extends BaseApiFunctions {
             body: data,
         };
 
-        return this.fetchApi(this.URLS.UPLOAD_FILE, options);
+        return this.fetchApi(this.URLS.UPLOAD_FILE, options, 1500);
     }
 
     generateIVsample = (...details: generateRequestPayload) => {

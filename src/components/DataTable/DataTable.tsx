@@ -15,7 +15,7 @@ import { Icon } from '@material-ui/core';
 import AccordionContent from './AccordionContent';
 import TableToolbar from './TableToolbar';
 import { getRowsPerPage, getComparator, stableSort, ROLE_HANDLING_LOGIC, downloadSelectedExploratory } from '../../utils/DataTableUtils';
-import FilterPopUp from '../PreProcessing/FilterPopUp/FilterPopUp';
+import FilterPopUp from '../../containers/preprocessing/FilterPopUp';
 import { Variable } from '../_types/DataTable';
 import { DataTableOverride } from '../../styles/materialUIoverrides';
 

@@ -1,20 +1,20 @@
 import * as React from 'react';
-import '../../_styles/common.scss';
-import PopUp from '../../common/PopUp';
+import '../../components/_styles/common.scss';
+import PopUp from '../../components/common/PopUp';
 import { FormControlLabel, Checkbox, TextField, Button, Slider } from '@material-ui/core';
 import { Autocomplete } from '@material-ui/lab';
-import SectionBox from '../../common/SectionBox';
-import * as ProjectActions from '../../../redux/actions/projectActions';
-import { getVariables } from '../../../redux/reducers/projectReducer';
+import SectionBox from '../../components/common/SectionBox';
+import * as ProjectActions from '../../redux/actions/projectActions';
+import { getVariables } from '../../redux/reducers/projectReducer';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Variable } from '../../_types/DataTable';
-import { isActiveClassName } from '../../../utils/stylingHelpers';
-import { METRICS } from '../../../styles/styles';
-import { FilterPopUpUseStyles } from '../../../styles/materialUIoverrides';
-import { ToggleGroupSectionBoxTitleProps, FILTER_TYPES, FilterPopUpProps, FilterTypes } from '../../_types/PreProcessing';
-import VariableSelectableChipList from './ChipListContainer';
-import { Filter, FILTER_CRITERIAS } from '../../../containers/_types/Project.types';
+import { Variable } from '../../components/_types/DataTable';
+import { isActiveClassName } from '../../utils/stylingHelpers';
+import { METRICS } from '../../styles/styles';
+import { FilterPopUpUseStyles } from '../../styles/materialUIoverrides';
+import { ToggleGroupSectionBoxTitleProps, FILTER_TYPES, FilterPopUpProps, FilterTypes } from '../../components/_types/PreProcessing';
+import VariableSelectableChipList from '../../components/PreProcessing/FilterPopUp/ChipListContainer';
+import { Filter, FILTER_CRITERIAS } from '../_types/Project.types';
 
 const checkValidRange = (selectedVariable) => typeof selectedVariable?.min === 'number' && selectedVariable?.min < selectedVariable?.max - 1;
 

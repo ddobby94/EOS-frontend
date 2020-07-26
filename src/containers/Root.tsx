@@ -62,6 +62,11 @@ const theme = createMuiTheme({
                 cursor: 'not-allowed'
             }
         },
+        MuiDrawer: {
+            paper: {
+                zIndex: 9,
+            }
+        }
     },
 });
 

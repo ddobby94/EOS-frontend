@@ -10,6 +10,7 @@ export const COLORS = {
     text_on_secondary: '#FFFFFF',
     ocean: '#26A69A',
     orange: '#FAAB1B',
+    sky_blue: '#0082FB',
     makeTransparent: (color, percentage) => `rgba(${color.slice(1).match(/.{1,2}/g).map((v) => parseInt(v, 16)).join(', ')},${percentage / 100})`
 };
 

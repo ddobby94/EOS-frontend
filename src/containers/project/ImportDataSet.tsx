@@ -130,7 +130,7 @@ export const ImportDataSet: React.FunctionComponent<ImportPageProps> = ({
             />
                 <h3>{!!dragEventCounter ? 'Release files' : 'Drop your files here'}</h3>
                 <Button
-                    variant="outlined"
+                    variant="contained"
                     color="primary"
                     children="BROWSE FILES"
                     className="import-filesBtn"

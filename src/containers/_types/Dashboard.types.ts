@@ -12,6 +12,7 @@ export interface DashboardProps extends RouteChildrenProps {
 export interface DashboardStates {
     open: boolean,
     active: number,
+    showProjectVersionPopUps: boolean,
 };
 
 export type DashboardStateItem = keyof DashboardStates;

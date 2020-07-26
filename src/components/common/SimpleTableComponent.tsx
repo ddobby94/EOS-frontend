@@ -1,5 +1,5 @@
 import React from 'react';
-import { TableContainer, Table, TableBody, TableRow, TableCell, Checkbox, TableHead, TableSortLabel, Icon } from '@material-ui/core';
+import { TableContainer, Table, TableBody, TableRow, TableCell, Checkbox, TableHead, TableSortLabel, Icon, Button, Popper, Paper } from '@material-ui/core';
 import { SimpleObject } from '../../types/commonTypes';
 import { stableSort } from '../../utils/DataTableUtils';
 
@@ -31,11 +31,21 @@ interface BaseRowObject<T = any> {
     values: SimpleObject<T>;
 }
 
+export type rowAction = {
+    title: string;
+    onClick: (id: string) => void;
+}
+
 interface SimpleTableComponentProps {
     data: BaseRowObject[];
     titleArray: HeaderObj[];
     onSetActive?: (id: string, isActive: boolean) => void;
     onDeleteRow?: (id: string) => void;
+    emphasizedRowButton?: {
+        title: string;
+        onClick: (id: string) => void;
+    };
+    rowActions?: rowAction[];
 }
 
 const SimpleTableComponent: React.FunctionComponent<SimpleTableComponentProps> = ({
@@ -43,9 +53,16 @@ const SimpleTableComponent: React.FunctionComponent<SimpleTableComponentProps> =
     titleArray,
     onSetActive,
     onDeleteRow,
+    emphasizedRowButton,
+    rowActions,
 }) => {
     const [order, setOrder] = React.useState<Order>('asc');
     const [orderBy, setOrderBy] = React.useState();
+    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+
+    const onRowActionsClick = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorEl(anchorEl?.id === event.currentTarget.id ? null : event.currentTarget);
+    };
 
     const handleRequestSort = (event: React.MouseEvent<any>, property) => {
         const isAsc = orderBy === property && order === 'asc';
@@ -139,6 +156,47 @@ const SimpleTableComponent: React.FunctionComponent<SimpleTableComponentProps> =
                                         className="fa fa-trash"
                                         onClick={() => onDeleteRow(row.id)}
                                     />
+                                </TableCell>
+                            )}
+                            {emphasizedRowButton && (
+                                <TableCell>
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        children={emphasizedRowButton.title}
+                                        onClick={() => emphasizedRowButton.onClick(row.id)}
+                                    />
+                                </TableCell>
+                            )}
+                            {rowActions && (
+                                <TableCell>
+                                    <Button
+                                        id={`${row.id}-rowActionBtn`}
+                                        onClick={onRowActionsClick}
+                                    >
+                                        <Icon
+                                            className="fa fa-ellipsis-v"
+                                        />
+                                    </Button>
+                                    {/* TODO: create a row container for handling active popups */}
+                                    <Popper
+                                        id={!!anchorEl ? 'simple-popper' : undefined}
+                                        open={!!anchorEl}
+                                        anchorEl={anchorEl}
+                                        style={{ zIndex: 11 }}
+                                    >
+                                        <Paper >
+                                            {rowActions?.map(({ title, onClick }, i) => (
+                                                <Button
+                                                    key={`${title}-${i}`}
+                                                    children={title}
+                                                    onClick={() => onClick(row.id)}
+                                                />
+
+                                            ))}
+
+                                        </Paper>
+                                    </Popper>
                                 </TableCell>
                             )}
                         </TableRow>

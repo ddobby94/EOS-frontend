@@ -3,7 +3,7 @@ import { ProgressBar } from '../../components/ProgressBar';
 import { Button, Icon } from '@material-ui/core';
 import { setSuffixClassName } from '../../utils/stylingHelpers';
 
-const PROGRESS_BAR_ELEMENTS = ['Import', 'Exploratory Analysis', 'Bivariate Analysis', 'pre-processing', 'Model development'];
+const PROGRESS_BAR_ELEMENTS = ['Import', 'Exploratory Analysis', 'Pre Processing', 'Model development'];
 
 interface ProjectFooterProps {
     activePage: number;

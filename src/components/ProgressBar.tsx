@@ -15,7 +15,14 @@ export const ProgressBar: React.FunctionComponent<ProgressBarProps> = ({ items, 
         }
     }
 
-    const getHr = (index, arr) => (arr.length - 1 !== index && <hr className={isActiveClassName(index <= active - 1, 'bar-line')}/>);
+    const getHr = (index, arr) => (arr.length - 1 !== index && (
+        <hr
+            className={isActiveClassName(index <= active - 1, 'bar-line')}
+            style={{
+                width: `${55 / items.length}vw`
+            }}
+        />
+    ));
 
     const itemMapper = (itemName, index, arr) => (
         <div

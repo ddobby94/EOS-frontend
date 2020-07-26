@@ -19,4 +19,6 @@ export const initialProjectState: ProjectState = {
         versions: [],
     },
     previousProjects: {},
+    loading: false,
+    error: null,
 };

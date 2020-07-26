@@ -16,7 +16,7 @@ import * as ProjectActions from '../../redux/actions/projectActions';
 import { Fab, Icon, TextField, Button, Chip } from '@material-ui/core';
 import SimpleTableComponent from '../../components/common/SimpleTableComponent';
 import { PieChart } from '../../components/common/PieChart';
-import FilterPopUp from '../../components/PreProcessing/FilterPopUp/FilterPopUp';
+import FilterPopUp from '../preprocessing/FilterPopUp';
 import '../_styles/project.scss';
 import { Variable } from '../../components/_types/DataTable';
 import { METRICS } from '../../styles/styles';

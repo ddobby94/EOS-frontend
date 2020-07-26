@@ -23,9 +23,12 @@ export type FetchErrorAction = (error: SimpleObject | string) => SimpleObject;
 
 // Store state
 
-export interface AuthState {
+interface BaseState {
     loading: boolean;
     error: string | null;
+}
+
+export interface AuthState extends BaseState {
     loggedIn: boolean;
     user: {
         activeToken?: string;
@@ -35,7 +38,7 @@ export interface AuthState {
     }
 };
 
-export interface ProjectState {
+export interface ProjectState extends BaseState  {
     editing: SingleProject;
     previousProjects: SimpleObject<SingleProject>;
 }

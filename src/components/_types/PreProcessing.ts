@@ -29,3 +29,7 @@ export interface FilterPopUpProps extends Omit<PopUpProperties, 'title' | 'onApp
     variables: Variable[];
     addNewFilter: (f: Filter) => void;
 }
+
+export interface ProjectVersionPopUpProps extends Omit<PopUpProperties, 'title' | 'onApprove'> {
+
+}
