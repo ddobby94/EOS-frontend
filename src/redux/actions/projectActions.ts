@@ -11,6 +11,10 @@ import {
     GENERATE_SAMPLE,
     GENERATE_SAMPLE_SUCCESS,
     GENERATE_SAMPLE_ERROR,
+    OPEN_DATASET_AT_VERSION,
+    OPEN_DATASET_AT_VERSION_SUCCESS,
+    OPEN_DATASET_AT_VERSION_ERROR,
+    RESET_EDITING_PROJECT,
 } from "./actionTypes";
 import Services from '../../services';
 import { SimpleAction, FetchSuccessAction, FetchErrorAction } from "../helpers/types";
@@ -95,6 +99,27 @@ export const toggleFilter: SimpleAction = (id: string, isActive: boolean) => ({
 export const setTargetVariable: SimpleAction = (target: Variable | null) => ({
     type: SET_TARGET_VARIABLE,
     payload: target,
+});
+
+export const resetEditingProject: SimpleAction = () => ({
+    type: RESET_EDITING_PROJECT,
+});
+
+export const openVersionAtVersion: SimpleAction = (id: string) => ({
+    type: OPEN_DATASET_AT_VERSION,
+})
+
+export const openVersionAtVersionSuccess: FetchSuccessAction = (response, args) => ({
+    type: OPEN_DATASET_AT_VERSION_SUCCESS,
+    paylaod: {
+        response,
+        args,
+    }
+})
+
+export const openVersionAtVersionError: FetchErrorAction = (error) => ({
+    type: OPEN_DATASET_AT_VERSION_ERROR,
+    error,
 })
 
 // -------------------- API callers --------------------
@@ -117,6 +142,16 @@ export const generateIVsample = (...details: generateRequestPayload) => {
     ];
 
     return fetchActionHandler(types, Services.project.generateIVsample, details[0]);
+}
+
+export const openSelectedDatasetAtVersion = (id: string) => {
+    const types = [
+        openVersionAtVersion,
+        openVersionAtVersionSuccess,
+        openVersionAtVersionError,
+    ];
+
+    return fetchActionHandler(types, Services.project.uploadFile, [id]);
 }
 
 // export const sendLoginAction = (...detials) => {

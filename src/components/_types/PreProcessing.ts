@@ -30,6 +30,7 @@ export interface FilterPopUpProps extends Omit<PopUpProperties, 'title' | 'onApp
     addNewFilter: (f: Filter) => void;
 }
 
-export interface ProjectVersionPopUpProps extends Omit<PopUpProperties, 'title' | 'onApprove'> {
-
+export interface ProjectVersionPopUpProps extends Omit<PopUpProperties, 'onApprove'> {
+    openSelectedDatasetAtVersion: (id: string) => void;
+    currentVersion: number;
 }

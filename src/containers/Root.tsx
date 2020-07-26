@@ -66,6 +66,13 @@ const theme = createMuiTheme({
             paper: {
                 zIndex: 9,
             }
+        },
+        MuiChip: {
+            colorPrimary: {
+                color: COLORS.text_on_bg,
+                backgroundColor: COLORS.makeTransparent(COLORS.primary, 55),
+                border: `2px solid ${COLORS.primary}`,
+            },
         }
     },
 });

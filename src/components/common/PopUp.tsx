@@ -8,7 +8,7 @@ export interface PopUpProperties {
     description?: string;
     positiveButtonText?: string;
     onClose: () => void;
-    onApprove: () => void;
+    onApprove?: () => void;
     secondaryButtonComponent?: React.ReactNode;
 }
 

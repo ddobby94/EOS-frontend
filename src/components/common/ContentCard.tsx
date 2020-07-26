@@ -1,12 +1,14 @@
 import React from "react";
 import { COLORS, METRICS } from "../../styles/styles";
+import { SimpleObject } from "../../types/commonTypes";
 
 interface ContentCardProps {
     title: string;
+    style?: SimpleObject;
 };
 
 // TODO move styles to .scss
-export const ContentCard: React.FunctionComponent<ContentCardProps> = ({ title, children, ...props }) => (
+export const ContentCard: React.FunctionComponent<ContentCardProps> = ({ title, children, style }) => (
     <div
         style={{
             backgroundColor: COLORS.bg_main,
@@ -19,12 +21,12 @@ export const ContentCard: React.FunctionComponent<ContentCardProps> = ({ title, 
             alignSelf: 'center',
             maxHeight: '73vh',
             overflow: 'auto',
+            ...style,
         }}
-        {...props}
     >
         <h3
             style={{
-                margin: 0,
+                margin: `0 0 ${METRICS.small_spacing} ${METRICS.small_spacing}`,
                 fontWeight: 'normal',
             }}
         >

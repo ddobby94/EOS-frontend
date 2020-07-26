@@ -52,3 +52,5 @@ export const useDelayedUnmounting: DelayadedUnMounting = (time = 1600) => {
 
     return [state, show, hide];
 }
+
+export const PROJECT_STEP_PARAM = 'step';

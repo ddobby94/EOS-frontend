@@ -21,6 +21,7 @@ import '../_styles/project.scss';
 import { Variable } from '../../components/_types/DataTable';
 import { METRICS } from '../../styles/styles';
 import EmptyState from '../../components/common/EmptyState';
+import ProjectVersionPopUp from '../preprocessing/ProjectVersionPopUp';
 
 const SAMPLE_FILTER_HEADERS = [
     {
@@ -98,7 +99,7 @@ const BaseData = ({ projectBaseData }) => (
     </SectionBox>
 );
 
-const ModelingSample = ({ onGenerate, activeFiltersList }) => {
+const ModelingSample = ({ onGenerate, activeFiltersList, setShowProjectVersionPopUps }) => {
     const [meta0, setMeta0] = React.useState<number>(10);
     const [meta1, setMeta1] = React.useState<number>(15);
     const [metaHoldout, setMetaHoldout] = React.useState<number>(0.2);
@@ -141,7 +142,7 @@ const ModelingSample = ({ onGenerate, activeFiltersList }) => {
                 />
                 <TextField
                     className="login-input"
-                    label="Holdout assignment"
+                    label="Holdout"
                     variant="outlined"
                     value={metaHoldout}
                     onChange={(e) => setMetaHoldout(Number(e.target.value) || metaHoldout)}
@@ -169,13 +170,30 @@ const ModelingSample = ({ onGenerate, activeFiltersList }) => {
                     </div>
                 </>
             )}
+            <div
+                style={{
+                    marginTop: METRICS.big_spacing,
+                    display: 'flex',
+                    justifyContent: 'flex-end'
+                }}
+            >
+                <Button
+                    onClick={() => setShowProjectVersionPopUps(true)}
+                    color="secondary"
+                    variant="contained"
+                    children="LOAD PREVIOUS VERSION"
+                    />
+                <Button
+                    style={{
+                        marginLeft: METRICS.big_spacing,
+                    }}
+                    onClick={generate}
+                    color="primary"
+                    variant="contained"
+                    children="GENERATE SAMPLE"
+                />
+            </div>
 
-            <Button
-                onClick={generate}
-                color="primary"
-                variant="contained"
-                children="GENERATE SAMPLE"
-            />
         </SectionBox>
     );
 };
@@ -246,8 +264,9 @@ const IVresultsTable = ({ hasGeneratedFineIV, variables }) => (
         ) : (
             <EmptyState
                 size="small"
-                title="No filters"
+                title="No IV generated"
                 icon="fa-table"
+                description={'Press "GENERATE SAMPLE" to calculate the IV results'}
             />
         )}
     </SectionBox>
@@ -265,6 +284,8 @@ export const PreProcessing: React.FunctionComponent<PreProcessingProps> = ({
     targetVariable,
     hasGeneratedFineIV,
 }) => {
+    const [showProjectVersionPopUps, setShowProjectVersionPopUps] = React.useState<boolean>(false);
+    console.log({showProjectVersionPopUps})
     const generate = (IVmeta) => {
         if (targetVariable) {
             generateIVsample([ activeFiltersList, IVmeta, targetVariable])
@@ -281,6 +302,7 @@ export const PreProcessing: React.FunctionComponent<PreProcessingProps> = ({
                     <ModelingSample
                         onGenerate={generate}
                         activeFiltersList={activeFiltersList}
+                        setShowProjectVersionPopUps={setShowProjectVersionPopUps}
                     />
                 </div>
                 <div className="preProcessing-colContainer" >
@@ -295,7 +317,12 @@ export const PreProcessing: React.FunctionComponent<PreProcessingProps> = ({
                     />
                 </div>
             </div>
-
+            {showProjectVersionPopUps && (
+                <ProjectVersionPopUp
+                    title="My first project"
+                    onClose={() => setShowProjectVersionPopUps(false)}
+                />
+            )}
         </ContentCard>
     );
 };

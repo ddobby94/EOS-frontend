@@ -2,6 +2,7 @@ import React from 'react';
 import { TableContainer, Table, TableBody, TableRow, TableCell, Checkbox, TableHead, TableSortLabel, Icon, Button, Popper, Paper } from '@material-ui/core';
 import { SimpleObject } from '../../types/commonTypes';
 import { stableSort } from '../../utils/DataTableUtils';
+import { METRICS } from '../../styles/styles';
 
 const descendingComparator = (a, b, orderBy) => {
     if (b.values[orderBy] < a.values[orderBy]) {
@@ -83,7 +84,9 @@ const SimpleTableComponent: React.FunctionComponent<SimpleTableComponentProps> =
 
 
     return (
-        <TableContainer>
+        <TableContainer
+            style={{ marginTop: METRICS.smallest_spacing }}
+        >
             <Table
                 size="small"
             >
@@ -103,7 +106,7 @@ const SimpleTableComponent: React.FunctionComponent<SimpleTableComponentProps> =
                             <TableCell
                                 key={headCell.key}
                                 align="left"
-                                padding="none"
+                                padding="checkbox"
                                 sortDirection={orderBy === headCell.key ? order : false}
                             >
                                 <TableSortLabel
@@ -117,6 +120,14 @@ const SimpleTableComponent: React.FunctionComponent<SimpleTableComponentProps> =
                             </TableCell>
                         ))}
                         {onDeleteRow && (
+                            <TableCell padding="checkbox" />
+                        )}
+                        {emphasizedRowButton && (
+                            <TableCell padding="checkbox" >
+                                <strong>Actions</strong>
+                            </TableCell>
+                        )}
+                        {rowActions && (
                             <TableCell padding="checkbox" />
                         )}
                     </TableRow>

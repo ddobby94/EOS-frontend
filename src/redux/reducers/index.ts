@@ -12,11 +12,17 @@ const persistConfig = {
     whitelist: ['authReducer'],
 };
 
+const projectPersistConfig = {
+    key: 'project',
+    storage,
+    whitelist: ['editing'],
+}
+
 const rootReducer = history => {
     const rootRed = combineReducers({
         router: connectRouter(history),
         authReducer,
-        project: projectReducer,
+        project: persistReducer(projectPersistConfig, projectReducer),
     });
 
     return persistReducer(persistConfig, rootRed);

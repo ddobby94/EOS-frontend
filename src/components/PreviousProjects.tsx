@@ -1,14 +1,42 @@
 import * as React from 'react';
 import EmptyState from './common/EmptyState';
 import './_styles/common.scss';
+import SimpleTableComponent from './common/SimpleTableComponent';
 
 interface PreviousProjectsProperties {
     projects: any[];
+    openVersionPopUp: (id: string) => void;
 }
 
-export const PreviousProjects: React.FunctionComponent<PreviousProjectsProperties> = ({ projects }) => {
 
-    if (!projects.length) {
+const HEADERS = [
+    {
+        label: 'Name',
+        key: 'name',
+    },
+    {
+        label: 'Created',
+        key: 'created',
+    },
+    {
+        label: 'Target',
+        key: 'target',
+    },
+];
+
+const SAMPLE_DATA = [
+    {
+        id: 'a0',
+        values: {
+            name: 'My first project',
+            created: '27/07/2020',
+            target: 'UNIPRODUCTIVE',
+        }
+    }
+]
+
+export const PreviousProjects: React.FunctionComponent<PreviousProjectsProperties> = ({ projects, openVersionPopUp }) => {
+    if (!projects.length && !!0) {
         return (
             <div className="empty-page">
                 <EmptyState
@@ -22,8 +50,11 @@ export const PreviousProjects: React.FunctionComponent<PreviousProjectsPropertie
 
     return (
         <div>
-            <p>{projects[0]}</p>
-            <h1>This is my React component!!!</h1>
+            <SimpleTableComponent
+                data={SAMPLE_DATA}
+                titleArray={HEADERS}
+                emphasizedRowButton={{ title: 'DETAILS', onClick: (id) => openVersionPopUp(id) }}
+            />
         </div>
     );
 };

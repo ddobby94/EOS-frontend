@@ -2,13 +2,14 @@ import * as React from 'react';
 import '../../components/_styles/common.scss';
 import PopUp from '../../components/common/PopUp';
 import * as ProjectActions from '../../redux/actions/projectActions';
-import { getVariables } from '../../redux/reducers/projectReducer';
+import { getVariables, getProjectCurrentVersion } from '../../redux/reducers/projectReducer';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { ProjectVersionPopUpProps } from '../../components/_types/PreProcessing';
 import Chip from '../../components/common/Chip';
-import { COLORS } from '../../styles/styles';
+import { COLORS, METRICS } from '../../styles/styles';
 import SimpleTableComponent from '../../components/common/SimpleTableComponent';
+import { Redirect } from 'react-router-dom';
 
 const HEADERS = [
     {
@@ -39,10 +40,6 @@ const HEADERS = [
         label: 'IV bins',
         key: 'ivBins',
     },
-    {
-        label: 'Created At',
-        key: 'created',
-    },
 ];
 
 const SAMPLE_DATA = [
@@ -51,25 +48,23 @@ const SAMPLE_DATA = [
         values: {
             version: 1,
             target: 'UNPRODUCTIVE',
-            activeFilters: 'REFFSO_GREATER, DISCO_REASON_EXCLUDING, REFFSO_GREATER, DISCO_REASON_EXCLUDING, REFFSO_GREATER, DISCO_REASON_EXCLUDING',
+            activeFilters: 'REFFSO_GREATER, DISCO_REASON_EXCLUDING',
             meta0: 12,
             meta1: 20,
             holdout: 0.3,
             ivBins: 33,
-            created: '07/07/2020',
         }
     },
     {
         id: 'a1',
         values: {
             version: 2,
-            target: 'UNPRODUCTIVEASCWRASD',
+            target: 'UNPRODUCTIVE',
             activeFilters: 'DISCO_REASON_EXCLUDING',
             meta0: 12,
             meta1: 20,
             holdout: 0.11,
             ivBins: 33,
-            created: '08/07/2020',
         }
     },
     {
@@ -82,24 +77,49 @@ const SAMPLE_DATA = [
             meta1: 22,
             holdout: 0.2,
             ivBins: 22,
-            created: '09/07/2020',
         }
     },
 ]
 
 export const ProjectVersionPopUp: React.FunctionComponent<ProjectVersionPopUpProps> = ({
     onClose,
+    openSelectedDatasetAtVersion,
+    currentVersion,
+    title,
 }) => {
+    const [redirect, setRedirect] = React.useState<boolean>(false);
+    const [loadStarted, setloadStarted] = React.useState<boolean>(false);
+
+    const onLoad = (id: string) => {
+        setloadStarted(true);
+        openSelectedDatasetAtVersion(id);
+    }
+    const redirectToProjectView = () => {
+        if (loadStarted) {
+            setRedirect(loadStarted);
+            setloadStarted(false);
+        }
+    }
+
+    React.useEffect(() => {
+        redirectToProjectView();
+    }, [currentVersion]);
+
+    if (redirect) {
+        return (
+            <Redirect
+                to={'/newproject?step=2'}
+            />
+        );
+    }
 
     return (
         <PopUp
-            title="NEW FILTER"
+            title={title}
             description="Review the versions"
             onClose={onClose}
-            onApprove={console.log}
-            positiveButtonText="CREATE"
         >
-            <div style={{ display: 'flex' }}>
+            <div style={{ display: 'flex', margin: `${METRICS.medium_spacing} 0 ${METRICS.small_spacing}` }}>
                 <Chip
                     title="#VARIABLES"
                     description="39"
@@ -107,7 +127,7 @@ export const ProjectVersionPopUp: React.FunctionComponent<ProjectVersionPopUpPro
                 />
                 <Chip
                     title="#Records"
-                    description="427,020"
+                    description="42 412"
                     color={COLORS.orange}
                 />
                 <Chip
@@ -119,15 +139,14 @@ export const ProjectVersionPopUp: React.FunctionComponent<ProjectVersionPopUpPro
             <SimpleTableComponent
                 data={SAMPLE_DATA}
                 titleArray={HEADERS}
-                emphasizedRowButton={{ title: 'OPEN', onClick: console.log }}
-                rowActions={[
-                    {
-                        title: 'heyyyy',
-                        onClick: console.log,
-                    }
-                ]}
+                emphasizedRowButton={{ title: 'OPEN', onClick: onLoad }}
             />
-
+                    {/* rowActions={[
+                        {
+                            title: 'heyyyy',
+                            onClick: console.log,
+                        }
+                    ]} */}
         </PopUp>
     );
 }
@@ -135,10 +154,12 @@ export const ProjectVersionPopUp: React.FunctionComponent<ProjectVersionPopUpPro
 
 const mapStateToProps = (s) => ({
     variables: getVariables(s),
+    currentVersion: getProjectCurrentVersion(s),
 });
 
 const mapDispatchToProps = (dispatch) => ({
     addNewFilter: bindActionCreators(ProjectActions.addNewFilter, dispatch),
+    openSelectedDatasetAtVersion: bindActionCreators(ProjectActions.openSelectedDatasetAtVersion, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectVersionPopUp);

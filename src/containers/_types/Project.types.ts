@@ -31,7 +31,9 @@ export interface PreProcessingProps extends BaseProjectContentCard {
 
 export interface ProjectContainerProps {
     projectTitleRedux: string;
-    setProjectTitleRedux: (s: string) => void;
+    currentStepFromUrl: number;
+    setProjectTitle: (s: string) => void;
+    resetEditingProject: () => void;
 }
 
 export interface FilterRangeData {

@@ -10,10 +10,15 @@ import { Redirect } from 'react-router-dom';
 import Exploratory from './Exploratory';
 import PreProcessing from './PreProcessing';
 import { bindActionCreators } from 'redux';
-import { setProjectTitle } from '../../redux/actions/projectActions';
-import { useDelayedUnmounting, MOUNTING_STATES } from '../../utils';
+import * as ProjectActions from '../../redux/actions/projectActions';
+import {
+    useDelayedUnmounting,
+    MOUNTING_STATES,
+    // PROJECT_STEP_PARAM,
+} from '../../utils';
 import { setSuffixClassName } from '../../utils/stylingHelpers';
 import { ProjectContainerProps } from '../_types/Project.types';
+import { getStepCountFromURL } from '../../redux/reducers/routerReducer';
 
 const PAGE_INDEXES = {
     IMPORT: 0,
@@ -30,9 +35,11 @@ const InOutAnimationHandler = ({ mountingState, children }) => (
 
 export const ProjectContainer: React.FunctionComponent<ProjectContainerProps> = ({
     projectTitleRedux,
-    setProjectTitleRedux,
+    setProjectTitle,
+    currentStepFromUrl,
+    resetEditingProject,
 }) => {
-    const [activePage, setActivePage] = useState<number>(0);
+    const [activePage, setActivePage] = useState<number>(currentStepFromUrl);
     const [nextPage, setnextPage] = useState<number>(0);
     const [enableNext, setEnableNext] = useState<boolean>(false);
     const [redirect, setRedirect] = useState<string>();
@@ -74,7 +81,7 @@ export const ProjectContainer: React.FunctionComponent<ProjectContainerProps> = 
 
     const updateStoreProjectName = () => {
         if (activePage === PAGE_INDEXES.IMPORT) {
-            setProjectTitleRedux(projectName);
+            setProjectTitle(projectName);
         }
     }
 
@@ -83,14 +90,17 @@ export const ProjectContainer: React.FunctionComponent<ProjectContainerProps> = 
         updateStoreProjectName();
         startUnMounting();
         setnextPage(activePage + 1);
+        // setRedirect(`/newproject?${PROJECT_STEP_PARAM}=${activePage + 1}`); TODO
     }
 
     const goToPrevious = () => {
         startUnMounting(false)
         setnextPage(activePage - 1);
+        // setRedirect(`/newproject?${PROJECT_STEP_PARAM}=${activePage - 1}`); TODO
     }
 
     const onClose = () => {
+        resetEditingProject();
         setRedirect('/');
     }
 
@@ -127,10 +137,12 @@ export const ProjectContainer: React.FunctionComponent<ProjectContainerProps> = 
 
 const mapStateToProps = (state) => ({
     projectTitleRedux: getProjectTitle(state),
+    currentStepFromUrl: getStepCountFromURL(state),
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    setProjectTitleRedux: bindActionCreators(setProjectTitle, dispatch),
+    setProjectTitle: bindActionCreators(ProjectActions.setProjectTitle, dispatch),
+    resetEditingProject: bindActionCreators(ProjectActions.resetEditingProject, dispatch),
 });
 
 

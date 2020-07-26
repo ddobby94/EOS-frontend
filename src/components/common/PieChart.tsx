@@ -1,6 +1,6 @@
 import React from 'react';
 import Plot from 'react-plotly.js';
-import { METRICS } from '../../styles/styles';
+import { METRICS, COLORS } from '../../styles/styles';
 
 interface PieChartProps {
     values: number[];
@@ -38,7 +38,7 @@ export const PieChart: React.FunctionComponent<PieChartProps> = ({
                     autoexpand: false,
                 },
                 paper_bgcolor: 'transparent',
-                colorway: ['#bcbd22', '#17becf'],
+                colorway: [COLORS.success, COLORS.danger],
                 autosize: true,
             }}
             config={{

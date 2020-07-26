@@ -6,6 +6,22 @@ import {
 import { createReducer } from "../helpers";
 import { AuthState, StoreReducerSelector } from '../helpers/types';
 import { initialAuthState } from "../helpers/store";
+import { REHYDRATE } from "redux-persist";
+
+const rehydrate = (state: AuthState, { payload }): AuthState => {
+    if (payload && payload.authReducer) {
+        return {
+            ...state,
+            ...payload.authReducer,
+            loading: false,
+        }
+    }
+
+    return {
+        ...state,
+        loading: false,
+    };
+}
 
 export const authReducer = createReducer<AuthState>({
     [LOGIN_START]: (state) => ({
@@ -26,6 +42,7 @@ export const authReducer = createReducer<AuthState>({
         loggedIn: true,
         loading: false,
     }),
+    [REHYDRATE]: rehydrate,
 }, initialAuthState);
 
 export default authReducer;

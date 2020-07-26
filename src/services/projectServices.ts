@@ -5,6 +5,7 @@ export class ProjectService extends BaseApiFunctions {
     private URLS = {
         UPLOAD_FILE: 'https://jsonplaceholder.typicode.com/todos/1',
         GENERATE_IV_SAMPLE: 'https://jsonplaceholder.typicode.com/todos/1',
+        GET_VERSION_DATA: 'https://jsonplaceholder.typicode.com/posts',
     };
 
     uploadFile = (file: File) => {
@@ -39,6 +40,14 @@ export class ProjectService extends BaseApiFunctions {
         };
 
         return this.fetchApi(this.URLS.GENERATE_IV_SAMPLE, options, 3000);
+    }
+
+    getSelectedVersionData = (id: string) => {
+        const options = {
+            ...this.baseApiOptions,
+        };
+
+        return this.fetchApi(`${this.URLS.GENERATE_IV_SAMPLE}?id=${id}`, options, 1500);
     }
 }
 

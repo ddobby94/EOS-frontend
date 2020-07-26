@@ -10,7 +10,7 @@ import { SideBar } from '../components/Sidebar';
 import { Icon } from '@material-ui/core';
 import { ContentCard } from '../components/common/ContentCard';
 import PreviousProjects from '../components/PreviousProjects';
-import { ProjectVersionPopUp } from './preprocessing/ProjectVersionPopUp';
+import ProjectVersionPopUp from './preprocessing/ProjectVersionPopUp';
 
 const MENU_ITEMS = [
     {
@@ -21,14 +21,14 @@ const MENU_ITEMS = [
         icon: 'fa-arrow-right',
         title: 'NEXT PROJECTS'
     },
-    {
-        icon: 'fa-check',
-        title: 'CHECK RESULTS'
-    },
-    {
-        icon: 'fa-paw',
-        title: 'MENU ITEM'
-    }
+    // {
+    //     icon: 'fa-check',
+    //     title: 'CHECK RESULTS'
+    // },
+    // {
+    //     icon: 'fa-paw',
+    //     title: 'MENU ITEM'
+    // }
 ];
 
 const MOCKED_PREVIOUS_PROJECTS = [];
@@ -62,7 +62,7 @@ export class Dashboard extends React.Component<DashboardProps, DashboardStates> 
                     active={this.state.active}
                     open={this.state.open}
                     onClose={this.toggleSideBar}
-                    onMenuItemSelected={() => this.setState({ showProjectVersionPopUps: true })}
+                    onMenuItemSelected={console.log}
                     onStartNewProject={this.onStartNewProject}
                 ></SideBar>
                 <Icon
@@ -74,14 +74,23 @@ export class Dashboard extends React.Component<DashboardProps, DashboardStates> 
                 >
                     <ContentCard
                         title="PREVIOUS PROJECTS"
+                        style={{
+                            height: '100%',
+                            maxHeight: '83vh',
+                            paddingLeft: 0,
+                            paddingRight: 0,
+                            width: 'unset',
+                        }}
                     >
                         <PreviousProjects
                             projects={MOCKED_PREVIOUS_PROJECTS}
+                            openVersionPopUp={(id: string) => this.setState({ showProjectVersionPopUps: true })}
                         />
                     </ContentCard>
                 </div>
                 {this.state.showProjectVersionPopUps && (
                     <ProjectVersionPopUp
+                        title="My first project"
                         onClose={() => this.setState({ showProjectVersionPopUps: false })}
                     />
                 )}

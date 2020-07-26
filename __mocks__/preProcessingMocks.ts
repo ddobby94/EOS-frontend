@@ -1,4 +1,6 @@
-import { IVresults } from "../src/containers/_types/Project.types";
+import { IVresults, FILTER_CRITERIAS, Filter } from "../src/containers/_types/Project.types";
+import { Variable } from "../src/components/_types/DataTable";
+import { EXPLORATORY_ANALYSIS_DATA_OBJECT } from "./exploratoryMocks";
 
 export const IV_RESULTS_MOCK: IVresults = [
     { variableId: 'ACTION_CNT', role: 'Explanatory', type: 'Continuous', IVvalue: 0.124 },
@@ -36,3 +38,140 @@ export const IV_RESULTS_MOCK: IVresults = [
 ];
 
 export const NEW_VERSION_DATA_MOCK = 1;
+
+
+const filterBaseData = {
+    name: 'Refsso',
+    variable: {
+        autoIgnored: false,
+        CV: 0,
+        IQR: NaN,
+        IVvalue: 0.057,
+        P1: 0,
+        P5: 0,
+        P10: 0,
+        P90: 0,
+        P95: 0,
+        P99: 0,
+        Q1: 0,
+        Q3: 0,
+        autoignored: true,
+        chartData: {},
+        label: "Not Available",
+        max: 0,
+        mean: 0,
+        median: 0,
+        min: 0,
+        missingValues: 0,
+        missingValuessPercentage: 0,
+        mode: 0,
+        name: "EVENT_REFSSO",
+        range: 0,
+        role: "predictor",
+        stdDev: 0,
+        type: "categorical",
+        uniqueValues: 3,
+        validObs: 317609,
+    } as Variable,
+};
+
+
+const filterBaseData2 = {
+    name: 'Product class',
+    variable: {
+        autoIgnored: false,
+        CV: 0,
+        IQR: NaN,
+        IVvalue: 0.057,
+        P1: 0,
+        P5: 0,
+        P10: 0,
+        P90: 0,
+        P95: 0,
+        P99: 0,
+        Q1: 0,
+        Q3: 0,
+        autoignored: true,
+        chartData: {},
+        label: "Not Available",
+        max: 0,
+        mean: 0,
+        median: 0,
+        min: 0,
+        missingValues: 0,
+        missingValuessPercentage: 0,
+        mode: 0,
+        name: "PRODUCT_CLASS",
+        range: 0,
+        role: "predictor",
+        stdDev: 0,
+        type: "categorical",
+        uniqueValues: 3,
+        validObs: 317609,
+    } as Variable,
+};
+
+const FILTER_0 = new Filter({
+    ...filterBaseData,
+    type: 'range',
+    criteriaRange: 2,
+    criteria: FILTER_CRITERIAS.GREATER_EQUAL,
+});
+
+const FILTER_1 = new Filter({
+    ...filterBaseData,
+    type: 'range',
+    criteriaRange: 10,
+    criteria: FILTER_CRITERIAS.LESS_EQUAL,
+});
+
+const FILTER_2 = new Filter({
+    ...filterBaseData2,
+    type: 'values',
+    criteriaValues: ['first', 'second'],
+    criteria: FILTER_CRITERIAS.EXCLUDE,
+});
+
+export const MOCKED_LOADED_EDITING_OBJ = {
+    filters: [FILTER_0, FILTER_1, FILTER_2],
+    meta: {
+        currentVersion: 1,
+        datasetName: "custom dataset name",
+        numberOfVariables: 39,
+        targetVariable: {
+            CV: 0,
+            IQR: 0,
+            P1: 0,
+            P5: 0,
+            P10: 0,
+            P90: 1,
+            P95: 1,
+            P99: 1,
+            Q1: 0,
+            Q3: 0,
+            autoignored: true,
+            label: "Not Available",
+            max: 1,
+            mean: 0,
+            median: 0,
+            min: 0,
+            missingValues: 0,
+            missingValuessPercentage: 0,
+            mode: 0,
+            name: "UNPRODUCTIVE",
+            range: 1,
+            role: "target",
+            stdDev: 0,
+            type: "discrete",
+            uniqueValues: 2,
+            validObs: 317609,
+            autoIgnored: false,
+            chartData: {},
+            IVvalue: 0,
+        } as Variable,
+        title: "MY FIRST PROJECT TITLE",
+        totalRecords: 42412,
+    },
+    variables: [ ...EXPLORATORY_ANALYSIS_DATA_OBJECT ],
+    versions: [],
+}

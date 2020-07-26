@@ -28,7 +28,7 @@ export const ImportDataSet: React.FunctionComponent<ImportPageProps> = ({
     const [dragEventCounter, setDragEventCounter] = useState<number>(0);
 
     useEffect(() => {
-        setNextButtonAvailability(!!selectedFile && projectTitle.length > 3);
+        setNextButtonAvailability(!!selectedFile && !!selectedFile.name && projectTitle.length > 3);
     });
 
     const onChangeHandler = (changeFunction, e) => {
@@ -140,7 +140,7 @@ export const ImportDataSet: React.FunctionComponent<ImportPageProps> = ({
     );
 
     const getFileHandler = () => {
-        if (selectedFile) {
+        if (selectedFile && selectedFile.name) {
             return getSelectedFile(selectedFile.name);
         } else {
             return getFileUploadArea();
