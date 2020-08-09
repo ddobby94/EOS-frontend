@@ -73,7 +73,6 @@ export const AccordionContent: React.FunctionComponent<AccordionContentProps> = 
                             </tbody>
                         </table>
                         <Button
-                            className="project-nextButton"
                             color="primary"
                             variant="contained"
                             onClick={() => openFilterCreator(row.name)}

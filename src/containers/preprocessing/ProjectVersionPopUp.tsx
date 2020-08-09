@@ -51,8 +51,8 @@ const SAMPLE_DATA = [
             activeFilters: 'REFFSO_GREATER, DISCO_REASON_EXCLUDING',
             meta0: 12,
             meta1: 20,
-            holdout: 0.3,
-            ivBins: 33,
+            holdout: 0.2,
+            ivBins: 20,
         }
     },
     {
@@ -62,9 +62,9 @@ const SAMPLE_DATA = [
             target: 'UNPRODUCTIVE',
             activeFilters: 'DISCO_REASON_EXCLUDING',
             meta0: 12,
-            meta1: 20,
-            holdout: 0.11,
-            ivBins: 33,
+            meta1: 18,
+            holdout: 0.2,
+            ivBins: 20,
         }
     },
     {
@@ -73,10 +73,10 @@ const SAMPLE_DATA = [
             version: 3,
             target: 'UNPRODUCTIVE',
             activeFilters: 'REFFSO_GREATER',
-            meta0: 10,
-            meta1: 22,
+            meta0: 15,
+            meta1: 18,
             holdout: 0.2,
-            ivBins: 22,
+            ivBins: 20,
         }
     },
 ]

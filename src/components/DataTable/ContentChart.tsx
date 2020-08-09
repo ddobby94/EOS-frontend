@@ -58,8 +58,8 @@ export const ContentChart: React.FunctionComponent<ContentChartProps> = ({ chart
             overlaying: 'y',
             side: 'right'
         },
-        width: '100%',
-        height: '100%',
+        width: 600,
+        height: 330,
         hovermode: 'closest',
         margin: { t: 8 },
         legend: {
